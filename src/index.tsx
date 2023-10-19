@@ -1,12 +1,20 @@
-import React from "react";
-
+import { ChakraProvider } from "@chakra-ui/react";
 import ReactDOM from "react-dom/client";
 
-import App from "./App";
-import "./index.css";
+import Contexts from "./common/contexts/Contexts";
+import { inMockedDevEnv } from "./common/utils/environment";
+import { worker as workerMocks } from "./mock";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement,
+);
+
+if (inMockedDevEnv()) {
+  workerMocks.start();
+}
+
+root.render(
+  <ChakraProvider>
+    <Contexts />
+  </ChakraProvider>,
 );
