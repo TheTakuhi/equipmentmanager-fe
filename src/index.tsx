@@ -2,6 +2,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import ReactDOM from "react-dom/client";
 
 import Contexts from "./common/contexts/Contexts";
+import { customTheme } from "./common/providers/ThemeProvider/customTheme";
 import { inMockedDevEnv } from "./common/utils/environment";
 import { worker as workerMocks } from "./mock";
 
@@ -14,7 +15,7 @@ if (inMockedDevEnv()) {
 }
 
 root.render(
-  <ChakraProvider>
+  <ChakraProvider theme={customTheme}>
     <Contexts />
   </ChakraProvider>,
 );
