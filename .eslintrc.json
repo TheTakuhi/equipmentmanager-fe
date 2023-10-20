@@ -181,6 +181,7 @@
     // it's usefull when you work with static content or items without unique identifiers
     "react/no-array-index-key": "off",
     // ensure that we don't use console.log in the project
+    "react-hooks/rules-of-hooks": "warn",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-unsafe-return": "off",
