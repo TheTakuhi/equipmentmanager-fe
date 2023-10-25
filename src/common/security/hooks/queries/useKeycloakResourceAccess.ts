@@ -6,6 +6,8 @@ import {
   EnvVariableName,
   getEnvVariable,
 } from "../../../config/env/getEnvVariable";
+import { useGetMockedKeycloakResourceAccess } from "../../../hooks/queries/keycloak/useGetMockedKeycloakResourceAccess";
+import { inMockedDevEnv } from "../../../utils/environment";
 import { Role } from "../../model/Role";
 import { getKeycloakKey } from "../useMountKeycloak";
 
@@ -24,6 +26,9 @@ export const getKeycloakResourceAccessKey = () => [
 ];
 
 export const useKeycloakResourceAccess = () => {
+  if (inMockedDevEnv()) {
+    return useGetMockedKeycloakResourceAccess();
+  }
   const { keycloak } = useKeycloak();
   return useQuery<Role[]>(
     getKeycloakResourceAccessKey(),

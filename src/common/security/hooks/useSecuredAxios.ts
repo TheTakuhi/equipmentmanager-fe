@@ -6,10 +6,18 @@ import {
   EnvVariableName,
   getEnvVariable,
 } from "../../config/env/getEnvVariable";
+import { inMockedDevEnv } from "../../utils/environment";
 
 const cAuthHeader = "Authorization";
 
 export const useSecuredAxios = (): AxiosInstance => {
+  if (inMockedDevEnv()) {
+    const axiosInstance = axios.create({
+      baseURL: getEnvVariable(EnvVariableName.HOST_CORE),
+    });
+    return axiosInstance;
+  }
+
   const { keycloak } = useKeycloak();
   const refetchToken = useKeycloakRefetchToken();
 
