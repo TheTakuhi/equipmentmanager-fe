@@ -1,0 +1,59 @@
+@keyframes slide-in {
+  0% {
+    left: -50%;
+    opacity: 0;
+    display: none;
+    width: 0;
+  }
+  40% {
+    opacity: 0.2;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+    display: inline;
+    width: auto;
+    visibility: visible;
+  }
+}
+
+@keyframes border-grow {
+  0% {
+    left: 0;
+    opacity: 1;
+    width: 2.75rem;
+    border-radius: 3rem;
+  }
+  15% {
+    opacity: 1;
+    animation-delay: 22ms;
+  }
+  100% {
+    left: 0;
+    display: inline-flex;
+    width: 195px;
+    visibility: visible;
+    border-radius: 0.5rem;
+  }
+}
+
+@keyframes border-collapse {
+  0% {
+    left: 0;
+    display: inline-flex;
+    width: 195px;
+    visibility: visible;
+    border-radius: 0.5rem;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    left: 0;
+    width: 2.75rem;
+    border-radius: 3rem;
+  }
+}
