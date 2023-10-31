@@ -1,6 +1,6 @@
 import { Box, useTheme } from "@chakra-ui/react";
 
-const UsersPage = () => {
+const TeamsPage = () => {
   const theme = useTheme();
 
   return (
@@ -11,9 +11,9 @@ const UsersPage = () => {
         color: theme.palette.text.primary,
       }}
     >
-      USERS PAGE
+      TEAMS PAGE
     </Box>
   );
 };
 
-export default UsersPage;
+export default TeamsPage;

@@ -84,6 +84,21 @@ const NavigationBar: FC = () => {
               open={navbarState}
               title="Items"
             />
+            <NavbarIconButton
+              link={secLinks.loans}
+              open={navbarState}
+              title="Loans"
+            />
+            <NavbarIconButton
+              link={secLinks.teams}
+              open={navbarState}
+              title="Teams"
+            />
+            <NavbarIconButton
+              link={secLinks.users}
+              open={navbarState}
+              title="Users"
+            />
           </Stack>
         </Box>
         <Box>
