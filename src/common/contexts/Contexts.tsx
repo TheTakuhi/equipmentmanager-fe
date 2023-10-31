@@ -1,14 +1,16 @@
 import { StrictMode } from "react";
 
 import { QueryClientProvider } from "@tanstack/react-query";
+import { RouterProvider } from "@tanstack/react-router";
 import { ToastContainer } from "react-toastify";
 
-import UsersPage from "../../admin/pages/UsersPage";
 import { queryClient } from "../config/react-query/reactQuery";
 import KeycloakAuthProvider from "../providers/KeycloakAuthProvider/KeycloakAuthProvider";
 import NavbarProvider from "../providers/NavbarProvider";
 import { UserAuthProvider } from "../providers/UserAuthProvider/UserAuthProvider";
+import { router } from "../routes/Routes";
 import { inMockedDevEnv } from "../utils/environment";
+
 import "react-toastify/dist/ReactToastify.min.css";
 
 function Contexts() {
@@ -19,7 +21,7 @@ function Contexts() {
           <UserAuthProvider>
             <NavbarProvider>
               <ToastContainer />
-              <UsersPage />
+              <RouterProvider router={router} />
             </NavbarProvider>
           </UserAuthProvider>
         </QueryClientProvider>
@@ -35,7 +37,7 @@ function Contexts() {
           <UserAuthProvider>
             <NavbarProvider>
               <ToastContainer />
-              <h1>Production site</h1>
+              <RouterProvider router={router} />
             </NavbarProvider>
           </UserAuthProvider>
         </QueryClientProvider>

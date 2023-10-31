@@ -23,7 +23,7 @@ export const handleLogoutAction = (navigate: any) => {
     replace: false,
     search: {},
     state: undefined,
-    to: `${import.meta.env.PUBLIC_URL}/items`,
+    to: `${import.meta.env.VITE_APP_PUBLIC_URL}/items`,
   });
 };
 
