@@ -50,7 +50,7 @@ const NavbarIconButton: FC<NavbarIconButtonProps> = ({
             transition: "ease-in 0.15s",
           },
           borderRadius: theme.borderRadius.element,
-          color: "#FFFFFF",
+          // color: "#FFFFFF",
           // animation: open
           //   ? `border-grow 0.28s ease-in-out forwards`
           //   : `border-collapse 0.2s ease-in-out backwards`,
@@ -61,7 +61,7 @@ const NavbarIconButton: FC<NavbarIconButtonProps> = ({
         }}
         title={label || link.label}
       >
-        <Icon sx={{ fontSize: "auto" }} />
+        <Icon width="1.375em" height="1.375em" />
         {open ? (
           <Text
             sx={{

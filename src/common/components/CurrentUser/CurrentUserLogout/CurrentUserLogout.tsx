@@ -1,9 +1,9 @@
 import { FC } from "react";
 
 import { Box, Text, useTheme } from "@chakra-ui/react";
-import { LogoutRounded } from "@mui/icons-material";
 import { useKeycloak } from "@react-keycloak/web";
 import { useNavigate } from "@tanstack/react-router";
+import { LogOut } from "react-feather";
 import { toast } from "react-toastify";
 
 import { clearKeycloakCache } from "../../../security/hooks/useMountKeycloak";
@@ -66,7 +66,7 @@ const CurrentUserLogout: FC<CurrentUserProps> = ({ open }) => {
       }}
       title="Sign out"
     >
-      <LogoutRounded sx={{ color: "#FFFFFF", fontSize: "auto" }} />
+      <LogOut color={theme.palette.text.primary} />
       {open ? (
         <Text
           sx={{
