@@ -7,7 +7,7 @@ import { commonRoutes } from "../commonRoutes";
 
 const usersRoute = new Route({
   getParentRoute: () => commonRoutes,
-  path: "users",
+  path: "my-people",
   component: () => (
     <RoleAccessPermission allowedRoles={users.allowedRoles}>
       <UsersPage />

@@ -5,6 +5,7 @@ import { RouterProvider } from "@tanstack/react-router";
 import { ToastContainer } from "react-toastify";
 
 import { queryClient } from "../config/react-query/reactQuery";
+import ActionDialogProvider from "../providers/ActionDialogProvider";
 import KeycloakAuthProvider from "../providers/KeycloakAuthProvider/KeycloakAuthProvider";
 import NavbarProvider from "../providers/NavbarProvider";
 import { UserAuthProvider } from "../providers/UserAuthProvider/UserAuthProvider";
@@ -19,10 +20,12 @@ function Contexts() {
       <StrictMode>
         <QueryClientProvider client={queryClient}>
           <UserAuthProvider>
-            <NavbarProvider>
-              <ToastContainer />
-              <RouterProvider router={router} />
-            </NavbarProvider>
+            <ActionDialogProvider>
+              <NavbarProvider>
+                <ToastContainer />
+                <RouterProvider router={router} />
+              </NavbarProvider>
+            </ActionDialogProvider>
           </UserAuthProvider>
         </QueryClientProvider>
       </StrictMode>
@@ -35,10 +38,12 @@ function Contexts() {
           {/* TODO find out why ReactQueryDevTools makes queryClient undefined */}
           {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> */}
           <UserAuthProvider>
-            <NavbarProvider>
-              <ToastContainer />
-              <RouterProvider router={router} />
-            </NavbarProvider>
+            <ActionDialogProvider>
+              <NavbarProvider>
+                <ToastContainer />
+                <RouterProvider router={router} />
+              </NavbarProvider>
+            </ActionDialogProvider>
           </UserAuthProvider>
         </QueryClientProvider>
       </StrictMode>

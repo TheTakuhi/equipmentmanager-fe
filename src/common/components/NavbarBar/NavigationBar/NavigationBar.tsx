@@ -9,6 +9,7 @@ import { useNavbar } from "../../../providers/NavbarProvider/NavbarProvider";
 import CurrentUserAvatar from "../../CurrentUser/CurrentUserAvatar";
 import CurrentUserLogout from "../../CurrentUser/CurrentUserLogout";
 import CurrentUserName from "../../CurrentUser/CurrentUserUsername";
+import HelpDialogIconButton from "../HelpDialogIconButton";
 import NavbarIconButton from "../NavbarIconButton";
 
 const NavigationBar: FC = () => {
@@ -97,7 +98,7 @@ const NavigationBar: FC = () => {
             <NavbarIconButton
               link={secLinks.users}
               open={navbarState}
-              title="Users"
+              title="My people"
             />
           </Stack>
         </Box>
@@ -112,6 +113,7 @@ const NavigationBar: FC = () => {
               borderTop: "1px solid #313033",
             }}
           >
+            <HelpDialogIconButton open={navbarState} />
             <CurrentUserLogout open={navbarState} />
           </Stack>
           {navbarState ? (

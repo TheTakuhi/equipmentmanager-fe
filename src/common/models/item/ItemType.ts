@@ -1,0 +1,11 @@
+export enum ItemType {
+  MONITOR,
+  TABLE,
+  LAPTOP,
+  DOCKING_STATION,
+  CHAIR,
+  WEBCAM,
+  KEYBOARD,
+  HEADPHONES,
+  OTHER,
+}
