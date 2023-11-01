@@ -1,8 +1,8 @@
 import { FC } from "react";
 
-import { Avatar as AvatarOrigin } from "@chakra-ui/react";
+import { Avatar as AvatarOrigin, Box } from "@chakra-ui/react";
 
-import { stringAvatar, stringToColor } from "../../utils/colorUtils";
+import RoleBadge from "../RoleBadge";
 
 export interface AvatarDataProps {
   firstName?: string | null;
@@ -27,22 +27,30 @@ const Avatar: FC<AvatarProps> = ({ userDetail, onClick }) => {
   if (!userDetail) return <AvatarOrigin />;
 
   return (
-    <AvatarOrigin
-      {...stringAvatar(getFullName(userDetail))}
-      sx={{
-        cursor: "pointer",
-        backgroundColor: stringToColor(getFullName(userDetail)),
-        width: "2.5rem",
-        height: "2.5rem",
-        position: "relative",
-      }}
-      src={
-        userDetail.photo
-          ? `data:image/jpeg;base64,${userDetail.photo}`
-          : undefined
-      }
-      onClick={onClick || undefined}
-    />
+    <Box sx={{ position: "relative" }}>
+      <AvatarOrigin
+        sx={{
+          cursor: "pointer",
+          backgroundColor: "#b06d5f",
+          color: (t) => t.palette.text.primary,
+          width: "2.5rem",
+          height: "2.5rem",
+          position: "relative",
+          border: (t) => `1px solid ${t.palette.secondary.light}`,
+        }}
+        name={getFullName(userDetail)}
+        src={
+          userDetail.photo
+            ? `data:image/jpeg;base64,${userDetail.photo}`
+            : undefined
+        }
+        onClick={onClick || undefined}
+      />
+      <RoleBadge
+        label="manager"
+        sx={{ position: "absolute", top: "1.75rem", left: "1.75rem" }}
+      />
+    </Box>
   );
 };
 

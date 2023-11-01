@@ -1,4 +1,4 @@
-import { HomeOutlined } from "@mui/icons-material";
+import { FileText, Grid, User, Users } from "react-feather";
 
 import { MainNavigationLink } from "./index";
 import { ADMIN, MANAGER } from "../../security/model/Role";
@@ -9,7 +9,7 @@ export const items: MainNavigationLink = {
   partialPath: "../items",
   label: "Items",
   key: "Items",
-  icon: HomeOutlined,
+  icon: Grid,
   allowedRoles: [MANAGER, ADMIN],
 };
 
@@ -18,7 +18,7 @@ export const loans: MainNavigationLink = {
   partialPath: "../loans",
   label: "Loans",
   key: "Loans",
-  icon: HomeOutlined,
+  icon: FileText,
   allowedRoles: [MANAGER, ADMIN],
 };
 
@@ -27,7 +27,7 @@ export const teams: MainNavigationLink = {
   partialPath: "../teams",
   label: "Teams",
   key: "Teams",
-  icon: HomeOutlined,
+  icon: Users,
   allowedRoles: [MANAGER, ADMIN],
 };
 
@@ -36,7 +36,7 @@ export const users: MainNavigationLink = {
   partialPath: "../users",
   label: "Users",
   key: "Users",
-  icon: HomeOutlined,
+  icon: User,
   allowedRoles: [ADMIN],
 };
 

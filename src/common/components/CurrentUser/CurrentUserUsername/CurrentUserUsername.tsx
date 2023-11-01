@@ -24,7 +24,7 @@ const CurrentUserName: FC<CurrentUserProps> = ({ open }) => {
         >
           <Text
             sx={{
-              color: theme.palette.text.disabled,
+              color: theme.palette.text.primary,
               // animationName: "slide-in",
               // animationDuration: "0.2s",
               // animationDelay: "0.1s",
@@ -38,7 +38,7 @@ const CurrentUserName: FC<CurrentUserProps> = ({ open }) => {
           </Text>
           <Text
             sx={{
-              color: theme.palette.text.disabled,
+              color: theme.palette.text.primary,
               // animationName: "slide-in",
               // animationDuration: "0.2s",
               // animationDelay: "0.1s",
