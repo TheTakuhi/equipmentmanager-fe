@@ -8,8 +8,6 @@ import { CustomRole } from "../../security/model/Role";
 const IndexRouteCheckpoint: FC = () => {
   const { data: roles } = useKeycloakResourceAccess();
 
-  console.log(`${import.meta.env.VITE_APP_PUBLIC_URL}`);
-
   return (
     <>
       {roles?.includes(CustomRole.ADMIN) ? (

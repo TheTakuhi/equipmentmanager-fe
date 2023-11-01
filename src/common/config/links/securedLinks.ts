@@ -32,10 +32,10 @@ export const teams: MainNavigationLink = {
 };
 
 export const users: MainNavigationLink = {
-  url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/users`),
-  partialPath: "../users",
-  label: "Users",
-  key: "Users",
+  url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/my-people`),
+  partialPath: "../my-people",
+  label: "My people",
+  key: "My people",
   icon: User,
   allowedRoles: [ADMIN],
 };
