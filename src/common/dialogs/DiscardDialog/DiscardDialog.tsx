@@ -59,18 +59,12 @@ const DiscardDialog: FC<DiscardDialogProps> = ({
               {title}
               <IconButton
                 isRound
-                aria-label="close"
-                icon={
-                  <X
-                    color={theme.palette.text.primary}
-                    height="1.25em"
-                    width="1.25em"
-                  />
-                }
+                aria-label="Close"
+                size="xs"
+                icon={<X color={theme.palette.text.primary} />}
                 onClick={close}
                 sx={{
-                  height: "2rem",
-                  minWidth: "2rem",
+                  height: "30px",
                   backgroundColor: theme.palette.secondary.main,
                   "&:hover": {
                     backgroundColor: theme.palette.secondary.light,

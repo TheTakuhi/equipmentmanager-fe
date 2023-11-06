@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Badge, SystemStyleObject, Text } from "@chakra-ui/react";
+import { Badge, SystemStyleObject, Text, useTheme } from "@chakra-ui/react";
 
 interface RoleBadgeProps {
   label: string;
@@ -8,6 +8,8 @@ interface RoleBadgeProps {
 }
 
 const RoleBadge: FC<RoleBadgeProps> = ({ label, sx }) => {
+  const theme = useTheme();
+
   return (
     <Badge
       sx={{
@@ -26,6 +28,7 @@ const RoleBadge: FC<RoleBadgeProps> = ({ label, sx }) => {
           textTransform: "uppercase",
           fontSize: "0.7em",
           lineHeight: "0.6em",
+          color: theme.palette.text.primary,
         }}
       >
         {label.charAt(0)}
