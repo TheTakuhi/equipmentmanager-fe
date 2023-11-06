@@ -5,6 +5,7 @@ import Contexts from "./common/contexts/Contexts";
 import { theme } from "./common/theme";
 import { inMockedDevEnv } from "./common/utils/environment";
 import { worker as workerMocks } from "./mock";
+import "./style.scss";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,

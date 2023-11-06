@@ -1,7 +1,9 @@
 import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
 
+import { Input } from "./components/input";
 import { Select } from "./components/select";
 import { Text } from "./components/text";
+import { Textarea } from "./components/textarea";
 import { palette } from "./palette";
 import { styles } from "./styles";
 import { BadgeStyle } from "../components/Badge/badge";
@@ -27,5 +29,7 @@ export const theme = extendTheme({
     Menu: MenuStyle,
     Badge: BadgeStyle,
     Select,
+    Input,
+    Textarea,
   },
 });

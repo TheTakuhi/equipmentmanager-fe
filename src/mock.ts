@@ -5,6 +5,9 @@ import { getDeleteItem } from "./common/hooks/mutations/items/useItemDeleteMutat
 import { getUsersMSW } from "./common/hooks/queries/users/useGetAllUsers.msw";
 import { getCurrentUserMSW } from "./common/hooks/queries/users/useGetCurrentUser.msw";
 import { getBeVersionMSW } from "./common/hooks/queries/utility/useGetBackendVersion.msw";
+import { getMockedItemQualityStatesMSW } from "./common/hooks/queries/utility/useGetItemQualityStates.msw";
+import { getMockedItemStatesMSW } from "./common/hooks/queries/utility/useGetItemStates.msw";
+import { getMockedItemTypesMSW } from "./common/hooks/queries/utility/useGetItemTypes.msw";
 
 export const worker = setupWorker(
   ...getUsersMSW(),
@@ -12,4 +15,7 @@ export const worker = setupWorker(
   ...getCurrentUserMSW(),
   ...getDeleteItem(),
   ...postCreateItem(),
+  ...getMockedItemTypesMSW(),
+  ...getMockedItemStatesMSW(),
+  ...getMockedItemQualityStatesMSW(),
 );
