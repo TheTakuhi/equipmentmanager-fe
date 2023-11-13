@@ -1,32 +1,47 @@
-import { rest } from 'msw';
+import { UseQueryOptions, useQuery } from "@tanstack/react-query";
+import { User } from "../../../models/user/User";
+import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
+import { getQueryKeys } from "../getQueryKeys";
+import { EnvVariableName, getEnvVariable } from "../../../config/env/getEnvVariable";
 
-// import { User } from "../../../models/user/User";
-// import { ADMIN, MANAGER } from "../../../security/model/Role";
-import UsersData from "../../../models/user/UserData";
+const rootKey = "user";
 
+type UseGetUserQueryOptions = UseQueryOptions<User, Error>;
 
-export const getUserByIdMSW = () => {
-    return [
-        rest.get('*/users/:id', (req, res, ctx) => {
+type GetUserQueryKeyHandler = (userId: string) => string[];
 
-            console.log(req.params.id)
-            const userId = req.params.id;
-            const users = UsersData(); // Get your mocked users data
+export const getUserQueryKey: GetUserQueryKeyHandler = (userId) => {
+  return getQueryKeys([userId], rootKey);
+};
 
-            const user = users.find((user) => user.id === userId); // Find the user by ID
+// export const useGetUser = (
+//   userId: string,
+//   options?: UseGetUserQueryOptions
+// ) => {
+//   const securedAxios = useSecuredAxios();
+//   return useQuery<User, Error>({
+//     const {userId, rootKey}: getUserQueryKey(userId),
+//     queryFn: () =>
+//       securedAxios
+//         .get(${getEnvVariable(EnvVariableName.HOST_CORE)}/users/${userId})
+//         .then((response) => response.data as User),
+//     ...options,
+//   });
+// };
 
+export const useGetUser = (
+  userId: string,
+  options?: UseGetUserQueryOptions
+) => {
+  const securedAxios = useSecuredAxios();
+  
 
-
-            if (user) {
-                return res(
-                    ctx.delay(1000),
-                    ctx.status(200, 'Mocked status'),
-                    ctx.json(user),
-                );
-            } else {
-                // If user is not found, return a 404 response
-                return res(ctx.status(404, 'User not found'));
-            }
-        }),
-    ];
+  return useQuery<User, Error>({
+    queryKey: getUserQueryKey(userId),
+    queryFn: () =>
+      securedAxios
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/users/${userId}`)
+        .then((response) => response.data as User),
+    ...options,
+  });
 };
