@@ -35,7 +35,7 @@ const FormDialog: FC<FormDialogProps> = ({
 
   return (
     <Modal motionPreset="scale" isOpen onClose={close}>
-      <ModalOverlay>
+      <ModalOverlay sx={{ backdropFilter: "blur(4px)" }}>
         <ModalContent
           sx={{
             backgroundColor: theme.palette.background.default,
