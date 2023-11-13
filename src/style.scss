@@ -4,12 +4,58 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 16px;
   height: 12px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: #444444;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #232224;
+}
+
+::-webkit-scrollbar-button:single-button {
+  background-color: #232224;
+  display: block;
+  background-size: 10px;
+  background-repeat: no-repeat;
+}
+
+/* Up */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+  border-radius: 5px 5px 0 0;
+  height: 16px;
+  width: 16px;
+  background-position: center 4px;
+  background-image: url("./../src/common/resources/scrollbar/up.svg");
+}
+
+/* Down */
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  border-radius: 0px 0px 5px 5px;
+  height: 16px;
+  width: 16px;
+  background-position: center 4px;
+  background-image: url("./../src/common/resources/scrollbar/down.svg");
+}
+
+/* Left */
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  border-radius: 5px 0px 0 5px;
+  height: 12px;
+  width: 12px;
+  background-position: 3px 3px;
+  background-image: url("./../src/common/resources/scrollbar/left.svg");
+}
+
+/* Right */
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  border-radius: 0 5px 5px 0;
+  height: 12px;
+  width: 12px;
+  background-position: 3px 3px;
+  background-image: url("./../src/common/resources/scrollbar/right.svg");
 }
