@@ -1,14 +1,15 @@
-import { DateTime } from "luxon";
-
+import { ItemState } from "./ItemState";
+import { ItemType } from "./ItemType";
+import { QualityState } from "./QualityState";
 import { User } from "../user/User";
 
 export interface Item {
   id: string;
   serialCode: string;
-  type: string[];
+  type: ItemType;
   comment: string;
-  state: string[];
-  qualityState: string[];
-  dateOfCreation: DateTime;
+  state: ItemState;
+  qualityState: QualityState;
+  dateOfCreation: string;
   managerOwner: User;
 }

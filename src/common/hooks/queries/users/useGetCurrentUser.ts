@@ -15,12 +15,12 @@ export const getCurrentUserQueryKey = () => [rootKey];
 
 export const useGetCurrentUser = (options?: UseGetCurrentUserQueryOptions) => {
   const securedAxios = useSecuredAxios();
-  return useQuery<User, Error>(
-    getCurrentUserQueryKey(),
-    () =>
+  return useQuery<User, Error>({
+    queryKey: getCurrentUserQueryKey(),
+    queryFn: () =>
       securedAxios
         .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/users/current`)
         .then((response) => response.data as User),
-    options,
-  );
+    ...options,
+  });
 };

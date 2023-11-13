@@ -1,0 +1,5 @@
+export enum ItemState {
+  AVAILABLE = "AVAILABLE",
+  BORROWED = "BORROWED",
+  DISCARDED = "DISCARDED",
+}

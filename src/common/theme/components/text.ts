@@ -33,6 +33,12 @@ export const Text = defineStyleConfig({
       letterSpacing: "0.015em",
       lineHeight: "0.875em",
     },
+    buttonLabelPlain: {
+      fontSize: "0.875em",
+      fontWeight: "normal",
+      letterSpacing: "0.015em",
+      lineHeight: "0.875em",
+    },
     statusLabel: {
       fontSize: "0.875em",
       fontWeight: "normal",

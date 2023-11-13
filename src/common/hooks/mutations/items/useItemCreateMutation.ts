@@ -12,10 +12,10 @@ import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 export const useItemCreateMutation = () => {
   const securedAxios = useSecuredAxios();
 
-  return useMutation<Item, AxiosError<any, any>, ItemFormValues, unknown>(
-    (item: ItemFormValues) =>
+  return useMutation<Item, AxiosError<any, any>, ItemFormValues, unknown>({
+    mutationFn: (item: ItemFormValues) =>
       securedAxios
         .post(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items`, item)
         .then((response) => response.data as Item),
-  );
+  });
 };
