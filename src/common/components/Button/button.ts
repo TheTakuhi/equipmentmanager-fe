@@ -24,7 +24,7 @@ export const ButtonStyle = defineStyleConfig({
     }),
 
     secondary: ({ theme }) => ({
-      bg: theme.palette.secondary.dark,
+      bg: theme.palette.secondary.main,
       border: `1px solid ${theme.palette.secondary.light}`,
 
       _hover: {
@@ -42,8 +42,53 @@ export const ButtonStyle = defineStyleConfig({
     }),
 
     disabled: ({ theme }) => ({
-      bg: theme.palette.secondary.dark,
+      bg: theme.palette.secondary.main,
       color: theme.palette.text.disabled,
+
+      _hover: { cursor: "default" },
+      _active: { filter: "none" },
+    }),
+    pagination: ({ theme }) => ({
+      p: "0.25rem 0.5rem",
+      borderRadius: "4px",
+
+      transition: "ease-in 0.075s",
+
+      color: theme.palette.text.primary,
+      background: theme.palette.background.header,
+      border: `2px solid ${theme.palette.secondary.light}`,
+
+      _active: {
+        bg: theme.palette.secondary.light,
+      },
+    }),
+    paginationControl: ({ theme }) => ({
+      p: "0.25rem 0.25rem",
+      borderRadius: "4px",
+
+      transition: "ease-in 0.075s",
+
+      color: theme.palette.text.primary,
+      background: theme.palette.background.header,
+      border: `2px solid ${theme.palette.secondary.light}`,
+      alignItems: "center",
+      paddingInlineStart: "0.5rem",
+      paddingInlineEnd: "0rem",
+      width: "44.22px",
+      height: "40px",
+
+      _active: {
+        bg: theme.palette.secondary.light,
+      },
+    }),
+    paginationDisabled: ({ theme }) => ({
+      p: "0.25rem 0.5rem",
+      borderRadius: "4px",
+
+      transition: "ease-in 0.075s",
+      color: theme.palette.text.disabled,
+      background: theme.palette.background.default,
+      border: `2px solid ${theme.palette.secondary.light}`,
 
       _hover: { cursor: "default" },
       _active: { filter: "none" },

@@ -1,7 +1,7 @@
-import NavbarLayout from "../../../common/layouts/NavbarLayout";
+import UsersTableContainer from "../../containers/user/UsersTableContainer";
 
 const UsersPage = () => {
-  return <NavbarLayout>Users page</NavbarLayout>;
+  return <UsersTableContainer />;
 };
 
 export default UsersPage;

@@ -8,7 +8,7 @@ const baseStyle = helpers.definePartsStyle(({ theme }) => ({
     padding: "0.4rem 1rem",
     borderRadius: theme.borderRadius.element,
     border: `1px solid ${theme.palette.secondary.light}`,
-    bg: theme.palette.secondary.dark,
+    bg: theme.palette.secondary.main,
     color: theme.palette.text.primary,
     fontSize: theme.components.Text.sizes.body1.fontSize,
 

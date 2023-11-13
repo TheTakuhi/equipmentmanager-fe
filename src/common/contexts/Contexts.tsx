@@ -36,7 +36,7 @@ function Contexts() {
       <StrictMode>
         <QueryClientProvider client={queryClient}>
           {/* TODO find out why ReactQueryDevTools makes queryClient undefined */}
-          {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> */}
+          {/* <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" /> */}
           <UserAuthProvider>
             <ActionDialogProvider>
               <NavbarProvider>

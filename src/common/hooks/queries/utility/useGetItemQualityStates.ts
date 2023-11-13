@@ -16,9 +16,9 @@ export const useGetItemQualityStates = (
   options?: UseGetItemQualityStatesQueryOptions,
 ) => {
   const securedAxios = useSecuredAxios();
-  return useQuery<string[], Error>(
-    getItemQualityStatesQueryKey(),
-    () =>
+  return useQuery<string[], Error>({
+    queryKey: getItemQualityStatesQueryKey(),
+    queryFn: () =>
       securedAxios
         .get(
           `${getEnvVariable(
@@ -26,6 +26,6 @@ export const useGetItemQualityStates = (
           )}/items/item-quality-states`,
         )
         .then((response) => response.data as string[]),
-    options,
-  );
+    ...options,
+  });
 };

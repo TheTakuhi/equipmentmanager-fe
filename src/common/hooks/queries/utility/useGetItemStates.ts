@@ -14,12 +14,12 @@ export const getItemStatesQueryKey = () => [rootKey];
 
 export const useGetItemStates = (options?: UseGetItemStatesQueryOptions) => {
   const securedAxios = useSecuredAxios();
-  return useQuery<string[], Error>(
-    getItemStatesQueryKey(),
-    () =>
+  return useQuery<string[], Error>({
+    queryKey: getItemStatesQueryKey(),
+    queryFn: () =>
       securedAxios
         .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items/item-states`)
         .then((response) => response.data as string[]),
-    options,
-  );
+    ...options,
+  });
 };

@@ -42,7 +42,7 @@ export const propsConfigs: PropsConfigs = {
   },
   popoverCompProps: {
     popoverContentProps: {
-      background: theme.palette.secondary.dark,
+      background: theme.palette.secondary.main,
       color: theme.palette.text.primary,
       border: "1px solid #313033",
     },

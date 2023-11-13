@@ -24,9 +24,23 @@ const sortFilter = helpers.definePartsStyle(({ theme }) => ({
   },
 }));
 
+// TODO STYLING DOESNT WORK
+const paginationSelect = helpers.definePartsStyle(({ theme }) => ({
+  field: {
+    background: theme.palette.secondary.main,
+    border: `1px solid ${theme.palette.secondary.light}`,
+    width: "4rem",
+    padding: "0.5rem 0.5rem",
+  },
+  icon: {
+    color: theme.palette.text.disabled,
+  },
+}));
+
 export const Select = helpers.defineMultiStyleConfig({
   baseStyle,
   variants: {
     sortFilter,
+    paginationSelect,
   },
 });

@@ -10,9 +10,10 @@ import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 export const useItemDeleteMutation = (itemId: string) => {
   const securedAxios = useSecuredAxios();
 
-  return useMutation<void, AxiosError<any, any>, void, unknown>(() =>
-    securedAxios
-      .delete(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items/${itemId}`)
-      .then((response) => response.data as void),
-  );
+  return useMutation<void, AxiosError<any, any>, void, unknown>({
+    mutationFn: () =>
+      securedAxios
+        .delete(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items/${itemId}`)
+        .then((response) => response.data as void),
+  });
 };

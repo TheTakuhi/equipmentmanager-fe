@@ -12,9 +12,11 @@ export const getBackendVersionKey = () => [rootKey];
 
 export const useGetBackendVersion = () => {
   const securedAxios = useSecuredAxios();
-  return useQuery<string>(getBackendVersionKey(), () =>
-    securedAxios
-      .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/utility/be-version`)
-      .then((response) => response.data.build.version as string),
-  );
+  return useQuery<string>({
+    queryKey: getBackendVersionKey(),
+    queryFn: () =>
+      securedAxios
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/utility/be-version`)
+        .then((response) => response.data.build.version as string),
+  });
 };

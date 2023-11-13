@@ -10,8 +10,8 @@ const baseStyle = helpers.definePartsStyle(({ theme }) => ({
 
     svg: {
       color: theme.palette.text.disabled,
-      width: "1rem",
-      height: "1rem",
+      width: "1.25rem",
+      height: "1.25rem",
     },
 
     transition: "ease-in 0.05s",
@@ -29,7 +29,7 @@ const baseStyle = helpers.definePartsStyle(({ theme }) => ({
     flexDirection: "column",
     gap: "0.375rem",
     borderRadius: theme.borderRadius.element,
-    bg: theme.palette.secondary.dark,
+    bg: theme.palette.secondary.main,
     border: `1px solid ${theme.palette.secondary.light}`,
   },
   item: {

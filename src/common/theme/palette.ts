@@ -6,8 +6,7 @@ export const palette: Record<string, any> = {
     },
     secondary: {
       light: "#313033", // highlight
-      main: "#2C2B2E", // light + secondary btn bg
-      dark: "#282629", // (secondary btn bg)
+      main: "#2C2B2E", // light + secondary btn bg + primary
       header: "#232224", // table header bg
     },
     info: {
