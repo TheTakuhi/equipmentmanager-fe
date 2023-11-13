@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Box, Select, Text } from "@chakra-ui/react";
+import { Box, Select, SystemStyleObject, Text } from "@chakra-ui/react";
 
 export type SelectOptionType = {
   value: string;
@@ -9,11 +9,12 @@ export type SelectOptionType = {
 
 interface SortFilterProps {
   options: SelectOptionType[];
+  sx?: SystemStyleObject;
 }
 
-const SortFilter: FC<SortFilterProps> = ({ options }) => {
+const SortFilter: FC<SortFilterProps> = ({ options, sx }) => {
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box sx={{ position: "relative", ...sx }}>
       <Text
         sx={{
           zIndex: 1,

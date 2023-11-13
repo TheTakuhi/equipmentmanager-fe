@@ -16,7 +16,6 @@ const NavbarLayout: FC<{ children?: ReactNode }> = ({ children }) => {
       <NavigationBar />
       <Box
         sx={{
-          pt: "1rem",
           width: "100%",
           height: "100vh",
           overflowY: "auto",

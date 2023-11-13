@@ -15,18 +15,6 @@ export const Text = defineStyleConfig({
     body3: {
       fontSize: "0.625em",
     },
-    h1: {
-      fontSize: "1.25em",
-      fontWeight: "medium",
-    },
-    h2: {
-      fontSize: "1.125em",
-      fontWeight: "medium",
-    },
-    h3: {
-      fontSize: "1em",
-      fontWeight: "medium",
-    },
     buttonLabel: {
       fontSize: "0.875em",
       fontWeight: "semibold",

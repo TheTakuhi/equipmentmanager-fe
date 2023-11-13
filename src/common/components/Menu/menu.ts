@@ -23,6 +23,7 @@ const baseStyle = helpers.definePartsStyle(({ theme }) => ({
     },
   },
   list: {
+    zIndex: 2,
     minWidth: "max-content",
     padding: "0.375rem 0",
     display: "inline-flex",
