@@ -6,7 +6,7 @@ import {
 } from "../../../config/env/getEnvVariable";
 import { User } from "../../../models/user/User";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
-import { getQueryKeys } from "../getQueryKeys";
+import { getQueryKeys } from "../utility/getQueryKeys";
 
 const rootKey = "user";
 

@@ -52,6 +52,7 @@ const TSTable: FC<TSTableProps> = ({
 }) => {
   const { navbarState } = useNavbar();
   const navbar = navbarState ? 170 : 64;
+
   const [paginationProps, setPaginationProps] = useState<PaginationStateProps>({
     pageIndex: 0,
     pageSize: 15,
@@ -94,6 +95,7 @@ const TSTable: FC<TSTableProps> = ({
     });
   }, [paginationProps, table.getState().sorting, columnFilters]);
 
+  // TODO PAGINATION TRANSITION ANIMATION FIX
   return (
     <>
       <TableContainer>
@@ -237,9 +239,10 @@ const TSTable: FC<TSTableProps> = ({
           borderBottom: `1px solid ${theme.palette.secondary.light}`,
           borderTop: `1px solid ${theme.palette.secondary.light}`,
           p: "0.875rem 0.75rem",
-          position: "fixed",
+          position: "sticky",
           bottom: 0,
-          width: `calc(100% - ${navbar}px - 17px)`,
+          width: `calc(100vw - ${navbar}px - 17px)`,
+          transition: "all 0.75s",
         }}
       >
         <TSPagination
