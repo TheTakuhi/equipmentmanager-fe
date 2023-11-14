@@ -13,6 +13,9 @@ import { getBeVersionMSW } from "./common/hooks/queries/utility/useGetBackendVer
 import { getMockedItemQualityStatesMSW } from "./common/hooks/queries/utility/useGetItemQualityStates.msw";
 import { getMockedItemStatesMSW } from "./common/hooks/queries/utility/useGetItemStates.msw";
 import { getMockedItemTypesMSW } from "./common/hooks/queries/utility/useGetItemTypes.msw";
+import { postUser } from "./common/hooks/mutations/user/usePostUser.msw";
+import { putUser } from "./common/hooks/mutations/user/usePutUser.msw";
+import { getUserById } from "./common/hooks/queries/users/useGetUserById.msw";
 
 export const worker = setupWorker(
   ...getUsersMSW(),
@@ -28,4 +31,9 @@ export const worker = setupWorker(
   ...getMockedItemTypesMSW(),
   ...getMockedItemStatesMSW(),
   ...getMockedItemQualityStatesMSW(),
+);
+export const worker = setupWorker(
+  ...getUserById(),
+  ...postUser(),
+  ...putUser(),
 );
