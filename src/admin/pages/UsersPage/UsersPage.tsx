@@ -1,8 +1,8 @@
 import { Box, Text, useTheme } from "@chakra-ui/react";
 
+import { useGetUser } from "../../../common/hooks/queries/users/useGetUserById";
 import { useCurrentUserQuery } from "../../../common/security/hooks/queries/useCurrentUserQuery";
 import { useKeycloakParsedToken } from "../../../common/security/hooks/queries/useKeycloakParsedToken";
-import { useGetUser } from "../../../common/hooks/queries/users/useGetUserById";
 
 const UsersPage = () => {
   const theme = useTheme();
@@ -10,8 +10,7 @@ const UsersPage = () => {
 
   const { data: currentUser } = useCurrentUserQuery();
 
-  // const {data: userById} = useGetUser("1");
-  
+  const { data: userById } = useGetUser("123");
 
   return (
     <Box
@@ -25,7 +24,7 @@ const UsersPage = () => {
       </Text>
       {JSON.stringify(parsedToken, null, 2)}
       {JSON.stringify(currentUser, null, 2)}
-      {/* {JSON.stringify(userById, null, 2)} */}
+      {JSON.stringify(userById, null, 2)}
     </Box>
   );
 };
