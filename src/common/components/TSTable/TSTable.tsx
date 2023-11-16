@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from "react";
 
 import {
+  Box,
   Grid,
-  Skeleton,
+  SkeletonText,
   Table,
   TableContainer,
   Tbody,
@@ -39,6 +40,7 @@ interface TSTableProps {
   filterData?: any;
   searchQuery?: TableSearchQuery;
   tableStateCallback: (info: TableStateProps) => void;
+  tableHeight: string;
 }
 
 const TSTable: FC<TSTableProps> = ({
@@ -49,6 +51,7 @@ const TSTable: FC<TSTableProps> = ({
   filterData,
   searchQuery,
   tableStateCallback,
+  tableHeight,
 }) => {
   const { navbarState } = useNavbar();
   const navbar = navbarState ? 170 : 64;
@@ -97,7 +100,13 @@ const TSTable: FC<TSTableProps> = ({
 
   // TODO PAGINATION TRANSITION ANIMATION FIX
   return (
-    <>
+    <Box
+      sx={{
+        overflowX: "hidden",
+        overflowY: "scroll",
+        maxHeight: tableHeight,
+      }}
+    >
       <TableContainer>
         <Table sx={{ ...tableStyle }}>
           <Thead sx={{ ...tableHeadStyle(table) }}>
@@ -170,7 +179,17 @@ const TSTable: FC<TSTableProps> = ({
                     {headerGroup.headers.map((header) => {
                       return (
                         <Td key={header.id}>
-                          <Skeleton variant="text" />
+                          <SkeletonText
+                            noOfLines={1}
+                            spacing="2"
+                            skeletonHeight="3"
+                            px="1.5rem"
+                            startColor="#222222"
+                            endColor="#444444"
+                            fontSize={
+                              theme.components.Text.sizes.body2.fontSize
+                            }
+                          />
                         </Td>
                       );
                     })}
@@ -254,7 +273,7 @@ const TSTable: FC<TSTableProps> = ({
           isLoading={isLoading}
         />
       </Grid>
-    </>
+    </Box>
   );
 };
 

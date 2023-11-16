@@ -20,7 +20,7 @@ const getMockedEditUserResponse = (): User => {
   };
 };
 
-export const getEditUser = () => {
+export const putEditUser = () => {
   return [
     rest.put("*/users/:userId", (_req, res, ctx) => {
       return res(

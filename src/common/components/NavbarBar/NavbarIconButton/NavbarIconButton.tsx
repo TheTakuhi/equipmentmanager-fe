@@ -23,7 +23,6 @@ const NavbarIconButton: FC<NavbarIconButtonProps> = ({
   const theme = useTheme();
   const Icon = link.icon;
 
-  // TODO implement after routing
   const isChosen = true;
   const activeProps = isChosen
     ? { style: { backgroundColor: "rgba(255,255,255,0.10)" } }
@@ -36,6 +35,7 @@ const NavbarIconButton: FC<NavbarIconButtonProps> = ({
     <RoleAccessPermission onlyVisibility allowedRoles={link.allowedRoles}>
       <Box
         as={Link}
+        from="*"
         to={link.partialPath}
         search={{}}
         activeProps={activeProps}

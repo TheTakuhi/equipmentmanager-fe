@@ -2,11 +2,14 @@ import { setupWorker } from "msw";
 
 import { postCreateItem } from "./common/hooks/mutations/items/useItemCreateMutation.msw";
 import { getDeleteItem } from "./common/hooks/mutations/items/useItemDeleteMutation.msw";
+import { putEditItem } from "./common/hooks/mutations/items/useItemEditMutation.msw";
 import { postCreateLoan } from "./common/hooks/mutations/loans/useLoanCreateMutation.msw";
-import { getEditLoan } from "./common/hooks/mutations/loans/useLoanEditMutation.msw";
+import { putEditLoan } from "./common/hooks/mutations/loans/useLoanEditMutation.msw";
 import { postUser } from "./common/hooks/mutations/users/usePostUser.msw";
 import { getDeleteUser } from "./common/hooks/mutations/users/useUserDeleteMutatuon.msw";
-import { getEditUser } from "./common/hooks/mutations/users/useUserEditMutation.msw";
+import { putEditUser } from "./common/hooks/mutations/users/useUserEditMutation.msw";
+import { getItemById } from "./common/hooks/queries/items/useGetItemById.msw";
+import { getLoanByItemId } from "./common/hooks/queries/loans/useGetLoanByItemId.msw";
 import { getMockedAllUserRolesMSW } from "./common/hooks/queries/users/useGetAllUserRoles.msw";
 import { getCurrentUserMSW } from "./common/hooks/queries/users/useGetCurrentUser.msw";
 import { getUserById } from "./common/hooks/queries/users/useGetUserById.msw";
@@ -20,10 +23,12 @@ export const worker = setupWorker(
   ...getUsersMSW(),
   ...getBeVersionMSW(),
   ...getCurrentUserMSW(),
+  ...postUser(),
   ...postCreateItem(),
   ...postCreateLoan(),
-  ...getEditUser(),
-  ...getEditLoan(),
+  ...putEditUser(),
+  ...putEditLoan(),
+  ...putEditItem(),
   ...getDeleteItem(),
   ...getDeleteUser(),
   ...getMockedAllUserRolesMSW(),
@@ -31,5 +36,6 @@ export const worker = setupWorker(
   ...getMockedItemStatesMSW(),
   ...getMockedItemQualityStatesMSW(),
   ...getUserById(),
-  ...postUser(),
+  ...getItemById(),
+  ...getLoanByItemId(),
 );
