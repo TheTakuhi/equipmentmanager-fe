@@ -187,7 +187,7 @@ const ItemsPage = () => {
           </Thead>
           <Tbody>
             {Array.from({ length: 10 }).map((_, index) => (
-              <Tr key={index} sx={{fontSize: "0.875em"}}>
+              <Tr key={index} sx={{ fontSize: "0.875em" }}>
                 <Td>KDSS-2424-6565-HYJU</Td>
                 <Td>Laptop</Td>
                 <Td>good</Td>

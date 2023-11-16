@@ -51,7 +51,7 @@ const getMockedEditLoanResponse = (): Loan => {
   };
 };
 
-export const getEditLoan = () => {
+export const putEditLoan = () => {
   return [
     rest.put("*/loans/:loanId", (_req, res, ctx) => {
       return res(

@@ -10,9 +10,13 @@ import { useUsersTableColumns } from "../../../../common/hooks/utils/useUsersTab
 
 interface UsersTableContainerProps {
   searchQuery?: TableSearchQuery;
+  tableHeight: string;
 }
 
-const UsersTableContainer: FC<UsersTableContainerProps> = ({ searchQuery }) => {
+const UsersTableContainer: FC<UsersTableContainerProps> = ({
+  searchQuery,
+  tableHeight,
+}) => {
   const columns = useUsersTableColumns();
 
   const [tableStateProps, setTableStateProps] = useState<TableStateProps>({
@@ -56,6 +60,7 @@ const UsersTableContainer: FC<UsersTableContainerProps> = ({ searchQuery }) => {
       pageable={usersData}
       tableStateCallback={(info) => setTableStateProps(info)}
       filterData={userRoles}
+      tableHeight={tableHeight}
     />
   );
 };

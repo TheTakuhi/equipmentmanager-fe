@@ -4,9 +4,11 @@ import { MainNavigationLink } from "./index";
 import { ADMIN, MANAGER } from "../../security/model/Role";
 import { getFullUrl } from "../../utils/getFullUrl";
 
+// TODO FIX from items/123 and users/123
+
 export const items: MainNavigationLink = {
   url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/items`),
-  partialPath: "../items",
+  partialPath: "/equipment-manager/management/items",
   label: "Items",
   key: "Items",
   icon: Grid,
@@ -15,7 +17,7 @@ export const items: MainNavigationLink = {
 
 export const loans: MainNavigationLink = {
   url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/loans`),
-  partialPath: "../loans",
+  partialPath: "/equipment-manager/management/loans",
   label: "Loans",
   key: "Loans",
   icon: FileText,
@@ -24,7 +26,7 @@ export const loans: MainNavigationLink = {
 
 export const teams: MainNavigationLink = {
   url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/teams`),
-  partialPath: "../teams",
+  partialPath: "/equipment-manager/management/teams",
   label: "Teams",
   key: "Teams",
   icon: Users,
@@ -33,7 +35,7 @@ export const teams: MainNavigationLink = {
 
 export const users: MainNavigationLink = {
   url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/my-people`),
-  partialPath: "../my-people",
+  partialPath: "/equipment-manager/management/my-people",
   label: "My people",
   key: "My people",
   icon: User,
