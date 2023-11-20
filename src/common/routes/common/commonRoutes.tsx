@@ -2,6 +2,7 @@ import { Outlet, Route } from "@tanstack/react-router";
 
 import { ITEMSRoute } from "./items/itemsRoute";
 import { LOANSRoute } from "./loans/loansRoute";
+import { MYPEOPLERoute } from "./myPeople/myPeopleRoute";
 import { TEAMSRoute } from "./teams/teamsRoute";
 import { USERSRoute } from "./users/usersRoute";
 import { rootRoute } from "../Routes";
@@ -17,4 +18,5 @@ export const COMMONRoute = commonRoutes.addChildren([
   LOANSRoute,
   TEAMSRoute,
   USERSRoute,
+  MYPEOPLERoute,
 ]);

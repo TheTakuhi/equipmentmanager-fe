@@ -96,9 +96,14 @@ const NavigationBar: FC = () => {
               title="Teams"
             />
             <NavbarIconButton
-              link={secLinks.users}
+              link={secLinks.myPeople}
               open={navbarState}
               title="My people"
+            />
+            <NavbarIconButton
+              link={secLinks.users}
+              open={navbarState}
+              title="Users"
             />
           </Stack>
         </Box>

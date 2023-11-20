@@ -20,6 +20,7 @@ type UseGetUsersQueryParams = {
   fullName?: string;
   includeRemoved?: boolean;
   pageable?: PageableParam;
+  managerLogin?: string;
 };
 
 type GetUsersQueryKeyHandler = (
