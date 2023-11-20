@@ -8,8 +8,8 @@ export const useItemTypes = () => {
   if (data)
     data.map((itemType) =>
       itemTypes.push({
-        key: itemType,
-        value: itemType.toLowerCase(),
+        value: itemType,
+        label: itemType.toLowerCase(),
       }),
     );
 

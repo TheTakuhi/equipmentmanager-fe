@@ -8,8 +8,8 @@ export const useItemQualityStates = () => {
   if (data)
     data.map((itemQualityState) =>
       itemQualityStates.push({
-        key: itemQualityState,
-        value: itemQualityState.toLowerCase(),
+        value: itemQualityState,
+        label: itemQualityState.toLowerCase(),
       }),
     );
 

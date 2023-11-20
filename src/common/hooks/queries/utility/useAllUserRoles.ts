@@ -8,8 +8,8 @@ export const useAllUserRoles = () => {
   if (data)
     data.map((userRole) =>
       userRoles.push({
-        key: userRole,
-        value: userRole.toLowerCase(),
+        value: userRole,
+        label: userRole.toLowerCase(),
       }),
     );
 

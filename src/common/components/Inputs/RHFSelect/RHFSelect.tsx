@@ -1,41 +1,48 @@
-import { ChangeEvent, FC, useState } from "react";
+import { FC, useState } from "react";
 
 import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Select,
   useTheme,
 } from "@chakra-ui/react";
+import { Props, Select, SingleValue } from "chakra-react-select";
 
 import { SelectOption } from "../../../models/utils/SelectOption";
 
 interface RHFSelectProps {
   variant?: string;
   placeholder?: string;
-  formLabel: string;
-  isRequired?: boolean;
+  required?: boolean;
   disabled?: boolean;
+  formLabel: string;
   options: SelectOption[];
 }
 
-const RHFSelect: FC<RHFSelectProps> = ({
+const RHFSelect: FC<RHFSelectProps & Props> = ({
   variant,
   placeholder,
   formLabel,
+  required,
   disabled,
-  isRequired,
   options,
+  ...rest
 }) => {
   const theme = useTheme();
-  const [input, setInput] = useState("");
-  const handleInputChange = (e: ChangeEvent<HTMLSelectElement>) =>
-    setInput(e.target.value);
-  const isError = input === "";
+  // const { control } = useFormContext();
+  const [input, setInput] = useState<SingleValue<SelectOption>>(options[0]);
+  const handleInputChange = (newValue: SingleValue<SelectOption>) =>
+    setInput(newValue);
+  const isError = input === undefined;
 
+  // TODO - implement Controller
   return (
+    // <Controller
+    //   control={control}
+    //   name={name}
+    //   render={({ field, fieldState: { error } }) => (
     <FormControl
-      isRequired={isRequired}
+      isRequired={required}
       isInvalid={isError}
       sx={{ display: "flex", flexDirection: "column" }}
     >
@@ -48,27 +55,35 @@ const RHFSelect: FC<RHFSelectProps> = ({
         {formLabel}
       </FormLabel>
       <Select
-        variant={variant}
-        placeholder={placeholder}
-        disabled={disabled}
-        onChange={handleInputChange}
-      >
-        {options.map((option) => (
-          <option
-            style={{
-              backgroundColor: theme.palette.secondary.main,
-              border: `1px solid ${theme.palette.secondary.light}`,
-              borderRadius: theme.borderRadius.element,
-              fontSize: "1em",
-            }}
-            key={option.key}
-            value={option.key}
-          >
-            {option.value}
-          </option>
-        ))}
-      </Select>
-      {!isError || !isRequired ? (
+        {...rest}
+        isDisabled={disabled}
+        value={required ? undefined : input}
+        // TODO
+        // @ts-ignore
+        onChange={(newValue: SingleValue<SelectOption>, _) =>
+          handleInputChange(newValue)
+        }
+        options={options}
+        useBasicStyles
+        chakraStyles={{
+          menuList: (provided) => ({
+            ...provided,
+            width: "100%",
+            padding: "0.75rem 0",
+            gap: "0.25rem",
+          }),
+          option: (provided) => ({
+            ...provided,
+            fontSize: "0.875em",
+            margin: 0,
+            padding: "0.3rem 1rem",
+            _selected: {
+              background: theme.palette.secondary.light,
+            },
+          }),
+        }}
+      />
+      {!isError || !required ? (
         ""
       ) : (
         <FormErrorMessage
@@ -81,6 +96,8 @@ const RHFSelect: FC<RHFSelectProps> = ({
         </FormErrorMessage>
       )}
     </FormControl>
+    // )}
+    // />
   );
 };
 
