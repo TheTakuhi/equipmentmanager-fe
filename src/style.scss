@@ -5,7 +5,11 @@ body {
 
 ::-webkit-scrollbar {
   width: 16px;
-  height: 12px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: #232224;
 }
 
 ::-webkit-scrollbar-thumb {

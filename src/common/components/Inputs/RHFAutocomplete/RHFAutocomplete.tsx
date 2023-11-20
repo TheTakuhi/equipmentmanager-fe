@@ -63,8 +63,8 @@ const RHFAutocomplete: FC<RHFAutocompleteProps> = ({
         />
         <AutoCompleteList sx={autocompleteListStyle}>
           {options.map((option) => (
-            <AutoCompleteItem key={option.key} value={option.key}>
-              <Text size="menuItem">{option.value}</Text>
+            <AutoCompleteItem key={option.value} value={option.value}>
+              <Text size="menuItem">{option.label}</Text>
             </AutoCompleteItem>
           ))}
         </AutoCompleteList>

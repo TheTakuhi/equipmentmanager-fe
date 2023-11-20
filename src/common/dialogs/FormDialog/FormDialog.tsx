@@ -41,6 +41,7 @@ const FormDialog: FC<FormDialogProps> = ({
             backgroundColor: theme.palette.background.default,
             borderRadius: theme.borderRadius.element,
             color: theme.palette.text.primary,
+            border: `1px solid ${theme.palette.secondary.light}`,
           }}
         >
           <ModalHeader>

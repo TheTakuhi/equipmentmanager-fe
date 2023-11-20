@@ -7,14 +7,13 @@ export const autocompleteListStyle = {
   gap: "0.25rem",
   div: {
     margin: 0,
-    padding: "0.75rem 1rem",
+    padding: "0.575rem 1rem",
     borderRadius: 0,
   },
   ".css-1xza1az": {
     backgroundColor: `${theme.palette.secondary.light} !important`,
   },
   ".css-0": {
-    bg: "red",
     visibility: "hidden",
     padding: 0,
   },

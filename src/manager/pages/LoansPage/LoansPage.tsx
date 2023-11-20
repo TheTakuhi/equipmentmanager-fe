@@ -67,21 +67,24 @@ const LoansPage = () => {
           disabled
         />
         <RHFSelect
+          name="itemType"
           variant="unstyled"
           formLabel="Select test"
           options={itemTypes}
         />
         <RHFSelect
+          name="itemType"
           variant="unstyled"
-          formLabel="Select test disabled"
+          formLabel="Select test"
           options={itemTypes}
           disabled
         />
         <RHFSelect
+          name="itemType"
           variant="unstyled"
-          formLabel="Select required"
+          formLabel="Select test"
           options={itemTypes}
-          isRequired
+          required
         />
         <RHFAutocomplete
           variant="unstyled"
