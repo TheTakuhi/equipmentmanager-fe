@@ -1,4 +1,4 @@
-import { FileText, Grid, User, Users } from "react-feather";
+import { FileText, Grid, Share2, User, Users } from "react-feather";
 
 import { MainNavigationLink } from "./index";
 import { ADMIN, MANAGER } from "../../security/model/Role";
@@ -29,16 +29,25 @@ export const teams: MainNavigationLink = {
   partialPath: "/equipment-manager/management/teams",
   label: "Teams",
   key: "Teams",
-  icon: Users,
+  icon: Share2,
   allowedRoles: [MANAGER, ADMIN],
 };
 
-export const users: MainNavigationLink = {
+export const myPeople: MainNavigationLink = {
   url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/my-people`),
   partialPath: "/equipment-manager/management/my-people",
   label: "My people",
   key: "My people",
   icon: User,
+  allowedRoles: [MANAGER, ADMIN],
+};
+
+export const users: MainNavigationLink = {
+  url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/users`),
+  partialPath: "/equipment-manager/management/users",
+  label: "Users",
+  key: "Users",
+  icon: Users,
   allowedRoles: [ADMIN],
 };
 
@@ -46,6 +55,7 @@ export const secLinks = {
   items,
   loans,
   teams,
+  myPeople,
   users,
 };
 
