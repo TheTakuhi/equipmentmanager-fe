@@ -4,8 +4,6 @@ import { MainNavigationLink } from "./index";
 import { ADMIN, MANAGER } from "../../security/model/Role";
 import { getFullUrl } from "../../utils/getFullUrl";
 
-// TODO FIX from items/123 and users/123
-
 export const items: MainNavigationLink = {
   url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/items`),
   partialPath: "/equipment-manager/management/items",
