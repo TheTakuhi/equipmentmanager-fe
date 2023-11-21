@@ -10,6 +10,7 @@ import { getDeleteUser } from "./common/hooks/mutations/users/useUserDeleteMutat
 import { putEditUser } from "./common/hooks/mutations/users/useUserEditMutation.msw";
 import { getItemById } from "./common/hooks/queries/items/useGetItemById.msw";
 import { getLoanByItemId } from "./common/hooks/queries/loans/useGetLoanByItemId.msw";
+import { getLoansMSW } from "./common/hooks/queries/loans/useGetLoans.msw";
 import { getMockedAllUserRolesMSW } from "./common/hooks/queries/users/useGetAllUserRoles.msw";
 import { getCurrentUserMSW } from "./common/hooks/queries/users/useGetCurrentUser.msw";
 import { getUserById } from "./common/hooks/queries/users/useGetUserById.msw";
@@ -21,6 +22,7 @@ import { getMockedItemTypesMSW } from "./common/hooks/queries/utility/useGetItem
 
 export const worker = setupWorker(
   ...getUsersMSW(),
+  ...getLoansMSW(),
   ...getBeVersionMSW(),
   ...getCurrentUserMSW(),
   ...postUser(),
