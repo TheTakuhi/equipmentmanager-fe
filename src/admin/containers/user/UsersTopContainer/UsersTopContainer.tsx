@@ -2,59 +2,16 @@ import { FC } from "react";
 
 import { Flex, Heading, HStack, Input, Select, Spacer } from "@chakra-ui/react";
 import { Download, Plus } from "react-feather";
-import { toast } from "react-toastify";
 
 import Button from "../../../../common/components/Button";
-import FormDialog from "../../../../common/dialogs/FormDialog";
-import { useItemDeleteMutation } from "../../../../common/hooks/mutations/items/useItemDeleteMutation";
+import UserCreateDialog from "../../../../common/dialogs/UserDialogs/UserCreateDialog";
 import { useActionDialog } from "../../../../common/providers/ActionDialogProvider/ActionDialogProvider";
-import { toastOptions } from "../../../../common/utils/toastOptions";
 
 const UsersTopContainer: FC = () => {
-  const { show, close } = useActionDialog();
-  // TODO implement like this after adding forms
-  // const handleAdd: ItemFormSubmitHandler = (values) =>
-  //   mutateAddItem(values, {
-  //     onSuccess: () => {
-  //       toast.success("Item added", toastOptions);
-  //       close();
-  //     },
-  //     onError: (error) => {
-  //       toast.error(
-  //         error.response?.data.message ?? "An error has occurred",
-  //         toastOptions,
-  //       );
-  //     },
-  //   });
-
-  const { mutate: mutateDeleteItem } = useItemDeleteMutation("123");
-  // const { mutate: mutateAddUser } = useUserCreateMutation();
-
-  const handleAdd = () => {
-    mutateDeleteItem(undefined, {
-      onSuccess: () => {
-        toast.success("User created", toastOptions);
-        close();
-      },
-      onError: (error) => {
-        toast.error(
-          error.response?.data.message ?? "An error has occurred",
-          toastOptions,
-        );
-        close();
-      },
-    });
-  };
+  const { show } = useActionDialog();
 
   const addUserDialogOpen = () => {
-    show(
-      <FormDialog
-        title="Create user"
-        close={close}
-        actionLabel="Confirm"
-        action={handleAdd}
-      />,
-    );
+    show(<UserCreateDialog />);
   };
 
   return (
