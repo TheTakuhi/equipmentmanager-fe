@@ -13,10 +13,10 @@ import { toastOptions } from "../../../common/utils/toastOptions";
 const MyPeopleTopContainer: FC = () => {
   const { show, close } = useActionDialog();
   // TODO implement like this after adding forms
-  // const handleAdd: ItemFormSubmitHandler = (values) =>
-  //   mutateAddItem(values, {
+  // const handleAdd: UserFormSubmitHandler = (values) =>
+  //   mutateAddUser(values, {
   //     onSuccess: () => {
-  //       toast.success("Item added", toastOptions);
+  //       toast.success("User added", toastOptions);
   //       close();
   //     },
   //     onError: (error) => {
