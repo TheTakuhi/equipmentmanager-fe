@@ -16,6 +16,12 @@ const baseStyle = helpers.definePartsStyle(({ theme }) => ({
 
 const sortFilter = helpers.definePartsStyle(({ theme }) => ({
   field: {
+    h: "auto",
+    height: "auto",
+    minH: "36px",
+    minHeight: "36px",
+
+    background: theme.palette.secondary.header,
     padding: "0.5rem 2.5rem 0.5rem 2.5rem",
     minWidth: "140px",
   },

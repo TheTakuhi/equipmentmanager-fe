@@ -1,10 +1,12 @@
 import { FC } from "react";
 
-import { Flex, Heading, HStack, Input, Select, Spacer } from "@chakra-ui/react";
+import { Flex, Heading, HStack, Spacer } from "@chakra-ui/react";
 import { Download, Plus } from "react-feather";
 import { toast } from "react-toastify";
 
 import Button from "../../../common/components/Button";
+import SearchBar from "../../../common/components/SearchBar";
+import SortFilter from "../../../common/components/SortFilter";
 import FormDialog from "../../../common/dialogs/FormDialog";
 import { useItemDeleteMutation } from "../../../common/hooks/mutations/items/useItemDeleteMutation";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
@@ -64,12 +66,20 @@ const MyPeopleTopContainer: FC = () => {
       </Heading>
       <Flex sx={{ padding: "1rem 1.5rem" }}>
         <HStack gap="0.625rem">
-          <Select variant="filled">
-            <option>Login</option>
-            <option>Email</option>
-            <option>Role</option>
-          </Select>
-          <Input placeholder="Search..." />
+          <SortFilter
+            options={[
+              { value: "asc", label: "Newest" },
+              { value: "desc", label: "Oldest" },
+            ]}
+          />
+          <SearchBar
+            options={[
+              { value: "login", label: "Login" },
+              { value: "fullName", label: "Name" },
+              { value: "email", label: "E-mail" },
+            ]}
+            handleSubmit={() => {}}
+          />
         </HStack>
         <Spacer />
         <HStack gap="0.625rem" align="flex-end" paddingLeft="0.625rem">

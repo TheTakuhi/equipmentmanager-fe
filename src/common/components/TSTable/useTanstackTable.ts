@@ -23,9 +23,6 @@ export function useTanstackTable({
     data,
     columns,
     state: {
-      columnVisibility: {
-        contractManagerId: false,
-      },
       pagination: {
         pageIndex: paginationProps.pageIndex,
         pageSize: paginationProps.pageSize,

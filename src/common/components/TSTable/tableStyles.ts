@@ -3,7 +3,6 @@ import { HeaderGroup, Table } from "@tanstack/react-table";
 import { theme } from "../../theme";
 
 export const tableStyle = {
-  minWidth: "870px",
   tableLayout: "fixed",
 
   th: {

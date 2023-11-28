@@ -57,7 +57,7 @@ const RHFSelect: FC<RHFSelectProps & Props> = ({
       <Select
         {...rest}
         isDisabled={disabled}
-        value={required ? undefined : input}
+        value={input}
         // TODO
         // @ts-ignore
         onChange={(newValue: SingleValue<SelectOption>, _) =>

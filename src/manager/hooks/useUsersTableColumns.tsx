@@ -1,7 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 
-import UserActionMenu from "../../components/ActionMenu/UserActionMenu";
-import { User } from "../../models/user/User";
+import UserActionMenu from "../../common/components/ActionMenu/UserActionMenu";
+import { User } from "../../common/models/user/User.ts";
 
 export const useUsersTableColumns = () => {
   const columnHelper = createColumnHelper<User>();

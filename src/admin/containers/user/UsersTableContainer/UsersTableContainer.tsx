@@ -6,7 +6,7 @@ import TSTable, {
 import { TableSearchQuery } from "../../../../common/forms/useTableSearchForm/useTableSearchForm";
 import { useGetUsers } from "../../../../common/hooks/queries/users/useGetUsers";
 import { useAllUserRoles } from "../../../../common/hooks/queries/utility/useAllUserRoles";
-import { useUsersTableColumns } from "../../../../common/hooks/utils/useUsersTableColumns";
+import { useUsersTableColumns } from "../../../../manager/hooks/useUsersTableColumns.tsx";
 
 interface UsersTableContainerProps {
   searchQuery?: TableSearchQuery;

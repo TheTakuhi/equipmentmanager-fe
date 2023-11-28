@@ -1,10 +1,11 @@
 import { FC } from "react";
 
-import { Flex, Heading, HStack, Input, Select, Spacer } from "@chakra-ui/react";
+import { Flex, Heading, HStack, Spacer } from "@chakra-ui/react";
 import { Download, Plus } from "react-feather";
 import { toast } from "react-toastify";
 
 import Button from "../../../common/components/Button";
+import SearchBar from "../../../common/components/SearchBar";
 import SortFilter from "../../../common/components/SortFilter";
 import FormDialog from "../../../common/dialogs/FormDialog";
 import { useItemDeleteMutation } from "../../../common/hooks/mutations/items/useItemDeleteMutation";
@@ -67,18 +68,19 @@ const LoansTopContainer: FC = () => {
         <HStack gap="0.625rem">
           <SortFilter
             options={[
-              { label: "Newest", value: "NEWEST" },
-              { label: "Oldest", value: "OLDEST" },
+              { value: "asc", label: "Newest" },
+              { value: "desc", label: "Oldest" },
             ]}
-            sx={{ width: "max-content" }}
           />
-          <HStack gap="0">
-            <Select variant="filled">
-              <option>Item code</option>
-              <option>Lender</option>
-            </Select>
-            <Input placeholder="Search..." />
-          </HStack>
+          {/* TODO - fix searchbar param width for longer param labels */}
+          <SearchBar
+            options={[
+              { value: "itemCode", label: "Item code" },
+              { value: "borrower", label: "Borrower's name" },
+              { value: "lendingDate", label: "Lending date" },
+            ]}
+            handleSubmit={() => {}}
+          />
         </HStack>
         <Spacer />
         <HStack gap="0.625rem" align="flex-end" paddingLeft="0.625rem">
