@@ -17,7 +17,7 @@ const BreadCrumbHeader: FC = () => {
 
   const handleRedirectBack = () => {
     navigate({
-      to: allItemsRoute.path,
+      to: "/equipment-manager/management/items",
     });
   };
 
