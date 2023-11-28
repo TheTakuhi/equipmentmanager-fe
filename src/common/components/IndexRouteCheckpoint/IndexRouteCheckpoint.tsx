@@ -12,13 +12,13 @@ const IndexRouteCheckpoint: FC = () => {
     <>
       {roles?.includes(CustomRole.ADMIN) ? (
         <Navigate
-          to={`${import.meta.env.VITE_APP_PUBLIC_URL}/management/items/`}
+          to={`${import.meta.env.VITE_APP_PUBLIC_URL}/management/my-people/`}
           params={{}}
           search={{}}
         />
       ) : roles?.includes(CustomRole.MANAGER) ? (
         <Navigate
-          to={`${import.meta.env.VITE_APP_PUBLIC_URL}/management/items`}
+          to={`${import.meta.env.VITE_APP_PUBLIC_URL}/management/my-people`}
           params={{}}
           search={{}}
         />
