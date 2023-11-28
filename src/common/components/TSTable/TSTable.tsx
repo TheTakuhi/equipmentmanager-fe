@@ -41,6 +41,7 @@ interface TSTableProps {
   searchQuery?: TableSearchQuery;
   tableStateCallback: (info: TableStateProps) => void;
   tableHeight: string;
+  hidePagination?: true;
 }
 
 const TSTable: FC<TSTableProps> = ({
@@ -52,6 +53,7 @@ const TSTable: FC<TSTableProps> = ({
   searchQuery,
   tableStateCallback,
   tableHeight,
+  hidePagination,
 }) => {
   const { navbarState } = useNavbar();
   const navbar = navbarState ? 170 : 64;
@@ -103,7 +105,6 @@ const TSTable: FC<TSTableProps> = ({
     <Box
       sx={{
         overflowX: "hidden",
-        overflowY: "scroll",
         maxHeight: tableHeight,
       }}
     >
@@ -143,7 +144,7 @@ const TSTable: FC<TSTableProps> = ({
                                 gap: "0.5rem",
                                 cursor: "pointer",
                                 color: theme.palette.text.disabled,
-                                textTransform: "capitalize",
+                                textTransform: "none",
                               },
                               onClick: header.column.getToggleSortingHandler(),
                             }}
@@ -248,31 +249,35 @@ const TSTable: FC<TSTableProps> = ({
           </Tbody>
         </Table>
       </TableContainer>
-      <Grid
-        sx={{
-          "&:first-of-type": {
-            pl: "2rem !important",
-            pr: "1.5rem !important",
-          },
-          background: theme.palette.secondary.header,
-          borderBottom: `1px solid ${theme.palette.secondary.light}`,
-          borderTop: `1px solid ${theme.palette.secondary.light}`,
-          p: "0.875rem 0.75rem",
-          position: "sticky",
-          bottom: 0,
-          width: `calc(100vw - ${navbar}px - 17px)`,
-          transition: "all 0.75s",
-        }}
-      >
-        <TSPagination
-          theme={theme}
-          pageable={pageable}
-          setPaginationProps={setPaginationProps}
-          paginationProps={paginationProps}
-          paginationStateCallback={setPaginationProps}
-          isLoading={isLoading}
-        />
-      </Grid>
+      {hidePagination ? (
+        ""
+      ) : (
+        <Grid
+          sx={{
+            "&:first-of-type": {
+              pl: "2rem !important",
+              pr: "1.5rem !important",
+            },
+            background: theme.palette.secondary.header,
+            borderBottom: `1px solid ${theme.palette.secondary.light}`,
+            borderTop: `1px solid ${theme.palette.secondary.light}`,
+            p: "0.875rem 0.75rem",
+            position: "sticky",
+            bottom: 0,
+            width: `calc(100vw - ${navbar}px - 17px)`,
+            transition: "all 0.75s",
+          }}
+        >
+          <TSPagination
+            theme={theme}
+            pageable={pageable}
+            setPaginationProps={setPaginationProps}
+            paginationProps={paginationProps}
+            paginationStateCallback={setPaginationProps}
+            isLoading={isLoading}
+          />
+        </Grid>
+      )}
     </Box>
   );
 };

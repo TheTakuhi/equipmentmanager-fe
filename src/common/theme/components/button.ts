@@ -2,7 +2,11 @@ import { defineStyleConfig } from "@chakra-ui/react";
 
 export const ButtonStyle = defineStyleConfig({
   baseStyle: {
-    p: "0.55rem 1rem",
+    h: "auto",
+    height: "auto",
+    minH: "36px",
+    minHeight: "36px",
+
     borderRadius: "4px",
     svg: {
       width: "1.15em",
@@ -48,6 +52,7 @@ export const ButtonStyle = defineStyleConfig({
       _hover: { cursor: "default" },
       _active: { filter: "none" },
     }),
+
     pagination: ({ theme }) => ({
       p: "0.25rem 0.5rem",
       borderRadius: "4px",
@@ -62,6 +67,7 @@ export const ButtonStyle = defineStyleConfig({
         bg: theme.palette.secondary.light,
       },
     }),
+
     paginationControl: ({ theme }) => ({
       p: "0.25rem 0.25rem",
       borderRadius: "4px",
@@ -81,6 +87,7 @@ export const ButtonStyle = defineStyleConfig({
         bg: theme.palette.secondary.light,
       },
     }),
+
     paginationDisabled: ({ theme }) => ({
       p: "0.25rem 0.5rem",
       borderRadius: "4px",

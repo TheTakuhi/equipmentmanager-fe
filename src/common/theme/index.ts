@@ -8,8 +8,8 @@ import { Textarea } from "./components/textarea";
 import { palette } from "./palette";
 import { styles } from "./styles";
 import { BadgeStyle } from "../components/Badge/badge";
-import { ButtonStyle } from "../components/Button/button";
-import { MenuStyle } from "../components/Menu/menu";
+import { ButtonStyle } from "./components/button.ts";
+import { MenuStyle } from "./components/menu.ts";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",

@@ -5,7 +5,7 @@ import TSTable, {
 } from "../../../common/components/TSTable/TSTable";
 import { TableSearchQuery } from "../../../common/forms/useTableSearchForm/useTableSearchForm";
 import { useGetLoans } from "../../../common/hooks/queries/loans/useGetLoans";
-import { useLoansTableColumns } from "../../../common/hooks/utils/useLoansTableColumns";
+import { useLoansTableColumns } from "../../hooks/useLoansTableColumns";
 
 interface LoansTableContainerProps {
   searchQuery?: TableSearchQuery;

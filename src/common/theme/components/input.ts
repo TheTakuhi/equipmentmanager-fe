@@ -30,6 +30,23 @@ const baseStyle = helpers.definePartsStyle(({ theme }) => ({
   },
 }));
 
+const searchBar = helpers.definePartsStyle(() => ({
+  field: {
+    h: "auto",
+    height: "auto",
+    minH: "36px",
+    minHeight: "36px",
+
+    bg: "none",
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderLeft: "none",
+  },
+}));
+
 export const Input = helpers.defineMultiStyleConfig({
   baseStyle,
+  variants: {
+    searchBar,
+  },
 });

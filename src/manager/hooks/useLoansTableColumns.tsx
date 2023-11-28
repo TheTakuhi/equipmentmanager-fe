@@ -1,7 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 
-import LoanActionMenu from "../../../manager/components/LoanActionMenu";
-import { Loan } from "../../models/loan/Loan";
+import { Loan } from "../../common/models/loan/Loan";
+import LoanActionMenu from "../components/LoanActionMenu";
 
 export const useLoansTableColumns = () => {
   const columnHelper = createColumnHelper<Loan>();
