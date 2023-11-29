@@ -32,18 +32,11 @@ const LoanReturnDialog: FC<LoanReturnDialogProps> = ({ loan }) => {
   //     }
   //   );
 
-  const handleSubmit = () => {
-    // eslint-disable-next-line no-console
-    console.log(loan);
-  };
-
   return (
     <FormDialog
-      title="Return item"
+      title={`Return item ${loan.item.serialCode}`}
       close={close}
       // dialogForm={}
-      action={handleSubmit}
-      actionLabel="Return item"
     />
   );
 };

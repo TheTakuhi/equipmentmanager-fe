@@ -28,18 +28,11 @@ const LoanCreateDialog: FC = () => {
   //     }
   //   );
 
-  const handleSubmit = () => {
-    // eslint-disable-next-line no-console
-    console.log("create loan");
-  };
-
   return (
     <FormDialog
       title="Lend item"
       close={close}
-      // dialogForm={}
-      action={handleSubmit}
-      actionLabel="Lend item"
+      // dialogForm={<LoanForm handleSubmit={handleSubmit close={close}> />}
     />
   );
 };

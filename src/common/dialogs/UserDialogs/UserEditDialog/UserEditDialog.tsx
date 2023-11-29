@@ -32,18 +32,16 @@ const UserEditDialog: FC<UserEditDialogProps> = ({ user }) => {
   //     }
   //   );
 
-  const handleSubmit = () => {
-    // eslint-disable-next-line no-console
-    console.log(user);
-  };
-
   return (
     <FormDialog
-      title="Edit user"
+      title={`Edit user ${user.fullName}`}
       close={close}
-      // dialogForm={}
-      action={handleSubmit}
-      actionLabel="Edit"
+      // dialogForm={
+      // <UserForm handleSubmit={handleSubmit} close={close} isEdit
+      // defaultValues={{
+      // }}
+      // />
+      // }
     />
   );
 };

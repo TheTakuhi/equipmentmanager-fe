@@ -38,7 +38,8 @@ const UserDeleteDialog: FC<UserDeleteDialogProps> = ({ user }) => {
     <DiscardDialog
       title="Delete user"
       close={close}
-      description="Do you really want to erase this user? This action cannot be reversed"
+      description={`You’re about to delete ${user.fullName}. 
+      Are you sure you want to delete this user? This action cannot be reversed!`}
       discard={handleDelete}
     />
   );

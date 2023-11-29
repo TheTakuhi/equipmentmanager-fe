@@ -3,6 +3,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import UserActionMenu from "../../common/components/ActionMenu/UserActionMenu";
 import { User } from "../../common/models/user/User.ts";
 
+// TODO fix type of userRoles from string to enum with Row check? in all useColumns
 export const useUsersTableColumns = () => {
   const columnHelper = createColumnHelper<User>();
 
@@ -52,7 +53,7 @@ export const useUsersTableColumns = () => {
         return value1.localeCompare(value2, "cs");
       },
     }),
-    columnHelper.accessor((row) => row, {
+    columnHelper.display({
       id: "actions",
       header: "",
       cell: (info) => <UserActionMenu user={info.row.original} />,

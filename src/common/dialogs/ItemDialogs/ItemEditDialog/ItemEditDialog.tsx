@@ -1,7 +1,14 @@
 import { FC } from "react";
 
+import { toast } from "react-toastify";
+
+import { queryClient } from "../../../config/react-query/reactQuery";
+import ItemForm from "../../../forms/ItemForm";
+import { ItemFormSubmitHandler } from "../../../forms/ItemForm/ItemForm";
+import { useItemEditMutation } from "../../../hooks/mutations/items/useItemEditMutation";
 import { Item } from "../../../models/item/Item";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
+import { toastOptions } from "../../../utils/toastOptions";
 import FormDialog from "../../FormDialog";
 
 interface ItemEditDialogProps {
@@ -10,40 +17,44 @@ interface ItemEditDialogProps {
 
 const ItemEditDialog: FC<ItemEditDialogProps> = ({ item }) => {
   const { close } = useActionDialog();
+  const { mutate: mutateItemEdit } = useItemEditMutation(item.id, true);
 
-  // TODO implement after forms
-  // const { mutate: mutateItemEdit } = useItemEditMutation(item.id, true);
-
-  // const handleSubmit: ItemFormSubmitHandler = (values) =>
-  //   mutateItemEdit(
-  //     {
-  //       ...values,
-  //     },
-  //     {
-  //       onSuccess: () => {
-  //         toast.success("Item edited", toastOptions);
-  //         queryClient.invalidateQueries().then(close);
-  //       },
-  //       onError: (error) =>
-  //         toast.error(
-  //           error.response?.data.message ?? "An error has occurred",
-  //           toastOptions
-  //         ),
-  //     }
-  //   );
-
-  const handleSubmit = () => {
-    // eslint-disable-next-line no-console
-    console.log(item);
-  };
+  const handleSubmit: ItemFormSubmitHandler = (values) =>
+    mutateItemEdit(
+      {
+        ...values,
+      },
+      {
+        onSuccess: () => {
+          toast.success("Item edited", toastOptions);
+          queryClient.invalidateQueries().then(close);
+        },
+        onError: (error) =>
+          toast.error(
+            error.response?.data.message ?? "An error has occurred",
+            toastOptions,
+          ),
+      },
+    );
 
   return (
     <FormDialog
       title="Edit item"
       close={close}
-      // dialogForm={}
-      action={handleSubmit}
-      actionLabel="Edit"
+      dialogForm={
+        <ItemForm
+          handleSubmit={handleSubmit}
+          close={close}
+          isEdit
+          defaultValues={{
+            serialCode: item.serialCode,
+            type: item.type,
+            state: item.state,
+            qualityState: item.qualityState,
+            comment: item.comment,
+          }}
+        />
+      }
     />
   );
 };

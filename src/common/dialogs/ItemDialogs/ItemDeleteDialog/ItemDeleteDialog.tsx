@@ -36,9 +36,11 @@ const ItemDeleteDialog: FC<ItemDeleteDialogProps> = ({ item }) => {
 
   return (
     <DiscardDialog
-      title="Discard item"
+      title="Discard item?"
       close={close}
-      description="Do you really want to discard this item?"
+      description={`You’re about to discard ${item.serialCode}, ${item.type}. 
+      Are you sure you want to discard this item? Item is going to be labeled as discarded
+      and cannot be borrowed or edited and after 3 months get completely deleted!`}
       discard={handleDelete}
     />
   );

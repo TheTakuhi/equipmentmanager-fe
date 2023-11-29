@@ -23,18 +23,11 @@ const UserCreateDialog: FC = () => {
   //     },
   //   });
 
-  const handleSubmit = () => {
-    // eslint-disable-next-line no-console
-    console.log("User created");
-  };
-
   return (
     <FormDialog
       title="Create user"
       close={close}
-      // dialogForm={}
-      action={handleSubmit}
-      actionLabel="Create"
+      // dialogForm={<UserForm handleSubmit={handleAdd} close={close} />}
     />
   );
 };
