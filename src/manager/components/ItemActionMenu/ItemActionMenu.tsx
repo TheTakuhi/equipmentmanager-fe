@@ -48,7 +48,7 @@ const ItemActionMenu: FC<ItemActionMenuProps> = ({ item }) => {
         {
           label: "Lend item",
           icon: <ArrowUpRight />,
-          onClick: () => handleLendItemClick,
+          onClick: handleLendItemClick,
         },
         {
           label: "Edit",
@@ -58,7 +58,7 @@ const ItemActionMenu: FC<ItemActionMenuProps> = ({ item }) => {
         {
           label: "Discard",
           icon: <Trash />,
-          onClick: () => handleDeleteClick,
+          onClick: handleDeleteClick,
         },
       ]}
     />

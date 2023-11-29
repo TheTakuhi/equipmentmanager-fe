@@ -34,7 +34,7 @@ const getMockedDeleteItemResponse = (): Item => {
 
 export const postCreateItem = () => {
   return [
-    rest.post("*/items/:itemId", (_req, res, ctx) => {
+    rest.post("*/items", (_req, res, ctx) => {
       return res(
         ctx.delay(1000),
         ctx.status(200, "Mocked status - Item created"),
