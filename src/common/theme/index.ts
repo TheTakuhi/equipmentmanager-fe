@@ -10,6 +10,7 @@ import { styles } from "./styles";
 import { BadgeStyle } from "../components/Badge/badge";
 import { ButtonStyle } from "./components/button.ts";
 import { MenuStyle } from "./components/menu.ts";
+import { CheckboxStyle } from "./components/checkbox.ts";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
@@ -18,7 +19,6 @@ const config: ThemeConfig = {
 
 export const theme = extendTheme({
   config,
-
   ...styles,
   ...palette,
   borderRadius: {
@@ -33,5 +33,6 @@ export const theme = extendTheme({
     Select,
     Input,
     Textarea,
+    Checkbox: CheckboxStyle,
   },
 });
