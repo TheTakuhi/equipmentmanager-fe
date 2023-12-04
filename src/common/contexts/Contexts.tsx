@@ -35,8 +35,6 @@ function Contexts() {
     <KeycloakAuthProvider>
       <StrictMode>
         <QueryClientProvider client={queryClient}>
-          {/* TODO find out why ReactQueryDevTools makes queryClient undefined */}
-          {/* <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" /> */}
           <UserAuthProvider>
             <ActionDialogProvider>
               <NavbarProvider>

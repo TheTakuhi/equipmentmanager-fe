@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import { useGetCurrentUser } from "../../../hooks/queries/users/useGetCurrentUser";
-import { useKeycloakParsedToken } from "../../../security/hooks/queries/useKeycloakParsedToken";
 import Avatar from "../../Avatar";
 
 export interface CurrentUserAvatarProps {
@@ -9,13 +8,15 @@ export interface CurrentUserAvatarProps {
 }
 
 const CurrentUserAvatar: FC<CurrentUserAvatarProps> = ({ onClick }) => {
-  const { isLoading: isLoadingToken } = useKeycloakParsedToken();
   const { isLoading: isLoadingUser, data: currentUser } = useGetCurrentUser();
 
-  if (isLoadingToken || isLoadingUser || !currentUser)
+  if (isLoadingUser || !currentUser)
     return (
-      <Avatar userDetail={{ ...currentUser, photo: currentUser?.photo }} />
+      <Avatar userDetail={{ userRoles: "u", photo: currentUser?.photo }} />
     );
+
+  console.log(currentUser)
+
 
   return (
     <Avatar

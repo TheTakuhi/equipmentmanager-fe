@@ -2,14 +2,14 @@ import { FC } from "react";
 
 import { Box, Text, useTheme } from "@chakra-ui/react";
 
-import { useCurrentUserQuery } from "../../../security/hooks/queries/useCurrentUserQuery";
+import { useGetCurrentUser } from "../../../hooks/queries/users/useGetCurrentUser";
 
 export interface CurrentUserProps {
   open: boolean;
 }
 const CurrentUserName: FC<CurrentUserProps> = ({ open }) => {
   const theme = useTheme();
-  const { isError, data } = useCurrentUserQuery();
+  const { isError, data } = useGetCurrentUser();
   if (isError) console.error("current user name error");
 
   return (
