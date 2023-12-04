@@ -2,12 +2,14 @@ import { FC } from "react";
 
 import { Avatar as AvatarOrigin, Box } from "@chakra-ui/react";
 
+import { Role } from "../../security/model/Role";
 import RoleBadge from "../RoleBadge";
 
 export interface AvatarDataProps {
   firstName?: string | null;
   lastName?: string | null;
   photo?: string | null;
+  userRoles: Role[];
 }
 
 interface AvatarProps {
@@ -47,7 +49,7 @@ const Avatar: FC<AvatarProps> = ({ userDetail, onClick }) => {
         onClick={onClick || undefined}
       />
       <RoleBadge
-        label="manager"
+        label={userDetail ? userDetail.userRoles[0].toString() : "u"}
         sx={{ position: "absolute", top: "1.75rem", left: "1.75rem" }}
       />
     </Box>

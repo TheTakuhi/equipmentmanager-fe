@@ -30,13 +30,13 @@ export const handleLogoutAction = (navigate: any) => {
 const CurrentUserLogout: FC<CurrentUserProps> = ({ open }) => {
   const boxWidth = open ? "auto" : "2.75rem";
   const theme = useTheme();
+  const { keycloak } = useKeycloak();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     if (inMockedDevEnv()) {
       toast.success("Sign out", toastOptions);
     } else {
-      const navigate = useNavigate();
-      const { keycloak } = useKeycloak();
       handleLogoutAction(navigate);
       keycloak.logout().then(clearKeycloakCache);
     }

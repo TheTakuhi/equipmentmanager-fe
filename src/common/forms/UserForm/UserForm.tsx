@@ -9,7 +9,6 @@ import Button from "../../components/Button";
 import RHFInput from "../../components/Inputs/RHFInput";
 import RHFCheckboxGroup from "../../components/Inputs/RHFCheckboxGroup";
 
-
 import { CustomRole, DefaultRole } from "../../security/model/Role.ts";
 
 export type UserFormSubmitHandler = (values: UserFormValues) => void;
