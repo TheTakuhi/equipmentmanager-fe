@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { useGetCurrentUser } from "../../../hooks/queries/users/useGetCurrentUser";
 import Avatar from "../../Avatar";
+import { DefaultRole } from "../../../security/model/Role";
 
 export interface CurrentUserAvatarProps {
   onClick?: (() => void) | undefined;
@@ -12,10 +13,8 @@ const CurrentUserAvatar: FC<CurrentUserAvatarProps> = ({ onClick }) => {
 
   if (isLoadingUser || !currentUser)
     return (
-      <Avatar userDetail={{ userRoles: "u", photo: currentUser?.photo }} />
+      <Avatar userDetail={{ userRoles: [DefaultRole.GUEST], photo: currentUser?.photo }} />
     );
-
-  console.log(currentUser)
 
 
   return (

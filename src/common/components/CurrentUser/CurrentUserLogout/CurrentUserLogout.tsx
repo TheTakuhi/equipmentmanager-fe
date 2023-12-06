@@ -9,22 +9,40 @@ import { toast } from "react-toastify";
 import { clearKeycloakCache } from "../../../security/hooks/useMountKeycloak";
 import { inMockedDevEnv } from "../../../utils/environment";
 import { toastOptions } from "../../../utils/toastOptions";
+import { useKeycloakResourceAccess } from "../../../security/hooks/queries/useKeycloakResourceAccess.ts";
+import { Role } from "../../../security/model/Role.ts";
+import { KeycloakResourceAccess } from "keycloak-js";
 
 export interface CurrentUserProps {
   open: boolean;
 }
 
-export const handleLogoutAction = (navigate: any) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  navigate({
-    from: undefined,
-    hash: undefined,
-    params: undefined,
-    replace: false,
-    search: {},
-    state: undefined,
-    to: `${import.meta.env.VITE_APP_PUBLIC_URL}/items`,
-  });
+const handleLogoutAction = (navigate: any, roles: Role[] | (KeycloakResourceAccess & {[p: string]: {roles: Role[]} | undefined})) => {
+  const isGuest = roles && roles['equipment-manager-fe'] && roles['equipment-manager-fe'].roles.includes('GUEST');
+
+  {isGuest ? (
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    navigate({
+      from: undefined,
+      hash: undefined,
+      params: undefined,
+      replace: false,
+      search: {},
+      state: undefined,
+      to: `${import.meta.env.VITE_APP_PUBLIC_URL}/guest`,
+    })
+  ) : (
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    navigate({
+      from: undefined,
+      hash: undefined,
+      params: undefined,
+      replace: false,
+      search: {},
+      state: undefined,
+      to: `${import.meta.env.VITE_APP_PUBLIC_URL}/management/my-people/`,
+    })
+  )}
 };
 
 const CurrentUserLogout: FC<CurrentUserProps> = ({ open }) => {
@@ -32,12 +50,13 @@ const CurrentUserLogout: FC<CurrentUserProps> = ({ open }) => {
   const theme = useTheme();
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
+  const roles = useKeycloakResourceAccess();
 
   const handleLogout = () => {
     if (inMockedDevEnv()) {
       toast.success("Sign out", toastOptions);
     } else {
-      handleLogoutAction(navigate);
+      handleLogoutAction(navigate, roles);
       keycloak.logout().then(clearKeycloakCache);
     }
   };
