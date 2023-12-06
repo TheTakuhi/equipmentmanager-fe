@@ -4,6 +4,7 @@ import { Alert } from "@chakra-ui/react";
 
 import { useKeycloakResourceAccess } from "../../hooks/queries/useKeycloakResourceAccess";
 import { Role } from "../../model/Role";
+import { EnvVariableName, getEnvVariable } from "../../../config/env/getEnvVariable.ts";
 
 export interface RoleAccessPermissionProps {
   allowedRoles: Role[];
@@ -20,11 +21,16 @@ const RoleAccessPermission: FC<RoleAccessPermissionProps> = ({
   onlyVisibility,
   children,
 }) => {
-  const { data: roles } = useKeycloakResourceAccess();
-  const checkedRoles = roles?.length ? [...roles] : [];
+  const roles = useKeycloakResourceAccess();
 
-  if (checkedRoles.some((role) => allowedRoles.includes(role)))
-    return <>{children}</>;
+  const equipmentManagerRoles = roles?.[`${getEnvVariable(EnvVariableName.CLIENT_ID)}`]?.roles;
+
+  if (equipmentManagerRoles && equipmentManagerRoles.length > 0) {
+    const isAllowed = equipmentManagerRoles.some(role => allowedRoles.includes(role));
+    if (isAllowed) {
+      return <>{children}</>;
+    }
+  }
 
   if (onlyVisibility) return null;
 
