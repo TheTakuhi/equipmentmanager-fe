@@ -2,6 +2,8 @@ import { CustomRole, Role } from "../../../security/model/Role";
 
 export const useGetMockedKeycloakResourceAccess = (): Role[] => {
   return {
-    data: [CustomRole.ADMIN],
+    'equipment-manager-fe': {
+      roles: [CustomRole.ADMIN],
+    },
   };
 };

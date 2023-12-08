@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import { Box, Text, useTheme } from "@chakra-ui/react";
-import { useKeycloak } from "@react-keycloak/web";
 import { useNavigate } from "@tanstack/react-router";
 import { LogOut } from "react-feather";
 import { toast } from "react-toastify";
@@ -10,8 +9,9 @@ import { clearKeycloakCache } from "../../../security/hooks/useMountKeycloak";
 import { inMockedDevEnv } from "../../../utils/environment";
 import { toastOptions } from "../../../utils/toastOptions";
 import { useKeycloakResourceAccess } from "../../../security/hooks/queries/useKeycloakResourceAccess.ts";
-import { Role } from "../../../security/model/Role.ts";
+import { Role } from "../../../security/model/Role";
 import { KeycloakResourceAccess } from "keycloak-js";
+import keycloak from "../../../security/config/keycloak";
 
 export interface CurrentUserProps {
   open: boolean;
@@ -48,7 +48,6 @@ const handleLogoutAction = (navigate: any, roles: Role[] | (KeycloakResourceAcce
 const CurrentUserLogout: FC<CurrentUserProps> = ({ open }) => {
   const boxWidth = open ? "auto" : "2.75rem";
   const theme = useTheme();
-  const { keycloak } = useKeycloak();
   const navigate = useNavigate();
   const roles = useKeycloakResourceAccess();
 
