@@ -61,7 +61,7 @@ const RHFSelect = <T extends object>({
             {...field}
             {...rest}
             isDisabled={disabled}
-            value={required ? undefined : input}
+            value={input}
             // TODO fix ts-ignore
             // @ts-ignore
             onChange={(newValue: SingleValue<SelectOption>, _) =>

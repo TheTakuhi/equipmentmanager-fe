@@ -11,6 +11,9 @@ import { useItemQualityStates } from "../../hooks/queries/utility/useItemQuality
 import { useItemTypes } from "../../hooks/queries/utility/useItemTypes";
 import { ItemFormValues } from "../../models/item/ItemFormValues";
 import Button from "../../components/Button";
+import RHFAutocomplete from "../../components/Inputs/RHFAutocomplete";
+import { useGetUsers } from "../../hooks/queries/users/useGetUsers.ts";
+import { SelectOption } from "../../models/utils/SelectOption.ts";
 
 export type ItemFormSubmitHandler = (values: ItemFormValues) => void;
 
@@ -35,8 +38,21 @@ const ItemForm: FC<ItemFormProps> = ({
   const { itemQualityStates, isLoading: isLoadingQualityStates } =
     useItemQualityStates();
 
+  // TODO IMPLEMENT FOR BOTH MANAGER & ADMIN
+  const { data: ownerCandidates, isLoading: isLoadingOwnerCandidates } =
+    useGetUsers();
+
+  const ownerOptions: SelectOption[] = [];
+  if(ownerCandidates)
+    ownerCandidates.content.map((owner) =>
+      ownerOptions.push({
+        value: owner.id,
+        label: owner.fullName,
+      }),
+    );
+
   // TODO IMPLEMENT ITEM FORM SKELETON LOADING
-  if (isLoadingItemTypes || isLoadingQualityStates) return <Skeleton />;
+  if (isLoadingItemTypes || isLoadingQualityStates || isLoadingOwnerCandidates) return <Skeleton />;
 
   return (
     <FormProvider {...form}>
@@ -58,7 +74,7 @@ const ItemForm: FC<ItemFormProps> = ({
               isRequired
             />
           </SimpleGrid>
-          <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
+          <SimpleGrid columns={{ base: 2 }} sx={{ gap: "1rem" }}>
             <RHFSelect<typeof form>
               name="qualityState"
               formLabel="Quality state"
@@ -66,6 +82,15 @@ const ItemForm: FC<ItemFormProps> = ({
               disabled={disabled}
               isRequired
             />
+            <RHFAutocomplete<typeof form>
+              name="managerOwner"
+              formLabel="Item owner"
+              options={ownerOptions}
+              disabled={disabled}
+              isRequired
+            />
+          </SimpleGrid>
+          <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
             <RHFTextArea<typeof form>
               name="comment"
               formLabel="Comment"
