@@ -6,7 +6,6 @@ import { useKeycloakResourceAccess } from "../../security/hooks/queries/useKeycl
 
 const IndexRouteCheckpoint: FC = () => {
   const roles = useKeycloakResourceAccess();
-  console.log(roles);
   const isGuest = roles && roles['equipment-manager-fe'] && roles['equipment-manager-fe'].roles.includes('GUEST');
 
   return (
