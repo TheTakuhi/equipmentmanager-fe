@@ -20,6 +20,7 @@ import { getBeVersionMSW } from "./common/hooks/queries/utility/useGetBackendVer
 import { getMockedItemQualityStatesMSW } from "./common/hooks/queries/utility/useGetItemQualityStates.msw";
 import { getMockedItemStatesMSW } from "./common/hooks/queries/utility/useGetItemStates.msw";
 import { getMockedItemTypesMSW } from "./common/hooks/queries/utility/useGetItemTypes.msw";
+import { syncUserMSW } from "./common/hooks/mutations/users/useUsersSyncMutation.msw.ts";
 
 export const worker = setupWorker(
   ...getUsersMSW(),
@@ -27,6 +28,7 @@ export const worker = setupWorker(
   ...getItemsMSW(),
   ...getBeVersionMSW(),
   ...getCurrentUserMSW(),
+  ...syncUserMSW(),
   ...postUser(),
   ...postCreateItem(),
   ...postCreateLoan(),
