@@ -52,6 +52,7 @@ const ItemEditDialog: FC<ItemEditDialogProps> = ({ item }) => {
             state: item.state,
             qualityState: item.qualityState,
             comment: item.comment,
+            managerOwner: item.managerOwner.id,
           }}
         />
       }

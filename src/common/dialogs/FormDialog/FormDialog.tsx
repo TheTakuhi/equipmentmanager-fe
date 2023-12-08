@@ -23,7 +23,7 @@ const FormDialog: FC<FormDialogProps> = ({ title, dialogForm, close }) => {
   const theme = useTheme();
 
   return (
-    <Modal motionPreset="scale" isOpen onClose={close}>
+    <Modal motionPreset="scale" isOpen onClose={close} size="xl">
       <ModalOverlay sx={{ backdropFilter: "blur(4px)" }}>
         <ModalContent
           sx={{
