@@ -27,6 +27,9 @@ interface TSPaginationProps {
   theme: Record<string, any>;
 }
 
+// TODO - delete page sizes 1 and 5 after testing
+const pageSizes = [1, 5, 15, 30, 50];
+
 const TSPagination: FC<TSPaginationProps> = ({
   pageable,
   paginationStateCallback,
@@ -199,7 +202,7 @@ const TSPagination: FC<TSPaginationProps> = ({
             });
           }}
         >
-          {[15, 30, 50].map((pageSize) => (
+          {pageSizes.map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               {pageSize}
             </option>

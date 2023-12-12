@@ -1,14 +1,15 @@
 import { FC } from "react";
 
-import { User } from "../../../models/user/User";
-import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
-import FormDialog from "../../FormDialog";
-import { useUserEditMutation } from "../../../hooks/mutations/users/useUserEditMutation";
-import { toastOptions } from "../../../utils/toastOptions";
 import { toast } from "react-toastify";
+
 import { queryClient } from "../../../config/react-query/reactQuery";
 import UserForm from "../../../forms/UserForm";
-import { UserFormSubmitHandler } from "../../../forms/UserForm/UserForm.tsx";
+import { UserFormSubmitHandler } from "../../../forms/UserForm/UserForm";
+import { useUserEditMutation } from "../../../hooks/mutations/users/useUserEditMutation";
+import { User } from "../../../models/user/User";
+import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
+import { toastOptions } from "../../../utils/toastOptions";
+import FormDialog from "../../FormDialog";
 
 interface UserEditDialogProps {
   user: User;
@@ -16,7 +17,7 @@ interface UserEditDialogProps {
 
 const UserEditDialog: FC<UserEditDialogProps> = ({ user }) => {
   const { close } = useActionDialog();
-  const { mutate: mutateUserEdit } = useUserEditMutation(user.id, true);
+  const { mutate: mutateUserEdit } = useUserEditMutation(user.id);
 
   const handleSubmit: UserFormSubmitHandler = (values) =>
     mutateUserEdit(
@@ -45,6 +46,7 @@ const UserEditDialog: FC<UserEditDialogProps> = ({ user }) => {
           handleSubmit={handleSubmit}
           close={close}
           isEdit
+          disabled
           defaultValues={{
             login: user.login,
             email: user.email,

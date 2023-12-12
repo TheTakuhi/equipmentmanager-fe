@@ -1,5 +1,6 @@
 import { array, object, ObjectSchema, string } from "yup";
-import { UserFormValues } from "../../models/user/UserFormValues.ts";
+
+import { UserFormValues } from "../../models/user/UserFormValues";
 
 // TODO edit UserForm schema required-optional
 export const schema: ObjectSchema<UserFormValues> = object({

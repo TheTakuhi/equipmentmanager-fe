@@ -13,6 +13,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useNavigate } from "@tanstack/react-router";
 import { ColumnFilter, flexRender } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp } from "react-feather";
 
@@ -21,7 +22,6 @@ import TSPagination from "./Pagination";
 import { PaginationStateProps } from "./Pagination/TSPagination";
 import { tableHeadStyle, tableRowStyle, tableStyle } from "./tableStyles";
 import { useTanstackTable } from "./useTanstackTable";
-import { TableSearchQuery } from "../../forms/useTableSearchForm/useTableSearchForm";
 import { Pageable } from "../../models/utils/Pageable";
 import { useNavbar } from "../../providers/NavbarProvider/NavbarProvider";
 import { theme } from "../../theme";
@@ -33,25 +33,23 @@ export interface TableStateProps extends PaginationStateProps {
 }
 
 interface TSTableProps {
+  route: string;
   data: any[];
   columns: any[];
   isLoading: boolean;
   pageable?: Pageable<any>;
   filterData?: any;
-  searchQuery?: TableSearchQuery;
-  tableStateCallback: (info: TableStateProps) => void;
   tableHeight: string;
   hidePagination?: true;
 }
 
 const TSTable: FC<TSTableProps> = ({
+  route,
   data,
   columns,
   isLoading,
   pageable,
   filterData,
-  searchQuery,
-  tableStateCallback,
   tableHeight,
   hidePagination,
 }) => {
@@ -73,7 +71,7 @@ const TSTable: FC<TSTableProps> = ({
 
   useEffect(() => {
     setPaginationProps({ pageIndex: 0, pageSize: paginationProps.pageSize });
-  }, [columnFilters, searchQuery]);
+  }, [columnFilters]);
 
   useEffect(() => {
     if (
@@ -85,6 +83,7 @@ const TSTable: FC<TSTableProps> = ({
     }
   }, [data]);
 
+  const navigate = useNavigate({ from: route });
   // INFO sorting use effect + callback to get data into the endpoint
   useEffect(() => {
     const { sorting } = table.getState();
@@ -92,11 +91,13 @@ const TSTable: FC<TSTableProps> = ({
     const sortDirection =
       sorting.length !== 0 ? (sorting[0].desc ? "desc" : "asc") : "";
 
-    tableStateCallback({
-      ...paginationProps,
-      sort: sortName,
-      sortDirection,
-      columnFilters,
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        ...paginationProps,
+        sort: `${sortName},${sortDirection}`,
+        columnFilters,
+      }),
     });
   }, [paginationProps, table.getState().sorting, columnFilters]);
 
@@ -160,6 +161,7 @@ const TSTable: FC<TSTableProps> = ({
                           </div>
                           {header.column.getCanFilter() ? (
                             <TSFilter
+                              key={header.column.id}
                               column={header.column}
                               onChange={setColumnFilters}
                               data={filterData}

@@ -6,15 +6,15 @@ import {
   FormControl,
   FormLabel,
   Stack,
-  useTheme,
   Text,
+  useTheme,
 } from "@chakra-ui/react";
 import { Controller, useFormContext } from "react-hook-form";
 
 interface RHFCheckboxGroupProps {
   name: string;
   label: string;
-  options: unknown;
+  options: string[];
   required?: boolean;
 }
 
@@ -37,26 +37,22 @@ const RHFCheckboxGroup: FC<RHFCheckboxGroupProps> = ({
             <FormLabel
               id={`${name}-label`}
               sx={{
-              fontSize: theme.components.Text.sizes.body2.fontSize,
-              mb: "0.4rem",
+                fontSize: theme.components.Text.sizes.body2.fontSize,
+                mb: "0.4rem",
               }}
             >
               {label}
             </FormLabel>
 
-            <CheckboxGroup>
-              <Stack spacing={[1, 5]} direction={["column", "row"]} >
+            <CheckboxGroup defaultValue={field.value}>
+              <Stack spacing={[1, 5]} direction={["column", "row"]}>
                 {options.map((option) => (
                   <Checkbox
-                    checked={field.value.includes(option)}
                     key={option}
                     value={option}
                     onChange={() => {
                       if (field.value.includes(option)) {
-                        field.onChange(
-                          // @ts-ignore
-                          field.value.filter((v) => v !== option),
-                        );
+                        field.onChange(field.value.filter((v) => v !== option));
                       } else {
                         field.onChange([...field.value, option]);
                       }

@@ -1,48 +1,34 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 
-import TSTable, {
-  TableStateProps,
-} from "../../../../common/components/TSTable/TSTable";
-import { TableSearchQuery } from "../../../../common/forms/useTableSearchForm/useTableSearchForm";
+import { useSearch } from "@tanstack/react-router";
+
+import TSTable from "../../../../common/components/TSTable/TSTable";
 import { useGetUsers } from "../../../../common/hooks/queries/users/useGetUsers";
 import { useAllUserRoles } from "../../../../common/hooks/queries/utility/useAllUserRoles";
-import { useUsersTableColumns } from "../../../../manager/hooks/useUsersTableColumns.tsx";
+import { USERSRoute } from "../../../../common/routes/common/users/usersRoute";
+import { useUsersTableColumns } from "../../../../manager/hooks/useUsersTableColumns";
 
 interface UsersTableContainerProps {
-  searchQuery?: TableSearchQuery;
   tableHeight: string;
 }
 
-const UsersTableContainer: FC<UsersTableContainerProps> = ({
-  searchQuery,
-  tableHeight,
-}) => {
+const UsersTableContainer: FC<UsersTableContainerProps> = ({ tableHeight }) => {
   const columns = useUsersTableColumns();
 
-  const [tableStateProps, setTableStateProps] = useState<TableStateProps>({
-    pageIndex: 0,
-    pageSize: 15,
-    sort: "",
-    sortDirection: "",
-    columnFilters: [],
-  });
+  const search = useSearch({ from: `${USERSRoute.id}/` });
 
   const {
     data: usersData,
     isLoading: isLoadingUsers,
     refetch,
   } = useGetUsers({
-    [`${searchQuery?.param}`]: searchQuery?.value,
-    [`${
-      tableStateProps.columnFilters ? tableStateProps.columnFilters[0]?.id : ""
-    }`]: tableStateProps.columnFilters
-      ? tableStateProps.columnFilters[0]?.value
-      : "",
+    [`${search.searchBy}`]: search.value,
+    [`${search.columnFilters ? search.columnFilters[0]?.id : ""}`]:
+      search.columnFilters ? search.columnFilters[0]?.value : "",
     pageable: {
-      page: tableStateProps.pageIndex,
-      size: tableStateProps.pageSize,
-      sort: tableStateProps.sort,
-      [`${tableStateProps.sort}.dir`]: tableStateProps.sortDirection,
+      page: search.pageIndex,
+      size: search.pageSize,
+      sort: search.sort,
     },
   });
 
@@ -50,15 +36,15 @@ const UsersTableContainer: FC<UsersTableContainerProps> = ({
 
   useEffect(() => {
     refetch();
-  }, [searchQuery, tableStateProps]);
+  }, [search]);
 
   return (
     <TSTable
+      route={`${USERSRoute.id}/`}
       columns={columns}
       data={usersData?.content ?? []}
       isLoading={isLoadingUsers}
       pageable={usersData}
-      tableStateCallback={(info) => setTableStateProps(info)}
       filterData={userRoles}
       tableHeight={tableHeight}
     />

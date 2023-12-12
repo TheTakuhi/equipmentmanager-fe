@@ -5,9 +5,9 @@ import { getDeleteItem } from "./common/hooks/mutations/items/useItemDeleteMutat
 import { putEditItem } from "./common/hooks/mutations/items/useItemEditMutation.msw";
 import { postCreateLoan } from "./common/hooks/mutations/loans/useLoanCreateMutation.msw";
 import { putEditLoan } from "./common/hooks/mutations/loans/useLoanEditMutation.msw";
-import { postUser } from "./common/hooks/mutations/users/usePostUser.msw";
 import { getDeleteUser } from "./common/hooks/mutations/users/useUserDeleteMutatuon.msw";
 import { putEditUser } from "./common/hooks/mutations/users/useUserEditMutation.msw";
+import { syncUserMSW } from "./common/hooks/mutations/users/useUsersSyncMutation.msw";
 import { getItemById } from "./common/hooks/queries/items/useGetItemById.msw";
 import { getItemsMSW } from "./common/hooks/queries/items/useGetItems.msw";
 import { getLoanByItemId } from "./common/hooks/queries/loans/useGetLoanByItemId.msw";
@@ -20,7 +20,6 @@ import { getBeVersionMSW } from "./common/hooks/queries/utility/useGetBackendVer
 import { getMockedItemQualityStatesMSW } from "./common/hooks/queries/utility/useGetItemQualityStates.msw";
 import { getMockedItemStatesMSW } from "./common/hooks/queries/utility/useGetItemStates.msw";
 import { getMockedItemTypesMSW } from "./common/hooks/queries/utility/useGetItemTypes.msw";
-import { syncUserMSW } from "./common/hooks/mutations/users/useUsersSyncMutation.msw.ts";
 
 export const worker = setupWorker(
   ...getUsersMSW(),
@@ -29,7 +28,6 @@ export const worker = setupWorker(
   ...getBeVersionMSW(),
   ...getCurrentUserMSW(),
   ...syncUserMSW(),
-  ...postUser(),
   ...postCreateItem(),
   ...postCreateLoan(),
   ...putEditUser(),
