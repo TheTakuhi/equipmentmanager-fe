@@ -20,23 +20,32 @@ import { getBeVersionMSW } from "./common/hooks/queries/utility/useGetBackendVer
 import { getMockedItemQualityStatesMSW } from "./common/hooks/queries/utility/useGetItemQualityStates.msw";
 import { getMockedItemStatesMSW } from "./common/hooks/queries/utility/useGetItemStates.msw";
 import { getMockedItemTypesMSW } from "./common/hooks/queries/utility/useGetItemTypes.msw";
-import { syncUserMSW } from "./common/hooks/mutations/users/useUsersSyncMutation.msw.ts";
+import { syncUserMSW } from "./common/hooks/mutations/users/useUsersSyncMutation.msw";
+import { postCreateTeam } from "./common/hooks/mutations/teams/useTeamCreateMutation.msw";
+import { putEditTeam } from "./common/hooks/mutations/teams/useTeamEditMutation.msw";
+import { getTeamsMSW } from "./common/hooks/queries/teams/useGetTeams.msw";
+import { getTeamById } from "./common/hooks/queries/teams/useGetTeamById.msw";
+import { getDeleteTeam } from "./common/hooks/mutations/teams/useTeamDeleteMutation.msw";
 
 export const worker = setupWorker(
   ...getUsersMSW(),
   ...getLoansMSW(),
   ...getItemsMSW(),
+  ...getTeamsMSW(),
   ...getBeVersionMSW(),
   ...getCurrentUserMSW(),
   ...syncUserMSW(),
   ...postUser(),
   ...postCreateItem(),
   ...postCreateLoan(),
+  ...postCreateTeam(),
   ...putEditUser(),
   ...putEditLoan(),
   ...putEditItem(),
+  ...putEditTeam(),
   ...getDeleteItem(),
   ...getDeleteUser(),
+  ...getDeleteTeam(),
   ...getMockedAllUserRolesMSW(),
   ...getMockedItemTypesMSW(),
   ...getMockedItemStatesMSW(),
@@ -44,4 +53,5 @@ export const worker = setupWorker(
   ...getUserById(),
   ...getItemById(),
   ...getLoanByItemId(),
+  ...getTeamById(),
 );

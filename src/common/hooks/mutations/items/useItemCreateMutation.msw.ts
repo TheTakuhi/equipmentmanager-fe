@@ -6,7 +6,7 @@ import { ItemType } from "../../../models/item/ItemType";
 import { QualityState } from "../../../models/item/QualityState";
 import { CustomRole } from "../../../security/model/Role";
 
-const getMockedDeleteItemResponse = (): Item => {
+const getMockedCreateItemResponse = (): Item => {
   return {
     id: "123",
     serialCode: "123",
@@ -38,7 +38,7 @@ export const postCreateItem = () => {
       return res(
         ctx.delay(1000),
         ctx.status(200, "Mocked status - Item created"),
-        ctx.json(getMockedDeleteItemResponse()),
+        ctx.json(getMockedCreateItemResponse()),
       );
     }),
   ];
