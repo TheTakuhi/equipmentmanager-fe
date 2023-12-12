@@ -11,8 +11,8 @@ import { Column, ColumnFilter } from "@tanstack/react-table";
 import { Filter } from "react-feather";
 
 interface FilterItem {
-  key: string | number;
-  value: string;
+  value: string | number;
+  label: string;
 }
 
 interface FilterProps {
@@ -58,14 +58,14 @@ const TSFilter: FC<FilterProps> = ({ column, onChange, data }) => {
         {data
           ? data.map((item) => (
               <MenuItem
-                key={item.key}
+                key={item.value}
                 value={selectedValue} // TODO
                 onClick={(event) =>
-                  handleMenuItemClick(event, item.key.toString())
+                  handleMenuItemClick(event, item.value.toString())
                 }
                 sx={{ textTransform: "capitalize" }}
               >
-                {item.value}
+                {item.label}
               </MenuItem>
             ))
           : ""}

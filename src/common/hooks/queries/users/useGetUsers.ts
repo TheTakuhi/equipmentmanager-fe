@@ -15,7 +15,7 @@ const rootKey = "users";
 type UseGetUsersQueryOptions = UseQueryOptions<Pageable<User>, Error>;
 
 type UseGetUsersQueryParams = {
-  userRoles?: Role;
+  userRoles?: Role[];
   login?: string;
   fullName?: string;
   includeRemoved?: boolean;

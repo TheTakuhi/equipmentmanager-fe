@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { Box, Input, useTheme } from "@chakra-ui/react";
 import { Select, SingleValue } from "chakra-react-select";
@@ -20,13 +20,29 @@ interface SearchBarProps {
 
 const SearchBar: FC<SearchBarProps> = ({ options, handleSubmit }) => {
   const theme = useTheme();
-  const form = useTableSearchForm({
-    defaultValues: { param: options[0].value, value: "" },
-  });
 
   const [input, setInput] = useState<SingleValue<SelectOption>>(options[0]);
-  const handleInputChange = (newValue: SingleValue<SelectOption>) =>
+
+  const [searchQuery, setSearchQuery] = useState<TableSearchQuery>({
+    param: options[0].value,
+    value: "",
+  });
+
+  const form = useTableSearchForm({
+    defaultValues: { param: searchQuery.param, value: searchQuery.value },
+  });
+
+  const handleInputChange = (newValue: SingleValue<SelectOption>) => {
     setInput(newValue);
+    setSearchQuery({
+      param: newValue ? newValue.value : searchQuery.param,
+      value: searchQuery.value,
+    });
+  };
+
+  useEffect(() => {
+    form.reset({ param: searchQuery.param, value: searchQuery.value });
+  }, [searchQuery]);
 
   return (
     <FormProvider {...form}>
@@ -49,6 +65,7 @@ const SearchBar: FC<SearchBarProps> = ({ options, handleSubmit }) => {
             }}
           />
           <Select
+            name="searchBy"
             options={options}
             value={input}
             onChange={(newValue: SingleValue<SelectOption>, _) =>
@@ -101,8 +118,15 @@ const SearchBar: FC<SearchBarProps> = ({ options, handleSubmit }) => {
             }}
           />
         </Box>
-
-        <Input variant="searchBar" placeholder="Search..." />
+        <Input
+          name="searchValue"
+          variant="searchBar"
+          placeholder="Search..."
+          onChange={(e) =>
+            setSearchQuery({ param: searchQuery.param, value: e.target.value })
+          }
+        />
+        <input type="submit" hidden />
       </form>
     </FormProvider>
   );
