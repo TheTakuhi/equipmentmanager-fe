@@ -2,21 +2,20 @@ import { FC } from "react";
 
 import { Box, Heading, SkeletonText, useTheme } from "@chakra-ui/react";
 import { useNavigate, useParams } from "@tanstack/react-router";
+import { usersRoute } from "../../../../common/routes/common/users/usersRoute";
+import { useGetUserById } from "../../../../common/hooks/queries/users/useGetUserById";
 
-import { useGetItemById } from "../../../common/hooks/queries/items/useGetItemById";
-import { itemsRoute } from "../../../common/routes/common/items/itemsRoute";
-
-const BreadCrumbHeader: FC = () => {
+const UserBreadCrumbHeader: FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const itemIdParam = useParams({ from: itemsRoute }).itemId;
+  const userIdParam = useParams({ from: usersRoute }).userId;
 
-  const { data: item, isLoading } = useGetItemById(itemIdParam);
+  const { data: user, isLoading } = useGetUserById(userIdParam);
 
   const handleRedirectBack = () => {
     navigate({
-      to: "/equipment-manager/management/items",
+      to: "/equipment-manager/management/users",
     });
   };
 
@@ -52,7 +51,7 @@ const BreadCrumbHeader: FC = () => {
         }}
         onClick={handleRedirectBack}
       >
-        Items &nbsp;&gt;&nbsp;
+        Users &nbsp;&gt;&nbsp;
       </Heading>
       <Heading
         size="h1"
@@ -60,10 +59,10 @@ const BreadCrumbHeader: FC = () => {
           color: theme.palette.text.primary,
         }}
       >
-        {item?.serialCode}, {item?.type}
+        {user?.fullName}
       </Heading>
     </Box>
   );
 };
 
-export default BreadCrumbHeader;
+export default UserBreadCrumbHeader;

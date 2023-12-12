@@ -15,6 +15,10 @@ export interface AvatarDataProps {
 interface AvatarProps {
   userDetail?: AvatarDataProps;
   onClick?: () => void;
+  avatarWidth?: string;
+  avatarHeight?: string;
+  badgeTop?: string;
+  badgeLeft?: string;
 }
 
 const getFullName = ({
@@ -25,7 +29,7 @@ const getFullName = ({
   lastName?: string | null;
 }): string => `${lastName} ${firstName}`;
 
-const Avatar: FC<AvatarProps> = ({ userDetail, onClick }) => {
+const Avatar: FC<AvatarProps> = ({ userDetail, onClick, avatarWidth, avatarHeight, badgeTop, badgeLeft }) => {
   if (!userDetail) return <AvatarOrigin />;
 
   return (
@@ -35,8 +39,8 @@ const Avatar: FC<AvatarProps> = ({ userDetail, onClick }) => {
           cursor: "pointer",
           backgroundColor: "#b06d5f",
           color: (t) => t.palette.text.primary,
-          width: "2.5rem",
-          height: "2.5rem",
+          width: avatarWidth ? avatarWidth : "2.5rem",
+          height: avatarHeight ? avatarHeight : "2.5rem",
           position: "relative",
           border: (t) => `1px solid ${t.palette.secondary.light}`,
         }}
@@ -50,7 +54,11 @@ const Avatar: FC<AvatarProps> = ({ userDetail, onClick }) => {
       />
       <RoleBadge
         label={userDetail ? userDetail.userRoles[0].toString() : "u"}
-        sx={{ position: "absolute", top: "1.75rem", left: "1.75rem" }}
+        sx={{
+          position: "absolute",
+          top: badgeTop ? badgeTop : "1.75rem",
+          left: badgeLeft ? badgeLeft : "1.75rem"
+        }}
       />
     </Box>
   );

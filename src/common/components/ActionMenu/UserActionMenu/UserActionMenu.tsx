@@ -8,6 +8,7 @@ import UserEditDialog from "../../../dialogs/UserDialogs/UserEditDialog";
 import { User } from "../../../models/user/User";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
 import Menu from "../../Menu";
+import { useNavigate } from "@tanstack/react-router";
 
 interface UserProps {
   user: User;
@@ -15,11 +16,13 @@ interface UserProps {
 
 const UserActionMenu: FC<UserProps> = ({ user }) => {
   const { show } = useActionDialog();
+  const navigate = useNavigate();
 
-  // TODO implement user detail redirect
   const handleDetailClick = () => {
-    // eslint-disable-next-line no-console
-    console.log("NAVIGATE TO USER DETAIL PAGE");
+    navigate({
+      params: { userId: user.id },
+      to: "/equipment-manager/management/users/$userId",
+    });
   };
 
   const handleLendItemClick = () => {

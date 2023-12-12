@@ -1,13 +1,12 @@
 import { Route } from "@tanstack/react-router";
 
-import ItemDetailPage from "../../../../../manager/pages/ItemDetailPage";
 import { myPeopleRoute } from "../myPeopleRoute";
+import UserDetailPage from "../../../../../admin/pages/UserDetailPage";
 
-// TODO CHANGE TO USERDETAILPAGE
 export const peopleRoute = new Route({
   getParentRoute: () => myPeopleRoute,
   path: "$userId",
-  component: () => <ItemDetailPage />,
+  component: () => <UserDetailPage />,
 });
 
 export const MyPeopleRoute = peopleRoute;

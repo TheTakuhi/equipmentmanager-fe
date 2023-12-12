@@ -1,12 +1,16 @@
-import { Grid, Stack, StackItem } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+import UserBreadCrumbHeader from "../../containers/user/UserBreadCrumbHeader";
+import UserDetailsContainer from "../../containers/user/UserDetailsContainer";
+import UserDetailTable from "../../components/UserDetailTable";
 
 const UserDetailPage = () => {
+  const tableHeight = `calc(100vh - 364px)`;
   return (
-    <Grid>
-      <Stack>
-        <StackItem>User detail page</StackItem>
-      </Stack>
-    </Grid>
+    <Box>
+      <UserBreadCrumbHeader />
+      <UserDetailsContainer />
+      <UserDetailTable tableHeight={tableHeight} />
+    </Box>
   );
 };
 

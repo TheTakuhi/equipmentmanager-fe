@@ -47,21 +47,6 @@ const ItemDetailHeader: FC = () => {
   //       );
   //     },
   //   });
-  const handleEdit = () => {
-    mutateDeleteItem(undefined, {
-      onSuccess: () => {
-        toast.success("Item edited", toastOptions);
-        close();
-      },
-      onError: (error) => {
-        toast.error(
-          error.response?.data.message ?? "An error has occurred",
-          toastOptions,
-        );
-        close();
-      },
-    });
-  };
 
   const discardDialogOpen = () => {
     show(
@@ -79,8 +64,6 @@ const ItemDetailHeader: FC = () => {
       <FormDialog
         title="Edit item"
         close={close}
-        actionLabel="Confirm"
-        action={handleEdit}
       />,
     );
   };

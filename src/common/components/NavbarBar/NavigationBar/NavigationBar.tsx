@@ -6,15 +6,17 @@ import packageInfo from "../../../../../package.json";
 import { secLinks } from "../../../config/links/securedLinks";
 import { useGetBackendVersion } from "../../../hooks/queries/utility/useGetBackendVersion";
 import { useNavbar } from "../../../providers/NavbarProvider/NavbarProvider";
-import CurrentUserAvatar from "../../CurrentUser/CurrentUserAvatar";
+import UserAvatar from "../../CurrentUser/UserAvatar";
 import CurrentUserLogout from "../../CurrentUser/CurrentUserLogout";
 import CurrentUserName from "../../CurrentUser/CurrentUserUsername";
 import HelpDialogIconButton from "../HelpDialogIconButton";
 import NavbarIconButton from "../NavbarIconButton";
+import { useGetCurrentUser } from "../../../hooks/queries/users/useGetCurrentUser";
 
 const NavigationBar: FC = () => {
   const theme = useTheme();
   const sidebar = useRef<HTMLDivElement | null>(null);
+  const { isLoading: isLoadingUser, data: currentUser } = useGetCurrentUser();
   const { navbarState, setNavbarState } = useNavbar();
   const { data: backendVersion, isLoading } = useGetBackendVersion();
 
@@ -69,7 +71,7 @@ const NavigationBar: FC = () => {
               })
             }
           >
-            <CurrentUserAvatar />
+            <UserAvatar isLoadingUser={isLoadingUser} currentUser={currentUser} />
             <CurrentUserName open={navbarState} />
           </Box>
           <Stack

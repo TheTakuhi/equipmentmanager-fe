@@ -18,7 +18,7 @@ export const getUserQueryKey: GetUserQueryKeyHandler = (userId) => {
   return getQueryKeys([userId], rootKey);
 };
 
-export const useGetUser = (
+export const useGetUserById = (
   userId: string,
   options?: UseGetUserQueryOptions,
 ) => {

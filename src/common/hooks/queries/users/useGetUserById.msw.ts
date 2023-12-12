@@ -7,8 +7,6 @@ const getMockedUsers = (): User[] => {
   return [
     {
       id: "123",
-      personalNumber: "123",
-      ldapId: "123",
       login: "getbyid",
       email: "user@by.id",
       firstName: "first",

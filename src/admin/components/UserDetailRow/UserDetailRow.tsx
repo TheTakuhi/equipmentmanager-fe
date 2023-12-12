@@ -2,20 +2,19 @@ import { FC, ReactNode } from "react";
 
 import { Box, Text, useTheme } from "@chakra-ui/react";
 
-interface ItemDetailRowProps {
+interface UserDetailRowProps {
   label: string;
   text?: string;
   pill?: ReactNode;
 }
 
-const ItemDetailRow: FC<ItemDetailRowProps> = ({ label, text, pill }) => {
+const UserDetailRow: FC<UserDetailRowProps> = ({ label, text, pill }) => {
   const theme = useTheme();
   return (
     <Box
       sx={{
         display: "flex",
-        flexDirection: "inline-flex",
-        justifyContent: "space-between",
+        flexDirection: "column",
         alignItems: "center",
         width: "auto",
       }}
@@ -24,19 +23,19 @@ const ItemDetailRow: FC<ItemDetailRowProps> = ({ label, text, pill }) => {
         sx={{
           color: theme.palette.text.disabled,
           fontSize: theme.components.Text.sizes.body2.fontSize,
-          width: "50%",
+          width: "100%",
         }}
       >
         {label}
       </Text>
       {text === undefined ? (
-        <Box sx={{ width: "50%" }}>{pill}</Box>
+        <Box sx={{ width: "100%" }}>{pill}</Box>
       ) : (
         <Text
           sx={{
             color: theme.palette.text.primary,
             fontSize: theme.components.Text.sizes.body1.fontSize,
-            width: "50%",
+            width: "100%",
           }}
         >
           {text}
@@ -46,4 +45,4 @@ const ItemDetailRow: FC<ItemDetailRowProps> = ({ label, text, pill }) => {
   );
 };
 
-export default ItemDetailRow;
+export default UserDetailRow;
