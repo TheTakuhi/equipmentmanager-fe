@@ -1,24 +1,27 @@
 import { FC } from "react";
-import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
+
+import { CircularProgress, useTheme } from "@chakra-ui/react";
 import { toast } from "react-toastify";
+
+import { useUsersSyncMutation } from "../../../hooks/mutations/users/useUsersSyncMutation";
+import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
 import { toastOptions } from "../../../utils/toastOptions";
 import SyncDialog from "../../SyncDialog";
-import { useUsersSyncMutation } from "../../../hooks/mutations/users/useUsersSyncMutation.ts";
-import { CircularProgress, useTheme } from "@chakra-ui/react";
 
 const UsersSyncDialog: FC = () => {
   const { close } = useActionDialog();
   const theme = useTheme();
 
-  const { mutate: mutateSyncUsers, isPending: pending } = useUsersSyncMutation();
+  const { mutate: mutateSyncUsers, isPending: pending } =
+    useUsersSyncMutation();
 
   const handleSync = () => {
-    mutateSyncUsers(undefined,{
+    mutateSyncUsers(undefined, {
       onSuccess: () => {
         toast.success("Users sync success", toastOptions);
         close();
       },
-      onError: (error) => {
+      onError: (error: any) => {
         toast.error(
           error.response?.data.message ?? "An error has occurred",
           toastOptions,
@@ -27,24 +30,24 @@ const UsersSyncDialog: FC = () => {
     });
   };
 
-  if(pending)
+  if (pending)
     return (
-    <SyncDialog
-      title="Sync in progress..."
-      close={close}
-      description={
-        <CircularProgress
-          isIndeterminate
-          color={theme.palette.primary.main}
-          sx={{
-            pl: "45%",
-          }}
-        />
-      }
-      discard={handleSync}
-      pending
-    />
-  );
+      <SyncDialog
+        title="Sync in progress..."
+        close={close}
+        description={
+          <CircularProgress
+            isIndeterminate
+            color={theme.palette.primary.main}
+            sx={{
+              pl: "45%",
+            }}
+          />
+        }
+        discard={handleSync}
+        pending
+      />
+    );
 
   return (
     <SyncDialog

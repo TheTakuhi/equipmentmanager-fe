@@ -4,16 +4,16 @@ import { Box, SimpleGrid, Skeleton } from "@chakra-ui/react";
 import { FormProvider } from "react-hook-form";
 
 import { useItemForm } from "./hooks/useItemForm/useItemForm";
+import Button from "../../components/Button";
+import RHFAutocomplete from "../../components/Inputs/RHFAutocomplete";
 import RHFInput from "../../components/Inputs/RHFInput";
 import RHFSelect from "../../components/Inputs/RHFSelect";
 import RHFTextArea from "../../components/Inputs/RHFTextArea";
+import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
 import { useItemQualityStates } from "../../hooks/queries/utility/useItemQualityStates";
 import { useItemTypes } from "../../hooks/queries/utility/useItemTypes";
 import { ItemFormValues } from "../../models/item/ItemFormValues";
-import Button from "../../components/Button";
-import RHFAutocomplete from "../../components/Inputs/RHFAutocomplete";
-import { useGetUsers } from "../../hooks/queries/users/useGetUsers.ts";
-import { SelectOption } from "../../models/utils/SelectOption.ts";
+import { SelectOption } from "../../models/utils/SelectOption";
 
 export type ItemFormSubmitHandler = (values: ItemFormValues) => void;
 
@@ -43,7 +43,7 @@ const ItemForm: FC<ItemFormProps> = ({
     useGetUsers();
 
   const ownerOptions: SelectOption[] = [];
-  if(ownerCandidates)
+  if (ownerCandidates)
     ownerCandidates.content.map((owner) =>
       ownerOptions.push({
         value: owner.id,
@@ -52,46 +52,47 @@ const ItemForm: FC<ItemFormProps> = ({
     );
 
   // TODO IMPLEMENT ITEM FORM SKELETON LOADING
-  if (isLoadingItemTypes || isLoadingQualityStates || isLoadingOwnerCandidates) return <Skeleton />;
+  if (isLoadingItemTypes || isLoadingQualityStates || isLoadingOwnerCandidates)
+    return <Skeleton />;
 
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <SimpleGrid sx={{ gap: "1rem" }}>
           <SimpleGrid columns={{ base: 2 }} sx={{ gap: "1rem" }}>
-            <RHFInput<typeof form>
+            <RHFInput<ItemFormValues>
               name="serialCode"
               formLabel="Serial number"
               type="text"
               disabled={disabled}
-              isRequired
+              required
             />
-            <RHFSelect<typeof form>
+            <RHFSelect<ItemFormValues>
               name="type"
               formLabel="Type"
               options={itemTypes}
               disabled={disabled}
-              isRequired
+              required
             />
           </SimpleGrid>
           <SimpleGrid columns={{ base: 2 }} sx={{ gap: "1rem" }}>
-            <RHFSelect<typeof form>
+            <RHFSelect<ItemFormValues>
               name="qualityState"
               formLabel="Quality state"
               options={itemQualityStates}
               disabled={disabled}
-              isRequired
+              required
             />
-            <RHFAutocomplete<typeof form>
+            <RHFAutocomplete<ItemFormValues>
               name="managerOwner"
               formLabel="Item owner"
               options={ownerOptions}
               disabled={disabled}
-              isRequired
+              required
             />
           </SimpleGrid>
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
-            <RHFTextArea<typeof form>
+            <RHFTextArea<ItemFormValues>
               name="comment"
               formLabel="Comment"
               disabled={disabled}

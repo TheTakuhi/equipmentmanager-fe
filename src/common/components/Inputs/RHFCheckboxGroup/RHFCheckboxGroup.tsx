@@ -1,5 +1,3 @@
-import { FC } from "react";
-
 import {
   Checkbox,
   CheckboxGroup,
@@ -9,21 +7,22 @@ import {
   Text,
   useTheme,
 } from "@chakra-ui/react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Props } from "chakra-react-select";
+import { Controller, FieldPath, useFormContext } from "react-hook-form";
 
-interface RHFCheckboxGroupProps {
-  name: string;
+type RHFCheckboxGroupProps<T extends object> = Props & {
+  name: FieldPath<T>;
   label: string;
   options: string[];
   required?: boolean;
-}
+};
 
-const RHFCheckboxGroup: FC<RHFCheckboxGroupProps> = ({
+const RHFCheckboxGroup = <T extends object>({
   name,
   label,
   options,
   required,
-}) => {
+}: RHFCheckboxGroupProps<T>) => {
   const { control } = useFormContext();
   const theme = useTheme();
 
@@ -33,7 +32,7 @@ const RHFCheckboxGroup: FC<RHFCheckboxGroupProps> = ({
       name={name}
       render={({ field }) => {
         return (
-          <FormControl required={required} sx={{ width: "100%" }}>
+          <FormControl isRequired={required} sx={{ width: "100%" }}>
             <FormLabel
               id={`${name}-label`}
               sx={{
@@ -44,17 +43,23 @@ const RHFCheckboxGroup: FC<RHFCheckboxGroupProps> = ({
               {label}
             </FormLabel>
 
-            <CheckboxGroup defaultValue={field.value}>
+            <CheckboxGroup defaultValue={field.value || []}>
               <Stack spacing={[1, 5]} direction={["column", "row"]}>
-                {options.map((option) => (
+                {options.map((option: string) => (
                   <Checkbox
                     key={option}
                     value={option}
                     onChange={() => {
-                      if (field.value.includes(option)) {
-                        field.onChange(field.value.filter((v) => v !== option));
+                      const selectedValues = field.value || [""];
+                      if (
+                        Array.isArray(selectedValues) &&
+                        selectedValues.includes(option)
+                      ) {
+                        field.onChange(
+                          selectedValues.filter((v: string) => v !== option),
+                        );
                       } else {
-                        field.onChange([...field.value, option]);
+                        field.onChange([...selectedValues, option]);
                       }
                     }}
                   >

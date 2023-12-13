@@ -34,12 +34,7 @@ const ItemDetailTable: FC<ItemDetailTableProps> = ({ tableHeight }) => {
   // };
 
   const lendItemDialogOpen = () => {
-    show(
-      <FormDialog
-        title="Lend item"
-        close={close}
-      />,
-    );
+    show(<FormDialog title="Lend item" close={close} />);
   };
   return (
     <>

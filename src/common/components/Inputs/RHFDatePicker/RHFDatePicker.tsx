@@ -1,11 +1,6 @@
 import { useState } from "react";
 
-import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  useTheme,
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, useTheme } from "@chakra-ui/react";
 import { DatepickerConfigs, SingleDatepicker } from "chakra-dayzed-datepicker";
 import { Props } from "chakra-react-select";
 import { Controller, FieldPath, useFormContext } from "react-hook-form";
@@ -15,14 +10,14 @@ import { propsConfigs } from "./propsConfigs";
 type RHFDatePickerProps<T extends object> = Props & {
   formLabel: string;
   disabled?: boolean;
-  isRequired?: boolean;
+  required?: boolean;
   name: FieldPath<T>;
 };
 
 const RHFDatePicker = <T extends object>({
   formLabel,
   disabled,
-  isRequired,
+  required,
   name,
   ...rest
 }: RHFDatePickerProps<T>) => {
@@ -39,9 +34,9 @@ const RHFDatePicker = <T extends object>({
     <Controller
       control={control}
       name={name}
-      render={({ field, fieldState: { error } }) => (
+      render={({ field }) => (
         <FormControl
-          isRequired={isRequired}
+          isRequired={required}
           isInvalid={isError}
           sx={{ display: "flex", flexDirection: "column" }}
         >
@@ -67,18 +62,6 @@ const RHFDatePicker = <T extends object>({
             }}
             propsConfigs={propsConfigs}
           />
-          {!isError || !isRequired ? (
-            ""
-          ) : (
-            <FormErrorMessage
-              sx={{
-                fontSize: theme.components.Text.sizes.body3.fontSize,
-                mt: "0.2rem",
-              }}
-            >
-              {formLabel} is required. {error?.message as string}
-            </FormErrorMessage>
-          )}
         </FormControl>
       )}
     />

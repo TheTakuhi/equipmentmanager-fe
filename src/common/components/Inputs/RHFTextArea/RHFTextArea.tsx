@@ -16,7 +16,6 @@ const RHFTextArea = <T extends object>({
   formLabel,
   disabled,
   name,
-  ...rest
 }: RHFTextAreaProps<T>) => {
   const theme = useTheme();
   const { control } = useFormContext();
@@ -38,7 +37,6 @@ const RHFTextArea = <T extends object>({
             </FormLabel>
             <Textarea
               {...field}
-              {...rest}
               variant={variant}
               placeholder={placeholder}
               disabled={disabled}

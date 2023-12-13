@@ -8,21 +8,19 @@ type RHFInputProps<T extends object> = Props & {
   type?: string;
   placeholder?: string;
   formLabel: string;
-  isRequired?: boolean;
+  required?: boolean;
   disabled?: boolean;
   name: FieldPath<T>;
 };
 
-// TODO IMPLEMENT WARNING IF EMPTY IF MANDATORY
 const RHFInput = <T extends object>({
   variant,
   type,
   placeholder,
   formLabel,
-  isRequired,
+  required,
   disabled,
   name,
-  ...rest
 }: RHFInputProps<T>) => {
   const theme = useTheme();
   const { control } = useFormContext();
@@ -44,7 +42,7 @@ const RHFInput = <T extends object>({
       render={({ field }) => {
         return (
           <FormControl
-            isRequired={isRequired}
+            isRequired={required}
             sx={{ display: "flex", flexDirection: "column" }}
           >
             <FormLabel
@@ -57,7 +55,6 @@ const RHFInput = <T extends object>({
             </FormLabel>
             <Input
               {...field}
-              {...rest}
               variant={variant}
               type={type}
               placeholder={placeholder}
