@@ -8,8 +8,6 @@ const getMockedUsers = (): User[] => {
   return [
     {
       id: "1",
-      personalNumber: "123456789",
-      ldapId: "1234543",
       login: "stevejobs",
       email: "steve.jobs@email.com",
       firstName: "Steve",
@@ -22,8 +20,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "2",
-      personalNumber: "987654321",
-      ldapId: "1554543",
       login: "janedoe",
       email: "jane.doe@email.com",
       firstName: "Jane",
@@ -36,8 +32,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "3",
-      personalNumber: "555555555",
-      ldapId: "12345333",
       login: "johnsmith",
       email: "john.smith@email.com",
       firstName: "John",
@@ -50,8 +44,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "4",
-      personalNumber: "777777777",
-      ldapId: "4434543",
       login: "maryjane",
       email: "mary.jane@email.com",
       firstName: "Mary",
@@ -64,8 +56,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "5",
-      personalNumber: "111111111",
-      ldapId: "5554543",
       login: "bobbrown",
       email: "bob.brown@email.com",
       firstName: "Bob",
@@ -78,8 +68,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "6",
-      personalNumber: "345678901",
-      ldapId: "8765432",
       login: "chatgpt",
       email: "chat.gpt@email.com",
       firstName: "Chat",
@@ -92,8 +80,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "7",
-      personalNumber: "456789012",
-      ldapId: "2345678",
       login: "maryjohnson",
       email: "mary.johnson@email.com",
       firstName: "Mary",
@@ -106,8 +92,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "8",
-      personalNumber: "567890123",
-      ldapId: "8765432",
       login: "peterwilliams",
       email: "peter.williams@email.com",
       firstName: "Peter",
@@ -120,8 +104,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "9",
-      personalNumber: "678901234",
-      ldapId: "3456789",
       login: "susanmiller",
       email: "susan.miller@email.com",
       firstName: "Susan",
@@ -134,8 +116,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "10",
-      personalNumber: "789012345",
-      ldapId: "7890123",
       login: "michaelbrown",
       email: "michael.brown@email.com",
       firstName: "Michael",
@@ -148,8 +128,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "11",
-      personalNumber: "890123456",
-      ldapId: "4567890",
       login: "laurasmith",
       email: "laura.smith@email.com",
       firstName: "Laura",
@@ -162,8 +140,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "12",
-      personalNumber: "901234567",
-      ldapId: "5678901",
       login: "johnanderson",
       email: "john.anderson@email.com",
       firstName: "John",
@@ -176,8 +152,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "13",
-      personalNumber: "123098765",
-      ldapId: "6789012",
       login: "emilythomas",
       email: "emily.thomas@email.com",
       firstName: "Emily",
@@ -190,8 +164,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "14",
-      personalNumber: "234109876",
-      ldapId: "7890123",
       login: "davidjones",
       email: "david.jones@email.com",
       firstName: "David",
@@ -204,8 +176,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "15",
-      personalNumber: "345210987",
-      ldapId: "8901234",
       login: "nataliegreen",
       email: "natalie.green@email.com",
       firstName: "Natalie",
@@ -218,8 +188,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "16",
-      personalNumber: "456321098",
-      ldapId: "9012345",
       login: "robertmartinez",
       email: "robert.martinez@email.com",
       firstName: "Robert",
@@ -232,8 +200,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "17",
-      personalNumber: "567432109",
-      ldapId: "0123456",
       login: "oliviaroberts",
       email: "olivia.roberts@email.com",
       firstName: "Olivia",
@@ -246,8 +212,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "18",
-      personalNumber: "678543210",
-      ldapId: "1234567",
       login: "ryanwhite",
       email: "ryan.white@email.com",
       firstName: "Ryan",
@@ -260,8 +224,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "19",
-      personalNumber: "789654321",
-      ldapId: "2345678",
       login: "jessicamorris",
       email: "jessica.morris@email.com",
       firstName: "Jessica",
@@ -274,8 +236,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "20",
-      personalNumber: "890765432",
-      ldapId: "3456789",
       login: "briancooper",
       email: "brian.cooper@email.com",
       firstName: "Brian",
@@ -288,8 +248,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "21",
-      personalNumber: "901876543",
-      ldapId: "4567890",
       login: "sophiewilson",
       email: "sophie.wilson@email.com",
       firstName: "Sophie",
@@ -302,8 +260,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "22",
-      personalNumber: "123987654",
-      ldapId: "5678901",
       login: "richardthompson",
       email: "richard.thompson@email.com",
       firstName: "Richard",
@@ -316,8 +272,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "23",
-      personalNumber: "234098765",
-      ldapId: "6789012",
       login: "victoriacarter",
       email: "victoria.carter@email.com",
       firstName: "Victoria",
@@ -330,8 +284,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "24",
-      personalNumber: "345109876",
-      ldapId: "7890123",
       login: "danielharris",
       email: "daniel.harris@email.com",
       firstName: "Daniel",
@@ -344,8 +296,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "25",
-      personalNumber: "456210987",
-      ldapId: "8901234",
       login: "monicasmith",
       email: "monica.smith@email.com",
       firstName: "Monica",
@@ -358,8 +308,6 @@ const getMockedUsers = (): User[] => {
     },
     {
       id: "26",
-      personalNumber: "567321098",
-      ldapId: "9012345",
       login: "kevinbrown",
       email: "kevin.brown@email.com",
       firstName: "Kevin",

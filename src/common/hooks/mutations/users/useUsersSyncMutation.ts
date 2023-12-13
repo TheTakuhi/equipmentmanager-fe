@@ -1,7 +1,11 @@
-import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios.ts";
-import { AxiosError } from "axios";
-import { EnvVariableName, getEnvVariable } from "../../../config/env/getEnvVariable.ts";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+
+import {
+  EnvVariableName,
+  getEnvVariable,
+} from "../../../config/env/getEnvVariable";
+import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 
 export const useUsersSyncMutation = () => {
   const securedAxios = useSecuredAxios();

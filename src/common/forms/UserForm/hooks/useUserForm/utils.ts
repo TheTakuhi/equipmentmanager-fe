@@ -1,5 +1,5 @@
-import { UserFormValues } from "../../../../models/user/UserFormValues.ts";
-import { CustomRole } from "../../../../security/model/Role.ts";
+import { UserFormValues } from "../../../../models/user/UserFormValues";
+import { CustomRole } from "../../../../security/model/Role";
 
 export const createDefaultValues = (
   defs?: Partial<UserFormValues>,
@@ -8,9 +8,6 @@ export const createDefaultValues = (
   email: "",
   firstName: "",
   lastName: "",
-  photo: "",
   userRoles: [CustomRole.MANAGER],
-  ownedContractIds: [],
-  managedContractIds: [],
   ...defs,
 });

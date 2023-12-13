@@ -6,9 +6,7 @@ export const createDefaultValues = (
   serialCode: "",
   type: "",
   comment: "",
-  state: "",
   qualityState: "",
-  dateOfCreation: "",
   managerOwner: "",
   ...defs,
 });

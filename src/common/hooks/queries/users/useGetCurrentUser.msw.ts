@@ -6,8 +6,6 @@ import { CustomRole } from "../../../security/model/Role";
 const getMockedCurrentUser = (): User => {
   return {
     id: "01ef73d8-70b8-4bf9-953d-b69f32c1762c",
-    personalNumber: "123456",
-    ldapId: "01ef73d8-70b8-4bf9-953d-b69f32c1762c",
     login: "theshrek",
     email: "shrek@swamp.ffa",
     firstName: "Shrek",

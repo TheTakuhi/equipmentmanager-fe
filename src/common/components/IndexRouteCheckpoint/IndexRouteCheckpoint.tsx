@@ -4,9 +4,17 @@ import { Navigate } from "@tanstack/react-router";
 
 import { useKeycloakResourceAccess } from "../../security/hooks/queries/useKeycloakResourceAccess";
 
+// TODO FIX ts-ignore & eslint-ignore
 const IndexRouteCheckpoint: FC = () => {
   const roles = useKeycloakResourceAccess();
-  const isGuest = roles && roles['equipment-manager-fe'] && roles['equipment-manager-fe'].roles.includes('GUEST');
+  // @ts-ignore
+  const isGuest =
+    roles &&
+    // @ts-ignore
+    roles["equipment-manager-fe"] &&
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    roles["equipment-manager-fe"].roles.includes("GUEST");
 
   return (
     <>

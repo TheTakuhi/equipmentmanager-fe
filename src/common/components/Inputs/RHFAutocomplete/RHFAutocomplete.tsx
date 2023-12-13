@@ -1,9 +1,4 @@
-import {
-  Text,
-  FormControl,
-  FormLabel,
-  useTheme,
-} from "@chakra-ui/react";
+import { Text, FormControl, FormLabel, useTheme } from "@chakra-ui/react";
 import {
   AutoComplete,
   AutoCompleteInput,
@@ -21,7 +16,7 @@ type RHFAutocompleteProps<T extends object> = Props & {
   placeholder?: string;
   formLabel: string;
   disabled?: boolean;
-  isRequired?: boolean;
+  required?: boolean;
   options: SelectOption[];
   name: FieldPath<T>;
 };
@@ -31,7 +26,7 @@ const RHFAutocomplete = <T extends object>({
   placeholder,
   formLabel,
   disabled,
-  isRequired,
+  required,
   options,
   name,
   ...rest
@@ -45,7 +40,7 @@ const RHFAutocomplete = <T extends object>({
       name={name}
       render={({ field }) => (
         <FormControl
-          isRequired={isRequired}
+          isRequired={required}
           sx={{ display: "flex", flexDirection: "column" }}
         >
           <FormLabel
@@ -63,8 +58,12 @@ const RHFAutocomplete = <T extends object>({
               disabled={disabled}
             />
             <AutoCompleteList sx={autocompleteListStyle}>
-              {options.map((option) => (
-                <AutoCompleteItem key={option.value} value={option.value} label={option.label}>
+              {options.map((option: any) => (
+                <AutoCompleteItem
+                  key={option.value}
+                  value={option.value}
+                  label={option.label}
+                >
                   <Text size="menuItem">{option.label}</Text>
                 </AutoCompleteItem>
               ))}

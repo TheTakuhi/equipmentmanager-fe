@@ -12,8 +12,6 @@ import { Controller, FieldPath, useFormContext } from "react-hook-form";
 import { SelectOption } from "../../../models/utils/SelectOption";
 
 type RHFSelectProps<T extends object> = Props & {
-  variant?: string;
-  placeholder?: string;
   required?: boolean;
   disabled?: boolean;
   formLabel: string;
@@ -22,8 +20,6 @@ type RHFSelectProps<T extends object> = Props & {
 };
 
 const RHFSelect = <T extends object>({
-  variant,
-  placeholder,
   formLabel,
   required,
   disabled,

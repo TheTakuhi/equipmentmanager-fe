@@ -21,8 +21,6 @@ const getMockedPostLoanCreation = (): Loan => {
       dateOfCreation: "2023-10-31T01:30:00.000-05:00",
       managerOwner: {
         id: "01ef73d8-70b8-4bf9-953d-b69f32c1762c",
-        personalNumber: "123456",
-        ldapId: "01ef73d8-70b8-4bf9-953d-b69f32c1762c",
         login: "theshrek",
         email: "shrek@swamp.ffa",
         firstName: "Shrek",
@@ -36,8 +34,6 @@ const getMockedPostLoanCreation = (): Loan => {
     },
     lender: {
       id: "01ef73d8-70b8-4bf9-953d-b69f32c1762c",
-      personalNumber: "123456",
-      ldapId: "01ef73d8-70b8-4bf9-953d-b69f32c1762c",
       login: "theshrek",
       email: "shrek@swamp.ffa",
       firstName: "Shrek",

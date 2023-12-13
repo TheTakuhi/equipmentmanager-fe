@@ -29,19 +29,6 @@ const UserForm: FC<UserFormProps> = ({
 }) => {
   const form = useUserForm({ defaultValues });
 
-  const handleCheckboxChange = (event: React.FormEvent<HTMLDivElement>) => {
-    const { value } = event.target as HTMLInputElement;
-    const userRoles: string[] = form.getValues("userRoles");
-    if (userRoles.includes(value)) {
-      form.setValue(
-        "userRoles",
-        userRoles.filter((role) => role !== value),
-      );
-    } else {
-      form.setValue("userRoles", [...userRoles, value]);
-    }
-  };
-
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -52,14 +39,14 @@ const UserForm: FC<UserFormProps> = ({
               formLabel="First name"
               type="text"
               disabled={disabled}
-              isRequired
+              required
             />
             <RHFInput<UserFormValues>
               name="lastName"
               formLabel="Last name"
               type="text"
               disabled={disabled}
-              isRequired
+              required
             />
           </SimpleGrid>
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
@@ -68,26 +55,26 @@ const UserForm: FC<UserFormProps> = ({
               formLabel="Login"
               type="text"
               disabled={disabled}
-              isRequired
+              required
             />
             <RHFInput<UserFormValues>
               name="email"
               formLabel="Email"
               type="text"
               disabled={disabled}
-              isRequired
+              required
             />
           </SimpleGrid>
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
-            <RHFCheckboxGroup
+            <RHFCheckboxGroup<UserFormValues>
               name="userRoles"
               label="Role"
-              isRequired
+              // TODO make just one of the checkbox options required
+              // required
               options={[
                 ...Object.values(CustomRole),
                 ...Object.values(DefaultRole),
               ]}
-              onChange={handleCheckboxChange}
             />
           </SimpleGrid>
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem", pb: "1rem" }}>

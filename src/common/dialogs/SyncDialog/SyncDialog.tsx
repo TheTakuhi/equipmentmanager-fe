@@ -1,13 +1,18 @@
 import { FC, ReactNode, useRef } from "react";
+
 import {
-  AlertDialog, AlertDialogBody,
-  AlertDialogContent, AlertDialogFooter,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
   Box,
-  IconButton, useTheme
+  IconButton,
+  useTheme,
 } from "@chakra-ui/react";
 import { X } from "react-feather";
+
 import Button from "../../components/Button";
 
 interface SyncDialogProps {
@@ -19,12 +24,12 @@ interface SyncDialogProps {
 }
 
 const SyncDialog: FC<SyncDialogProps> = ({
-                                           title,
-                                           description,
-                                           close,
-                                           discard,
-                                           pending,
-                                         }) => {
+  title,
+  description,
+  close,
+  discard,
+  pending,
+}) => {
   const theme = useTheme();
   const cancelRef = useRef<HTMLButtonElement | null>(null);
 
@@ -56,7 +61,9 @@ const SyncDialog: FC<SyncDialogProps> = ({
               }}
             >
               {title}
-              {pending ? "" : (
+              {pending ? (
+                ""
+              ) : (
                 <IconButton
                   isRound
                   aria-label="Close"
@@ -89,8 +96,18 @@ const SyncDialog: FC<SyncDialogProps> = ({
             >
               {pending ? (
                 <>
-                  <Button variant="disabled" label="Close" onClick={close} isDisabled/>
-                  <Button variant="disabled" label="Sync" onClick={discard} isDisabled/>
+                  <Button
+                    variant="disabled"
+                    label="Close"
+                    onClick={close}
+                    isDisabled
+                  />
+                  <Button
+                    variant="disabled"
+                    label="Sync"
+                    onClick={discard}
+                    isDisabled
+                  />
                 </>
               ) : (
                 <>
