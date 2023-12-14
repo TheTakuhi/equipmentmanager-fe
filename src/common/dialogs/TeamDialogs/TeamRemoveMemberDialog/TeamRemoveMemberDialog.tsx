@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import { queryClient } from "../../../config/react-query/reactQuery";
 import { TeamFormSubmitHandler } from "../../../forms/TeamForm/TeamForm";
-import { useTeamEditMutation } from "../../../hooks/mutations/teams/useTeamEditMutation";
+import { useTeamRemoveMemberMutation } from "../../../hooks/mutations/teams/useTeamRemoveMemberMutation";
 import { Team } from "../../../models/team/Team";
 import { User } from "../../../models/user/User";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
@@ -21,7 +21,7 @@ const TeamRemoveMemberDialog: FC<TeamRemoveMemberDialogProps> = ({
   team,
 }) => {
   const { close } = useActionDialog();
-  const { mutate: mutateTeamEdit } = useTeamEditMutation(team.id);
+  const { mutate: mutateTeamEdit } = useTeamRemoveMemberMutation(team.id);
 
   const handleSubmit: TeamFormSubmitHandler = (values) =>
     mutateTeamEdit(

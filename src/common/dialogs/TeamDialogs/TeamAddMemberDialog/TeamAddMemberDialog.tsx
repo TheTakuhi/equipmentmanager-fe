@@ -3,9 +3,9 @@ import { FC } from "react";
 import { toast } from "react-toastify";
 
 import { queryClient } from "../../../config/react-query/reactQuery";
-import TeamForm from "../../../forms/TeamForm";
-import { TeamFormSubmitHandler } from "../../../forms/TeamForm/TeamForm";
-import { useTeamEditMutation } from "../../../hooks/mutations/teams/useTeamEditMutation";
+import AddMemberForm from "../../../forms/AddMemberForm";
+import { AddMemberSubmitHandler } from "../../../forms/AddMemberForm/AddMemberForm";
+import { useTeamAddMemberMutation } from "../../../hooks/mutations/teams/useTeamAddMemberMutation";
 import { Team } from "../../../models/team/Team";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
 import { toastOptions } from "../../../utils/toastOptions";
@@ -17,16 +17,16 @@ interface TeamAddMemberDialogProps {
 
 const TeamAddMemberDialog: FC<TeamAddMemberDialogProps> = ({ team }) => {
   const { close } = useActionDialog();
-  const { mutate: mutateTeamEdit } = useTeamEditMutation(team.id);
+  const { mutate: mutateTeamAddMember } = useTeamAddMemberMutation(team.id);
 
-  const handleSubmit: TeamFormSubmitHandler = (values) =>
-    mutateTeamEdit(
+  const handleSubmit: AddMemberSubmitHandler = (values) =>
+    mutateTeamAddMember(
       {
         ...values,
       },
       {
         onSuccess: () => {
-          toast.success("Team edited", toastOptions);
+          toast.success("Member added", toastOptions);
           queryClient.invalidateQueries().then(close);
         },
         onError: (error) =>
@@ -37,20 +37,16 @@ const TeamAddMemberDialog: FC<TeamAddMemberDialogProps> = ({ team }) => {
       },
     );
 
-  // TODO CREATE ADD MEMBER FORM
   return (
     <FormDialog
       title="Add member to team"
       close={close}
       dialogForm={
-        <TeamForm
+        <AddMemberForm
           handleSubmit={handleSubmit}
           close={close}
-          isEdit
           defaultValues={{
-            teamName: team.teamName,
-            owner: team.owner.id,
-            members: team.members.map((member) => member.id),
+            id: "",
           }}
         />
       }
