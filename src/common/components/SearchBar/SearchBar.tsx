@@ -13,6 +13,8 @@ import { SelectOption } from "../../models/utils/SelectOption";
 
 export type TableSearchSubmitHandler = (values: TableSearchQuery) => void;
 
+export type SearchBarParams = TableSearchQuery;
+
 interface SearchBarProps {
   options: SelectOption[];
   handleSubmit: TableSearchSubmitHandler;

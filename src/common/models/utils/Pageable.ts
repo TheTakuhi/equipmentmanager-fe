@@ -10,29 +10,25 @@ export interface Pageable<T> extends PageableProps {
 }
 
 export interface PageableProps {
-  empty: boolean;
-  first: boolean;
-  last: boolean;
-  number: number;
-  numberOfElements: number;
-  pageable: CustomPageable;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  requestedPageable: RequestedPageable;
   size: number;
-  sort: SortProps;
   totalElements: number;
   totalPages: number;
 }
 
-interface CustomPageable {
+interface RequestedPageable {
   offset: number;
   pageNumber: number;
   pageSize: number;
   paged: boolean;
-  sort: SortProps;
+  sort: Sort;
   unpaged: boolean;
 }
 
-interface SortProps {
+interface Sort {
+  empty: boolean;
   sorted: boolean;
   unsorted: boolean;
-  empty: boolean;
 }

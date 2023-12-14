@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 
 import {
   Divider,
@@ -8,10 +8,17 @@ import {
   Skeleton,
   Text,
 } from "@chakra-ui/react";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "react-feather";
 
 import { Pageable } from "../../../models/utils/Pageable";
+import { theme } from "../../../theme";
 import PaginationButton from "../../PaginationButton";
+
+export type PaginationSearchParams = {
+  index: number;
+  size: number;
+};
 
 export type PaginationStateProps = {
   pageSize: number;
@@ -19,28 +26,34 @@ export type PaginationStateProps = {
 };
 
 interface TSPaginationProps {
+  route: string;
   pageable?: Pageable<any>;
-  paginationProps: PaginationStateProps;
-  paginationStateCallback: (state: PaginationStateProps) => void;
-  setPaginationProps: Dispatch<SetStateAction<PaginationStateProps>>;
   isLoading: boolean;
-  theme: Record<string, any>;
 }
 
 // TODO - delete page sizes 1 and 5 after testing
 const pageSizes = [1, 5, 15, 30, 50];
 
 const TSPagination: FC<TSPaginationProps> = ({
+  route,
   pageable,
-  paginationStateCallback,
-  paginationProps,
-  setPaginationProps,
   isLoading,
-  theme,
 }) => {
+  const navigate = useNavigate({ from: route });
+  const { pagination }: { pagination: PaginationSearchParams } = useSearch({
+    from: route,
+  });
+
+  const [paginationProps, setPaginationProps] = useState<PaginationStateProps>({
+    pageIndex: pagination !== undefined ? pagination.index : 0,
+    pageSize: pagination !== undefined ? pagination.size : 15,
+  });
+
+  const currentPage = paginationProps.pageIndex + 1;
+  const totalPages = pageable?.totalPages;
+
   const onPageChange = (
-    // @ts-ignore
-    event: React.MouseEvent<HTMLButtonElement>,
+    _event: React.MouseEvent<HTMLButtonElement>,
     pi: number,
     ps: number,
   ) => {
@@ -49,17 +62,18 @@ const TSPagination: FC<TSPaginationProps> = ({
       pageSize: ps,
     });
   };
-  const currentPage = paginationProps.pageIndex + 1;
-  const totalPages = pageable?.totalPages;
 
-  useEffect(
-    () =>
-      paginationStateCallback({
-        pageSize: paginationProps.pageSize,
-        pageIndex: paginationProps.pageIndex,
+  useEffect(() => {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        pagination: {
+          index: paginationProps.pageIndex,
+          size: paginationProps.pageSize,
+        },
       }),
-    [paginationProps.pageSize, paginationProps.pageIndex],
-  );
+    });
+  }, [paginationProps]);
 
   if (
     isLoading ||
