@@ -24,8 +24,10 @@ const UsersTopContainer: FC = () => {
     navigate({
       search: (prev) => ({
         ...prev,
-        searchBy: values.param,
-        value: values.value,
+        search: {
+          param: values.param,
+          value: values.value,
+        },
       }),
     });
   };

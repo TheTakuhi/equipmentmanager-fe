@@ -1,7 +1,7 @@
 import { Route } from "@tanstack/react-router";
 
-import { usersRoute } from "../usersRoute";
 import UserDetailPage from "../../../../../admin/pages/UserDetailPage";
+import { usersRoute } from "../usersRoute";
 
 export const userRoute = new Route({
   getParentRoute: () => usersRoute,

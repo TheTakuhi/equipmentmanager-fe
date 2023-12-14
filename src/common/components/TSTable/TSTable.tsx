@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -26,24 +26,29 @@ import { Pageable } from "../../models/utils/Pageable";
 import { useNavbar } from "../../providers/NavbarProvider/NavbarProvider";
 import { theme } from "../../theme";
 
+export type TableSearchParams = {
+  sort: string;
+  columnFilters: ColumnFilter[];
+};
+
 export interface TableStateProps extends PaginationStateProps {
   sort: string;
   sortDirection: string;
   columnFilters?: ColumnFilter[];
 }
 
-interface TSTableProps {
+type TSTableProps<T extends object> = {
   route: string;
-  data: any[];
+  data: T[];
   columns: any[];
   isLoading: boolean;
-  pageable?: Pageable<any>;
+  pageable?: Pageable<Omit<T, "content">>;
   filterData?: any;
   tableHeight: string;
   hidePagination?: true;
-}
+};
 
-const TSTable: FC<TSTableProps> = ({
+const TSTable = <T extends object>({
   route,
   data,
   columns,
@@ -52,9 +57,11 @@ const TSTable: FC<TSTableProps> = ({
   filterData,
   tableHeight,
   hidePagination,
-}) => {
+}: TSTableProps<T>) => {
   const { navbarState } = useNavbar();
   const navbar = navbarState ? 170 : 64;
+
+  const navigate = useNavigate({ from: route });
 
   const [paginationProps, setPaginationProps] = useState<PaginationStateProps>({
     pageIndex: 0,
@@ -83,8 +90,6 @@ const TSTable: FC<TSTableProps> = ({
     }
   }, [data]);
 
-  const navigate = useNavigate({ from: route });
-  // INFO sorting use effect + callback to get data into the endpoint
   useEffect(() => {
     const { sorting } = table.getState();
     const sortName = sorting.length !== 0 ? sorting[0].id : "";
@@ -94,12 +99,13 @@ const TSTable: FC<TSTableProps> = ({
     navigate({
       search: (prev) => ({
         ...prev,
-        ...paginationProps,
-        sort: `${sortName},${sortDirection}`,
-        columnFilters,
+        table: {
+          sort: `${sortName},${sortDirection}`,
+          columnFilters,
+        },
       }),
     });
-  }, [paginationProps, table.getState().sorting, columnFilters]);
+  }, [paginationProps, table.getState().sorting]);
 
   // TODO PAGINATION TRANSITION ANIMATION FIX
   return (
@@ -271,11 +277,8 @@ const TSTable: FC<TSTableProps> = ({
           }}
         >
           <TSPagination
-            theme={theme}
+            route={route}
             pageable={pageable}
-            setPaginationProps={setPaginationProps}
-            paginationProps={paginationProps}
-            paginationStateCallback={setPaginationProps}
             isLoading={isLoading}
           />
         </Grid>
