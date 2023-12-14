@@ -1,0 +1,16 @@
+stages:
+  - trigger
+
+trigger_staging_environment:
+  stage: trigger
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_BRANCH == "staging"
+  trigger:
+    include: gitlab/.gitlab-ci.staging.yml
+
+trigger_production_environment:
+  stage: trigger
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_BRANCH == "production"
+  trigger:
+    include: gitlab/.gitlab-ci.production.yml
