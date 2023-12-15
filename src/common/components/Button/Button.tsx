@@ -16,7 +16,9 @@ const Button: FC<ButtonPropsCustom & ButtonProps> = ({
 }) => {
   return (
     <ButtonOrigin {...rest} variant={variant} leftIcon={startIcon}>
-      <Text size="buttonLabel">{label}</Text>
+      <Text size="buttonLabel" data-testid="button-text-label-test">
+        {label}
+      </Text>
     </ButtonOrigin>
   );
 };
