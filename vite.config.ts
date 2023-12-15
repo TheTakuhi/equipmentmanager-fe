@@ -8,5 +8,10 @@ export default defineConfig(({ mode }) => {
     define: {
       PUBLIC_URL: JSON.stringify(env.VITE_APP_PUBLIC_URL),
     },
+    test: {
+      globals: true,
+      environment: "jsdom",
+      setupFiles: "./tests/setup",
+    },
   };
 });
