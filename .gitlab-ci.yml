@@ -1,16 +1,164 @@
+variables:
+  GITLAB_PROJECT_ORIGIN: https://$ACCESS_TOKEN_NAME:$ACCESS_TOKEN_VALUE@$CI_SERVER_HOST/$CI_PROJECT_PATH.git
+  BOT_EMAIL: "equipmentmanager@tietoevry.com"
+  BOT_NAME: "Equipmentmanager_CI"
+
+  LOCATION:
+    value: "equipment-manager"
+    description: "file location on server"
+
+  ENVIRONMENT_NAME:
+    value: "staging"
+    description: "change staging / production based on the desired server location"
+
+  MAIN_ENVIRONMENT: "main"
+  PRODUCTION_ENVIRONMENT: "production"
+  STAGING_ENVIRONMENT: "staging"
+
+  PUBLIC_URL:
+    value: "/equipment-manager/"
+    description: "Staging = '/equipment-manager/' and production = '/'."
+  HOST_CORE:
+    value: "https://staging.int.tieto.com/equipment-manager/core"
+    description: "Staging = 'https://staging.int.tieto.com/equipment-manager/core' and production = 'https://equipmentmanager.int.tieto.com/equipment-manager/core'."
+  HOST_IDP: "https://staging.int.tieto.com/keycloak/auth"
+  HOST_APPSHUB: "https://staging.int.tieto.com/appshub/"
+  REALM:
+    value: "staging-realm"
+    description: "Staging = 'staging-realm' and production = 'EquipmentManager'."
+  CLIENT_ID: "equipment-manager-fe"
+  MOCKED: "FALSE"
+
 stages:
-  - trigger
+  - version
+  - merge
+  - setup
+  - build
+  - deploy
 
-trigger_staging_environment:
-  stage: trigger
+version_codebase:
+  stage: version
+  image:
+    name: node:18
+    pull_policy: if-not-present
   rules:
-    - if: $CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_BRANCH == "staging"
-  trigger:
-    include: gitlab/.gitlab-ci.staging.yml
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "master" && $CI_COMMIT_MESSAGE !~ /^version\(release\):/
+  before_script:
+    - git config --global user.email $BOT_EMAIL
+    - git config --global user.name $BOT_NAME
+    - git fetch $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH
+    - git checkout -b $CI_COMMIT_BRANCH
+  script:
+    - npx standard-version -a
+    # - git push --tags $GITLAB_PROJECT_ORIGIN -o ci.skip -> option if no regex would be provided to message above
+    - git push --tags $GITLAB_PROJECT_ORIGIN
+    #    - git pull $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH
+    # - git push -u $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH -o ci.skip
+    - git push -u $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH
+  tags:
+    - ah1-docker
 
-trigger_production_environment:
-  stage: trigger
+cache:
+  key: $CI_PIPELINE_ID
+  policy: pull
+  untracked: true
+
+merge_main_to_staging:
+  stage: merge
+  environment: $STAGING_ENVIRONMENT
+  image:
+    name: node:18
+    pull_policy: if-not-present
   rules:
-    - if: $CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_BRANCH == "production"
-  trigger:
-    include: gitlab/.gitlab-ci.production.yml
+    - if: $CI_COMMIT_BRANCH == $STAGING_ENVIRONMENT
+  before_script:
+    - git config --global user.email $BOT_EMAIL
+    - git config --global user.name $BOT_NAME
+  script:
+    - git checkout $MAIN_ENVIRONMENT
+    - git checkout $CI_COMMIT_BRANCH
+    - git merge $MAIN_ENVIRONMENT
+    - git push -u $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH
+  tags:
+    - ah1-docker
+
+merge_staging_to_production:
+  stage: merge
+  environment: $PRODUCTION_ENVIRONMENT
+  image:
+    name: node:18
+    pull_policy: if-not-present
+  rules:
+    - if: $CI_COMMIT_BRANCH == $PRODUCTION_ENVIRONMENT
+  before_script:
+    - git config --global user.email $BOT_EMAIL
+    - git config --global user.name $BOT_NAME
+  script:
+    - git checkout $STAGING_ENVIRONMENT
+    - git checkout $CI_COMMIT_BRANCH
+    - git merge $STAGING_ENVIRONMENT
+    - git push -u $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH
+  tags:
+    - ah1-docker
+
+install_modules:
+  stage: setup
+  environment: $ENVIRONMENT_NAME
+  image: node:18
+  rules:
+    - if: $CI_COMMIT_BRANCH == $ENVIRONMENT_NAME
+  before_script:
+    - git config --global user.email $BOT_EMAIL
+    - git config --global user.name $BOT_NAME
+    - git config --global pull.rebase true
+  script:
+    - git checkout -f $CI_COMMIT_BRANCH && git pull
+    - npm install -g --force yarn
+    - yarn install --frozen-lockfile --no-progress
+  cache:
+    key: $CI_PIPELINE_ID
+    policy: pull-push
+    paths:
+      - .yarn
+      - node_modules
+  tags:
+    - ah1-docker
+
+build_application:
+  stage: build
+  environment: $ENVIRONMENT_NAME
+  image:
+    name: node:18
+    pull_policy: if-not-present
+  rules:
+    - if: $CI_COMMIT_BRANCH == $ENVIRONMENT_NAME
+  before_script:
+    - export VITE_APP_PUBLIC_URL=$PUBLIC_URL
+    - export VITE_APP_HOST_CORE=$HOST_CORE
+    - export VITE_APP_HOST_IDP=$HOST_IDP
+    - export VITE_APP_HOST_APPSHUB=$HOST_APPSHUB
+    - export VITE_APP_REALM=$REALM
+    - export VITE_APP_CLIENT_ID=$CLIENT_ID
+    - export VITE_APP_MOCKED=$MOCKED
+    - git config --global user.email $BOT_EMAIL
+    - git config --global user.name $BOT_NAME
+    - git config --global pull.rebase true
+  script:
+    - git checkout -f $CI_COMMIT_BRANCH && git pull
+    - CI=false yarn build
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - build/*
+  tags:
+    - ah1-docker
+
+deploy_to_staging:
+  stage: deploy
+  environment: $ENVIRONMENT_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH == $ENVIRONMENT_NAME
+  script:
+    - cp -rf build/* /var/www/$LOCATION/
+  tags:
+    - ah1-shell
