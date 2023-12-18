@@ -66,7 +66,8 @@ const DiscardDialog: FC<DiscardDialogProps> = ({
                 icon={<X color={theme.palette.text.primary} />}
                 onClick={close}
                 sx={{
-                  height: "30px",
+                  height: "24px",
+                  minHeight: "24px",
                   backgroundColor: theme.palette.secondary.main,
                   "&:hover": {
                     backgroundColor: theme.palette.secondary.light,
