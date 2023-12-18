@@ -5,8 +5,8 @@ import { FormProvider } from "react-hook-form";
 
 import { useUserForm } from "./hooks/useUserForm/useUserForm";
 import Button from "../../components/Button";
-import RHFCheckboxGroup from "../../components/Inputs/RHFCheckboxGroup";
 import RHFInput from "../../components/Inputs/RHFInput";
+import RHFRadioGroup from "../../components/Inputs/RHFRadioGroup";
 import { UserFormValues } from "../../models/user/UserFormValues";
 import { CustomRole, DefaultRole } from "../../security/model/Role";
 
@@ -66,11 +66,9 @@ const UserForm: FC<UserFormProps> = ({
             />
           </SimpleGrid>
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
-            <RHFCheckboxGroup<UserFormValues>
+            <RHFRadioGroup<UserFormValues>
               name="userRoles"
               label="Role"
-              // TODO make just one of the checkbox options required
-              // required
               options={[
                 ...Object.values(CustomRole),
                 ...Object.values(DefaultRole),

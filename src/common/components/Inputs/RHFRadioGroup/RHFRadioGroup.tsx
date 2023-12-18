@@ -1,8 +1,8 @@
 import {
-  Checkbox,
-  CheckboxGroup,
   FormControl,
   FormLabel,
+  Radio,
+  RadioGroup,
   Stack,
   Text,
   useTheme,
@@ -10,19 +10,17 @@ import {
 import { Props } from "chakra-react-select";
 import { Controller, FieldPath, useFormContext } from "react-hook-form";
 
-type RHFCheckboxGroupProps<T extends object> = Props & {
+type RHFRadioGroupProps<T extends object> = Props & {
   name: FieldPath<T>;
   label: string;
   options: string[];
-  required?: boolean;
 };
 
-const RHFCheckboxGroup = <T extends object>({
+const RHFRadioGroup = <T extends object>({
   name,
   label,
   options,
-  required,
-}: RHFCheckboxGroupProps<T>) => {
+}: RHFRadioGroupProps<T>) => {
   const { control } = useFormContext();
   const theme = useTheme();
 
@@ -31,8 +29,9 @@ const RHFCheckboxGroup = <T extends object>({
       control={control}
       name={name}
       render={({ field }) => {
+        const selectedValues = field.value || [""];
         return (
-          <FormControl isRequired={required} sx={{ width: "100%" }}>
+          <FormControl sx={{ width: "100%" }}>
             <FormLabel
               id={`${name}-label`}
               sx={{
@@ -42,34 +41,24 @@ const RHFCheckboxGroup = <T extends object>({
             >
               {label}
             </FormLabel>
-
-            <CheckboxGroup defaultValue={field.value || []}>
+            <RadioGroup defaultValue={selectedValues[0]}>
               <Stack spacing={[1, 5]} direction={["column", "row"]}>
                 {options.map((option: string) => (
-                  <Checkbox
+                  <Radio
                     key={option}
+                    isChecked={field.value === option}
                     value={option}
                     onChange={() => {
-                      const selectedValues = field.value || [""];
-                      if (
-                        Array.isArray(selectedValues) &&
-                        selectedValues.includes(option)
-                      ) {
-                        field.onChange(
-                          selectedValues.filter((v: string) => v !== option),
-                        );
-                      } else {
-                        field.onChange([...selectedValues, option]);
-                      }
+                      field.onChange([option]);
                     }}
                   >
                     <Text sx={{ textTransform: "capitalize" }}>
                       {option.toLowerCase()}
                     </Text>
-                  </Checkbox>
+                  </Radio>
                 ))}
               </Stack>
-            </CheckboxGroup>
+            </RadioGroup>
           </FormControl>
         );
       }}
@@ -77,4 +66,4 @@ const RHFCheckboxGroup = <T extends object>({
   );
 };
 
-export default RHFCheckboxGroup;
+export default RHFRadioGroup;
