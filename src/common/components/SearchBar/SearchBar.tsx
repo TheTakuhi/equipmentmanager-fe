@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
 import { Box, Input, useTheme } from "@chakra-ui/react";
+import { useNavigate } from "@tanstack/react-router";
 import { Select, SingleValue } from "chakra-react-select";
 import { Search } from "react-feather";
 import { FormProvider } from "react-hook-form";
@@ -16,12 +17,13 @@ export type TableSearchSubmitHandler = (values: TableSearchQuery) => void;
 export type SearchBarParams = TableSearchQuery;
 
 interface SearchBarProps {
+  route: string;
   options: SelectOption[];
-  handleSubmit: TableSearchSubmitHandler;
 }
 
-const SearchBar: FC<SearchBarProps> = ({ options, handleSubmit }) => {
+const SearchBar: FC<SearchBarProps> = ({ route, options }) => {
   const theme = useTheme();
+  const navigate = useNavigate({ from: route });
 
   const [input, setInput] = useState<SingleValue<SelectOption>>(options[0]);
 
@@ -33,6 +35,18 @@ const SearchBar: FC<SearchBarProps> = ({ options, handleSubmit }) => {
   const form = useTableSearchForm({
     defaultValues: { param: searchQuery.param, value: searchQuery.value },
   });
+
+  const handleSubmit: TableSearchSubmitHandler = (values) => {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        search: {
+          param: values.param,
+          value: values.value,
+        },
+      }),
+    });
+  };
 
   const handleInputChange = (newValue: SingleValue<SelectOption>) => {
     setInput(newValue);

@@ -21,6 +21,10 @@ const baseStyle = helpers.definePartsStyle(({ theme }) => ({
         color: theme.palette.text.primary,
       },
     },
+
+    _focus: {
+      boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.6)",
+    },
   },
   list: {
     zIndex: 2,

@@ -6,18 +6,17 @@ import { queryClient } from "../../../config/react-query/reactQuery";
 import AddMemberForm from "../../../forms/AddMemberForm";
 import { AddMemberSubmitHandler } from "../../../forms/AddMemberForm/AddMemberForm";
 import { useTeamAddMemberMutation } from "../../../hooks/mutations/teams/useTeamAddMemberMutation";
-import { Team } from "../../../models/team/Team";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
 import { toastOptions } from "../../../utils/toastOptions";
 import FormDialog from "../../FormDialog";
 
-interface TeamAddMemberDialogProps {
-  team: Team;
-}
+type TeamAddMemberDialogProps = {
+  teamId: string;
+};
 
-const TeamAddMemberDialog: FC<TeamAddMemberDialogProps> = ({ team }) => {
+const TeamAddMemberDialog: FC<TeamAddMemberDialogProps> = ({ teamId }) => {
   const { close } = useActionDialog();
-  const { mutate: mutateTeamAddMember } = useTeamAddMemberMutation(team.id);
+  const { mutate: mutateTeamAddMember } = useTeamAddMemberMutation(teamId);
 
   const handleSubmit: AddMemberSubmitHandler = (values) =>
     mutateTeamAddMember(

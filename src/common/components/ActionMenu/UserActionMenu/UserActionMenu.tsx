@@ -1,6 +1,7 @@
 import { FC } from "react";
 
-import { ArrowUpRight, Edit2, Info, Trash2 } from "react-feather";
+import { useNavigate } from "@tanstack/react-router";
+import { ArrowUpRight, Edit2, Info, Trash } from "react-feather";
 
 import LoanCreateDialog from "../../../dialogs/LoanDialogs/LoanCreateDialog";
 import UserDeleteDialog from "../../../dialogs/UserDialogs/UserDeleteDialog";
@@ -8,7 +9,6 @@ import UserEditDialog from "../../../dialogs/UserDialogs/UserEditDialog";
 import { User } from "../../../models/user/User";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
 import Menu from "../../Menu";
-import { useNavigate } from "@tanstack/react-router";
 
 interface UserProps {
   user: User;
@@ -57,7 +57,7 @@ const UserActionMenu: FC<UserProps> = ({ user }) => {
         },
         {
           label: "Delete user",
-          icon: <Trash2 />,
+          icon: <Trash />,
           onClick: handleDeleteClick,
         },
       ]}

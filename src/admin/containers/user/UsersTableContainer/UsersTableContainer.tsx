@@ -2,22 +2,13 @@ import { FC, useEffect } from "react";
 
 import { useSearch } from "@tanstack/react-router";
 
-import { SearchBarParams } from "../../../../common/components/SearchBar/SearchBar";
-import { PaginationSearchParams } from "../../../../common/components/TSTable/Pagination/TSPagination";
-import TSTable, {
-  TableSearchParams,
-} from "../../../../common/components/TSTable/TSTable";
+import TSTable from "../../../../common/components/TSTable/TSTable";
 import { useGetUsers } from "../../../../common/hooks/queries/users/useGetUsers";
 import { useAllUserRoles } from "../../../../common/hooks/queries/utility/useAllUserRoles";
+import { SearchParams } from "../../../../common/models/SearchParams";
 import { User } from "../../../../common/models/user/User";
 import { USERSRoute } from "../../../../common/routes/common/users/usersRoute";
 import { useUsersTableColumns } from "../../../../manager/hooks/useUsersTableColumns";
-
-type SearchParams = {
-  search: SearchBarParams;
-  pagination: PaginationSearchParams;
-  table: TableSearchParams;
-};
 
 interface UsersTableContainerProps {
   tableHeight: string;
