@@ -31,7 +31,7 @@ const TeamCreateDialog: FC = () => {
 
   return (
     <FormDialog
-      title="Add team"
+      title="Create team"
       dialogForm={<TeamForm handleSubmit={handleAdd} close={close} />}
       close={close}
     />

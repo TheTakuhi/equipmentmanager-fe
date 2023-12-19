@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import {
   FormControl,
   FormErrorMessage,
@@ -30,10 +28,6 @@ const RHFMultiSelect = <T extends object>({
   const theme = useTheme();
   const { control } = useFormContext();
 
-  const [input, setInput] = useState<SelectOption>(options[0]);
-  const handleInputChange = (newValue: SelectOption) => setInput(newValue);
-  const isError = input === undefined;
-
   return (
     <Controller
       control={control}
@@ -41,7 +35,7 @@ const RHFMultiSelect = <T extends object>({
       render={({ field, fieldState: { error } }) => (
         <FormControl
           isRequired={required}
-          isInvalid={isError}
+          isInvalid={!!error}
           sx={{ display: "flex", flexDirection: "column" }}
           label="String"
         >
@@ -57,13 +51,10 @@ const RHFMultiSelect = <T extends object>({
             {...field}
             {...rest}
             isDisabled={disabled}
-            value={input}
+            // TODO - nechat value jako object SelectOption (upravit tedy schema na typ objektu a vytahovat si value potom při odeslání), nebo to jde osetrit uz zde??
+            value={field.value}
             isMulti
-            // TODO fix ts-ignore
-            // @ts-ignore
-            onChange={(newValue: SelectOption, _) =>
-              handleInputChange(newValue)
-            }
+            closeMenuOnSelect={false}
             options={options}
             useBasicStyles
             chakraStyles={{
@@ -84,18 +75,16 @@ const RHFMultiSelect = <T extends object>({
               }),
             }}
           />
-          {!isError || !required ? (
-            ""
-          ) : (
-            <FormErrorMessage
-              sx={{
-                fontSize: theme.components.Text.sizes.body3.fontSize,
-                mt: "0.2rem",
-              }}
-            >
-              {formLabel} is required. {error?.message as string}
-            </FormErrorMessage>
-          )}
+          <FormErrorMessage
+            sx={{
+              fontSize: theme.components.Text.sizes.body3.fontSize,
+              mt: "0.2rem",
+            }}
+          >
+            {error && (error.message as string)}
+            {/* TODO - Aktualne neprojde, protoze schema chce string ale prichazi mu object SelectOption */}
+            {/* {console.log(error)} */}
+          </FormErrorMessage>
         </FormControl>
       )}
     />

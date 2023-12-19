@@ -5,6 +5,6 @@ export const createDefaultValues = (
 ): TeamFormValues => ({
   teamName: "",
   owner: "",
-  members: [""],
+  members: [],
   ...defs,
 });
