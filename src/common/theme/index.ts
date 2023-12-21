@@ -10,7 +10,7 @@ import { Text } from "./components/text";
 import { Textarea } from "./components/textarea";
 import { palette } from "./palette";
 import { styles } from "./styles";
-import { BadgeStyle } from "../components/Badge/badge";
+import { BadgeStyle } from "./components/badge";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",

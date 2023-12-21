@@ -7,7 +7,7 @@ type RHFInputProps<T extends object> = Props & {
   variant?: string;
   type?: string;
   placeholder?: string;
-  formLabel: string;
+  label: string;
   required?: boolean;
   disabled?: boolean;
   name: FieldPath<T>;
@@ -17,7 +17,7 @@ const RHFInput = <T extends object>({
   variant,
   type,
   placeholder,
-  formLabel,
+  label,
   required,
   disabled,
   name,
@@ -51,7 +51,7 @@ const RHFInput = <T extends object>({
                 mb: "0.4rem",
               }}
             >
-              {formLabel}
+              {label}
             </FormLabel>
             <Input
               {...field}

@@ -13,7 +13,7 @@ import { Edit2 } from "react-feather";
 
 import TeamEditDialog from "../../../common/dialogs/TeamDialogs/TeamEditDialog";
 import { Team } from "../../../common/models/team/Team";
-import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider.tsx";
+import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
 import { theme } from "../../../common/theme";
 import TeamTableContainer from "../TeamTableContainer";
 import TeamTopContainer from "../TeamTopContainer";

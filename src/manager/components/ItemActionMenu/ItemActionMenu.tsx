@@ -26,7 +26,7 @@ const ItemActionMenu: FC<ItemActionMenuProps> = ({ item }) => {
   };
 
   const handleLendItemClick = () => {
-    show(<LoanCreateDialog />);
+    show(<LoanCreateDialog item={item} />);
   };
 
   const handleEditClick = () => {

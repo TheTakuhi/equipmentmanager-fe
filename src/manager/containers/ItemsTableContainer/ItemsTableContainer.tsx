@@ -18,6 +18,7 @@ const ItemsTableContainer: FC<ItemsTableContainerProps> = ({ tableHeight }) => {
 
   const search: SearchParams = useSearch({ from: `${ITEMSRoute.id}/` });
 
+  // TODO - implement query params from search
   const {
     data: itemsData,
     isLoading: isLoadingItems,

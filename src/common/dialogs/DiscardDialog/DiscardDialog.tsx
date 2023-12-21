@@ -14,7 +14,7 @@ import {
 import { X } from "react-feather";
 
 import Button from "../../components/Button";
-import { TeamFormValues } from "../../models/team/TeamFormValues.ts";
+import { TeamFormValues } from "../../models/team/TeamFormValues";
 
 interface DiscardDialogProps {
   close: () => void;

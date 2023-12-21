@@ -14,13 +14,13 @@ import { SelectOption } from "../../../models/utils/SelectOption";
 type RHFSelectProps<T extends object> = Props & {
   required?: boolean;
   disabled?: boolean;
-  formLabel: string;
+  label: string;
   options: SelectOption[];
   name: FieldPath<T>;
 };
 
 const RHFSelect = <T extends object>({
-  formLabel,
+  label,
   required,
   disabled,
   options,
@@ -51,7 +51,7 @@ const RHFSelect = <T extends object>({
               mb: "0.4rem",
             }}
           >
-            {formLabel}
+            {label}
           </FormLabel>
           <Select
             {...field}
@@ -92,7 +92,7 @@ const RHFSelect = <T extends object>({
                 mt: "0.2rem",
               }}
             >
-              {formLabel} is required. {error?.message as string}
+              {label} is required. {error?.message as string}
             </FormErrorMessage>
           )}
         </FormControl>

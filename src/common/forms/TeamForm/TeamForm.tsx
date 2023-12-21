@@ -64,14 +64,14 @@ const TeamForm: FC<TeamFormProps> = ({
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
             <RHFInput<TeamFormValues>
               name="teamName"
-              formLabel="Name"
+              label="Name"
               type="text"
               disabled={disabled}
               required
             />
             <RHFAutocomplete<TeamFormValues>
               name="owner"
-              formLabel="Team owner"
+              label="Team owner"
               options={ownerOptions}
               disabled={disabled}
               required
