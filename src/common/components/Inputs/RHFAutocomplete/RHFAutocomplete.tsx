@@ -14,7 +14,7 @@ import { SelectOption } from "../../../models/utils/SelectOption";
 type RHFAutocompleteProps<T extends object> = Props & {
   variant?: string;
   placeholder?: string;
-  formLabel: string;
+  label: string;
   disabled?: boolean;
   required?: boolean;
   options: SelectOption[];
@@ -24,7 +24,7 @@ type RHFAutocompleteProps<T extends object> = Props & {
 const RHFAutocomplete = <T extends object>({
   variant,
   placeholder,
-  formLabel,
+  label,
   disabled,
   required,
   options,
@@ -49,7 +49,7 @@ const RHFAutocomplete = <T extends object>({
               mb: "0.4rem",
             }}
           >
-            {formLabel}
+            {label}
           </FormLabel>
           <AutoComplete openOnFocus {...field} {...rest}>
             <AutoCompleteInput

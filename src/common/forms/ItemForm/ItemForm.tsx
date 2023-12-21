@@ -13,7 +13,7 @@ import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
 import { useItemQualityStates } from "../../hooks/queries/utility/useItemQualityStates";
 import { useItemTypes } from "../../hooks/queries/utility/useItemTypes";
 import { ItemFormValues } from "../../models/item/ItemFormValues";
-import { SelectOption } from "../../models/utils/SelectOption";
+import { parseUsersToSelectOptions } from "../../utils/selectOptionsParser";
 
 export type ItemFormSubmitHandler = (values: ItemFormValues) => void;
 
@@ -42,15 +42,6 @@ const ItemForm: FC<ItemFormProps> = ({
   const { data: ownerCandidates, isLoading: isLoadingOwnerCandidates } =
     useGetUsers();
 
-  const ownerOptions: SelectOption[] = [];
-  if (ownerCandidates)
-    ownerCandidates.content.map((owner) =>
-      ownerOptions.push({
-        value: owner.id,
-        label: owner.fullName,
-      }),
-    );
-
   // TODO IMPLEMENT ITEM FORM SKELETON LOADING
   if (isLoadingItemTypes || isLoadingQualityStates || isLoadingOwnerCandidates)
     return <Skeleton />;
@@ -62,14 +53,14 @@ const ItemForm: FC<ItemFormProps> = ({
           <SimpleGrid columns={{ base: 2 }} sx={{ gap: "1rem" }}>
             <RHFInput<ItemFormValues>
               name="serialCode"
-              formLabel="Serial number"
+              label="Serial number"
               type="text"
               disabled={disabled}
               required
             />
             <RHFSelect<ItemFormValues>
               name="type"
-              formLabel="Type"
+              label="Type"
               options={itemTypes}
               disabled={disabled}
               required
@@ -78,15 +69,15 @@ const ItemForm: FC<ItemFormProps> = ({
           <SimpleGrid columns={{ base: 2 }} sx={{ gap: "1rem" }}>
             <RHFSelect<ItemFormValues>
               name="qualityState"
-              formLabel="Quality state"
+              label="Quality state"
               options={itemQualityStates}
               disabled={disabled}
               required
             />
             <RHFAutocomplete<ItemFormValues>
               name="managerOwner"
-              formLabel="Item owner"
-              options={ownerOptions}
+              label="Item owner"
+              options={parseUsersToSelectOptions(ownerCandidates?.content)}
               disabled={disabled}
               required
             />
@@ -94,7 +85,7 @@ const ItemForm: FC<ItemFormProps> = ({
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
             <RHFTextArea<ItemFormValues>
               name="comment"
-              formLabel="Comment"
+              label="Comment"
               disabled={disabled}
               placeholder="ex. more info about item's state"
             />

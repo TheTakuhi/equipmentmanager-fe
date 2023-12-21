@@ -36,14 +36,14 @@ const UserForm: FC<UserFormProps> = ({
           <SimpleGrid columns={{ base: 2 }} sx={{ gap: "1rem" }}>
             <RHFInput<UserFormValues>
               name="firstName"
-              formLabel="First name"
+              label="First name"
               type="text"
               disabled={disabled}
               required
             />
             <RHFInput<UserFormValues>
               name="lastName"
-              formLabel="Last name"
+              label="Last name"
               type="text"
               disabled={disabled}
               required
@@ -52,14 +52,14 @@ const UserForm: FC<UserFormProps> = ({
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
             <RHFInput<UserFormValues>
               name="login"
-              formLabel="Login"
+              label="Login"
               type="text"
               disabled={disabled}
               required
             />
             <RHFInput<UserFormValues>
               name="email"
-              formLabel="Email"
+              label="Email"
               type="text"
               disabled={disabled}
               required

@@ -46,7 +46,7 @@ const AddMemberForm: FC<AddMemberProps> = ({
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
             <RHFAutocomplete
               name="id"
-              formLabel="New member"
+              label="New member"
               options={memberOptions}
               required
             />

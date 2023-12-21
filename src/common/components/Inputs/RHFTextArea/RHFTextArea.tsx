@@ -5,7 +5,7 @@ import { Controller, FieldPath, useFormContext } from "react-hook-form";
 type RHFTextAreaProps<T extends object> = Props & {
   variant?: string;
   placeholder?: string;
-  formLabel: string;
+  label: string;
   disabled?: boolean;
   name: FieldPath<T>;
 };
@@ -13,7 +13,7 @@ type RHFTextAreaProps<T extends object> = Props & {
 const RHFTextArea = <T extends object>({
   variant,
   placeholder,
-  formLabel,
+  label,
   disabled,
   name,
 }: RHFTextAreaProps<T>) => {
@@ -33,7 +33,7 @@ const RHFTextArea = <T extends object>({
                 mb: "0.4rem",
               }}
             >
-              {formLabel}
+              {label}
             </FormLabel>
             <Textarea
               {...field}

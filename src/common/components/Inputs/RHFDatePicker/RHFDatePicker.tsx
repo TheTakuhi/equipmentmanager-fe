@@ -2,20 +2,20 @@ import { useState } from "react";
 
 import { FormControl, FormLabel, useTheme } from "@chakra-ui/react";
 import { DatepickerConfigs, SingleDatepicker } from "chakra-dayzed-datepicker";
-import { Props } from "chakra-react-select";
+import { DateTime } from "luxon";
 import { Controller, FieldPath, useFormContext } from "react-hook-form";
 
 import { propsConfigs } from "./propsConfigs";
 
-type RHFDatePickerProps<T extends object> = Props & {
-  formLabel: string;
+type RHFDatePickerProps<T extends object> = {
+  label: string;
   disabled?: boolean;
   required?: boolean;
   name: FieldPath<T>;
 };
 
 const RHFDatePicker = <T extends object>({
-  formLabel,
+  label,
   disabled,
   required,
   name,
@@ -23,21 +23,18 @@ const RHFDatePicker = <T extends object>({
 }: RHFDatePickerProps<T>) => {
   const theme = useTheme();
   const { control } = useFormContext();
-  const [date, setDate] = useState(new Date());
 
   type FirstDayOfWeek = DatepickerConfigs["firstDayOfWeek"];
   const [firstDayOfWeek] = useState<FirstDayOfWeek>(1);
-
-  const isError = date.getDate().toString() === "";
 
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState: { error } }) => (
         <FormControl
           isRequired={required}
-          isInvalid={isError}
+          isInvalid={!!error}
           sx={{ display: "flex", flexDirection: "column" }}
         >
           <FormLabel
@@ -46,14 +43,15 @@ const RHFDatePicker = <T extends object>({
               mb: "0.4rem",
             }}
           >
-            {formLabel}
+            {label}
           </FormLabel>
           <SingleDatepicker
             {...field}
             {...rest}
-            name={name}
-            date={date}
-            onDateChange={setDate}
+            date={new Date(Date.parse(field.value))}
+            onDateChange={(date) =>
+              field.onChange(DateTime.fromJSDate(date).toFormat("yyyy-MM-dd"))
+            }
             closeOnSelect
             disabled={disabled}
             configs={{

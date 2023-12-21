@@ -1,4 +1,3 @@
-// TODO implement after forms
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
@@ -10,10 +9,7 @@ import { Loan } from "../../../models/loan/Loan";
 import { LoanFormValues } from "../../../models/loan/LoanFormValues";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 
-export const useLoanEditMutation = (
-  loanId: string,
-  syncRolesToKeycloak?: boolean,
-) => {
+export const useLoanEditMutation = (loanId: string) => {
   const securedAxios = useSecuredAxios();
 
   return useMutation<
@@ -27,9 +23,6 @@ export const useLoanEditMutation = (
         .put(
           `${getEnvVariable(EnvVariableName.HOST_CORE)}/loans/${loanId}`,
           loan,
-          {
-            params: { syncRolesToKeycloak },
-          },
         )
         .then((response) => response.data as Loan),
   });

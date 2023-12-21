@@ -1,12 +1,14 @@
 import { FC } from "react";
 
-import { Flex, Heading, HStack, Input, Select, Spacer } from "@chakra-ui/react";
+import { Flex, Heading, HStack, Spacer } from "@chakra-ui/react";
 import { Download, Plus } from "react-feather";
 
 import Button from "../../../common/components/Button";
+import SearchBar from "../../../common/components/SearchBar";
 import SortFilter from "../../../common/components/SortFilter";
 import ItemCreateDialog from "../../../common/dialogs/ItemDialogs/ItemCreateDialog";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
+import { allItemsRoute } from "../../../common/routes/common/items/allItems/allItemsRoute";
 
 const ItemsTopContainer: FC = () => {
   const { show } = useActionDialog();
@@ -30,13 +32,10 @@ const ItemsTopContainer: FC = () => {
             sx={{ width: "max-content" }}
           />
           <HStack gap="0">
-            <Select variant="filled">
-              <option>Serial code</option>
-              <option>Type</option>
-              <option>Quality state</option>
-              <option>State</option>
-            </Select>
-            <Input placeholder="Search..." />
+            <SearchBar
+              route={allItemsRoute.id}
+              options={[{ value: "itemCode", label: "Item code" }]}
+            />
           </HStack>
         </HStack>
         <Spacer />

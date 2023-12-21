@@ -2,47 +2,55 @@ import { FC } from "react";
 
 import { Box, Text, useTheme } from "@chakra-ui/react";
 import { useNavigate } from "@tanstack/react-router";
+import { KeycloakResourceAccess } from "keycloak-js";
 import { LogOut } from "react-feather";
 import { toast } from "react-toastify";
 
+import keycloak from "../../../security/config/keycloak";
+import { useKeycloakResourceAccess } from "../../../security/hooks/queries/useKeycloakResourceAccess";
 import { clearKeycloakCache } from "../../../security/hooks/useMountKeycloak";
+import { Role } from "../../../security/model/Role";
 import { inMockedDevEnv } from "../../../utils/environment";
 import { toastOptions } from "../../../utils/toastOptions";
-import { useKeycloakResourceAccess } from "../../../security/hooks/queries/useKeycloakResourceAccess.ts";
-import { Role } from "../../../security/model/Role";
-import { KeycloakResourceAccess } from "keycloak-js";
-import keycloak from "../../../security/config/keycloak";
 
 export interface CurrentUserProps {
   open: boolean;
 }
 
-const handleLogoutAction = (navigate: any, roles: Role[] | (KeycloakResourceAccess & {[p: string]: {roles: Role[]} | undefined})) => {
-  const isGuest = roles && roles['equipment-manager-fe'] && roles['equipment-manager-fe'].roles.includes('GUEST');
+const handleLogoutAction = (
+  navigate: any,
+  roles:
+    | Role[]
+    | (KeycloakResourceAccess & { [p: string]: { roles: Role[] } | undefined }),
+) => {
+  const isGuest =
+    roles &&
+    roles["equipment-manager-fe"] &&
+    roles["equipment-manager-fe"].roles.includes("GUEST");
 
-  {isGuest ? (
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    navigate({
-      from: undefined,
-      hash: undefined,
-      params: undefined,
-      replace: false,
-      search: {},
-      state: undefined,
-      to: `${import.meta.env.VITE_APP_PUBLIC_URL}/guest`,
-    })
-  ) : (
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    navigate({
-      from: undefined,
-      hash: undefined,
-      params: undefined,
-      replace: false,
-      search: {},
-      state: undefined,
-      to: `${import.meta.env.VITE_APP_PUBLIC_URL}/management/my-people/`,
-    })
-  )}
+  {
+    isGuest
+      ? // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        navigate({
+          from: undefined,
+          hash: undefined,
+          params: undefined,
+          replace: false,
+          search: {},
+          state: undefined,
+          to: `${import.meta.env.VITE_APP_PUBLIC_URL}/guest`,
+        })
+      : // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        navigate({
+          from: undefined,
+          hash: undefined,
+          params: undefined,
+          replace: false,
+          search: {},
+          state: undefined,
+          to: `${import.meta.env.VITE_APP_PUBLIC_URL}/management/my-people/`,
+        });
+  }
 };
 
 const CurrentUserLogout: FC<CurrentUserProps> = ({ open }) => {
