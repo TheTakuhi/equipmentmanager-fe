@@ -5,30 +5,16 @@ import { Download } from "react-feather";
 
 import Button from "../../../common/components/Button";
 import SortFilter from "../../../common/components/SortFilter";
-import LoansTableContainer from "../../../manager/containers/LoansTableContainer";
+import { userDetailRoute } from "../../../common/routes/common/userDetail/userDetailRoute";
+import LoansHistoryTableContainer from "../../../manager/containers/LoansHistoryTableContainer";
+import { useLoansHistoryUserDetailTableColumns } from "../../../manager/hooks/useLoansHistoryUserDetailTableColumns";
 
 interface UserDetailTableProps {
   tableHeight: string;
 }
 
 const UserDetailTable: FC<UserDetailTableProps> = ({ tableHeight }) => {
-  // TODO implement after adding forms
-  // const { mutate: mutateDeleteItem } = useItemDeleteMutation("123");
-  // const handleAdd = () => {
-  //   mutateDeleteItem(undefined, {
-  //     onSuccess: () => {
-  //       toast.success("Item deleted", toastOptions);
-  //       close();
-  //     },
-  //     onError: (error) => {
-  //       toast.error(
-  //         error.response?.data.message ?? "An error has occurred",
-  //         toastOptions,
-  //       );
-  //       close();
-  //     },
-  //   });
-  // };
+  const columns = useLoansHistoryUserDetailTableColumns();
 
   return (
     <>
@@ -61,7 +47,11 @@ const UserDetailTable: FC<UserDetailTableProps> = ({ tableHeight }) => {
           />
         </HStack>
       </Flex>
-      <LoansTableContainer tableHeight={tableHeight} />
+      <LoansHistoryTableContainer
+        tableHeight={tableHeight}
+        route={`${userDetailRoute.id}/$userDetailId`}
+        columns={columns}
+      />
     </>
   );
 };

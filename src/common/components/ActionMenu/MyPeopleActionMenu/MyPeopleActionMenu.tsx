@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { useNavigate } from "@tanstack/react-router";
-import { ArrowUpRight, Edit2, Info, Trash } from "react-feather";
+import { ArrowUpRight, Edit2, Info, Trash2 } from "react-feather";
 
 import LoanCreateDialog from "../../../dialogs/LoanDialogs/LoanCreateDialog";
 import UserDeleteDialog from "../../../dialogs/UserDialogs/UserDeleteDialog";
@@ -14,7 +14,7 @@ interface UserProps {
   user: User;
 }
 
-const UserActionMenu: FC<UserProps> = ({ user }) => {
+const MyPeopleActionMenu: FC<UserProps> = ({ user }) => {
   const { show } = useActionDialog();
   const navigate = useNavigate();
 
@@ -57,7 +57,7 @@ const UserActionMenu: FC<UserProps> = ({ user }) => {
         },
         {
           label: "Delete user",
-          icon: <Trash />,
+          icon: <Trash2 />,
           onClick: handleDeleteClick,
         },
       ]}
@@ -65,4 +65,4 @@ const UserActionMenu: FC<UserProps> = ({ user }) => {
   );
 };
 
-export default UserActionMenu;
+export default MyPeopleActionMenu;

@@ -7,7 +7,7 @@ import {
 } from "../../../config/env/getEnvVariable";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 
-export const useItemDeleteMutation = (itemId: string) => {
+export const useItemDeleteMutation = (itemId?: string) => {
   const securedAxios = useSecuredAxios();
 
   return useMutation<void, AxiosError<any, any>, void, unknown>({

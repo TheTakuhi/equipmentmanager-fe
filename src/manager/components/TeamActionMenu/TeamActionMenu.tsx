@@ -5,7 +5,7 @@ import { Info, Trash } from "react-feather";
 
 import Menu from "../../../common/components/Menu";
 import { User } from "../../../common/models/user/User";
-import { USERRoute } from "../../../common/routes/common/users/user/userRoute";
+import { userDetailRoute } from "../../../common/routes/common/userDetail/userDetailRoute";
 
 interface TeamActionMenuProps {
   user: User;
@@ -15,9 +15,10 @@ const TeamActionMenu: FC<TeamActionMenuProps> = ({ user }) => {
   const navigate = useNavigate();
   // const { show } = useActionDialog();
 
+  // TODO - check if matches
   const handleUserDetailClick = () => {
     navigate({
-      to: `${USERRoute.id}/${user.id}`,
+      to: `${userDetailRoute.id}/${user.id}`,
     });
   };
 

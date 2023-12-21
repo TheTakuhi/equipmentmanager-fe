@@ -1,18 +1,18 @@
-import { Route } from "@tanstack/react-router";
+import { Outlet, Route } from "@tanstack/react-router";
 
-import LoansPage from "../../../../manager/pages/LoansPage";
+import { AllLOANSRoute } from "./allLoans/allLoansRoute";
 import { loans } from "../../../config/links/securedLinks";
 import RoleAccessPermission from "../../../security/components/RoleAccessPermission";
 import { commonRoutes } from "../commonRoutes";
 
-const loansRoute = new Route({
+export const loansRoute = new Route({
   getParentRoute: () => commonRoutes,
   path: "loans",
   component: () => (
     <RoleAccessPermission allowedRoles={loans.allowedRoles}>
-      <LoansPage />
+      <Outlet />
     </RoleAccessPermission>
   ),
 });
 
-export const LOANSRoute = loansRoute;
+export const LOANSRoute = loansRoute.addChildren([AllLOANSRoute]);

@@ -4,13 +4,13 @@ import { Box, Heading, SkeletonText, useTheme } from "@chakra-ui/react";
 import { useNavigate, useParams } from "@tanstack/react-router";
 
 import { useGetItemById } from "../../../common/hooks/queries/items/useGetItemById";
-import { itemsRoute } from "../../../common/routes/common/items/itemsRoute";
+import { itemDetailRoute } from "../../../common/routes/common/itemDetail/itemDetailRoute";
 
 const BreadCrumbHeader: FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const itemIdParam = useParams({ from: itemsRoute }).itemId;
+  const itemIdParam = useParams({ from: itemDetailRoute }).itemId;
 
   const { data: item, isLoading } = useGetItemById(itemIdParam);
 

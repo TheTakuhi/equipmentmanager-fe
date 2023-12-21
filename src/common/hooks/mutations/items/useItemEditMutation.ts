@@ -10,7 +10,7 @@ import { ItemFormValues } from "../../../models/item/ItemFormValues";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 
 export const useItemEditMutation = (
-  itemId: string,
+  itemId?: string,
   syncRolesToKeycloak?: boolean,
 ) => {
   const securedAxios = useSecuredAxios();
