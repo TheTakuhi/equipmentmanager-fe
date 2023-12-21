@@ -7,15 +7,24 @@ import { toast } from "react-toastify";
 import Button from "../../../common/components/Button";
 import DiscardDialog from "../../../common/dialogs/DiscardDialog";
 import FormDialog from "../../../common/dialogs/FormDialog";
+import ItemForm, {
+  ItemFormSubmitHandler,
+} from "../../../common/forms/ItemForm/ItemForm";
 import { useItemDeleteMutation } from "../../../common/hooks/mutations/items/useItemDeleteMutation";
+import { useItemEditMutation } from "../../../common/hooks/mutations/items/useItemEditMutation";
+import { Item } from "../../../common/models/item/Item";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
 import { toastOptions } from "../../../common/utils/toastOptions";
 
-const ItemDetailHeader: FC = () => {
+interface ItemDetailHeaderProps {
+  item?: Item;
+}
+
+const ItemDetailHeader: FC<ItemDetailHeaderProps> = ({ item }) => {
   const { show, close } = useActionDialog();
 
-  const { mutate: mutateDeleteItem } = useItemDeleteMutation("123");
-  // const { mutate: mutateEditItem } = useItemEditMutation("123");
+  const { mutate: mutateDeleteItem } = useItemDeleteMutation(item?.id);
+  const { mutate: mutateEditItem } = useItemEditMutation(item?.id);
 
   const handleDiscard = () => {
     mutateDeleteItem(undefined, {
@@ -33,49 +42,52 @@ const ItemDetailHeader: FC = () => {
     });
   };
 
-  // TODO implement like this after adding forms
-  // const handleEdit: ItemFormSubmitHandler = (values) =>
-  //   mutateEditItem(values, {
-  //     onSuccess: () => {
-  //       toast.success("Item edited", toastOptions);
-  //       close();
-  //     },
-  //     onError: (error) => {
-  //       toast.error(
-  //         error.response?.data.message ?? "An error has occurred",
-  //         toastOptions,
-  //       );
-  //     },
-  //   });
-  // const handleEdit = () => {
-  //   mutateDeleteItem(undefined, {
-  //     onSuccess: () => {
-  //       toast.success("Item edited", toastOptions);
-  //       close();
-  //     },
-  //     onError: (error) => {
-  //       toast.error(
-  //         error.response?.data.message ?? "An error has occurred",
-  //         toastOptions,
-  //       );
-  //       close();
-  //     },
-  //   });
-  // };
+  const handleEdit: ItemFormSubmitHandler = (values) =>
+    mutateEditItem(values, {
+      onSuccess: () => {
+        toast.success("Item edited", toastOptions);
+        close();
+      },
+      onError: (error) => {
+        toast.error(
+          error.response?.data.message ?? "An error has occurred",
+          toastOptions,
+        );
+      },
+    });
 
   const discardDialogOpen = () => {
     show(
       <DiscardDialog
-        title="Del"
-        description="Are you sure?"
+        title="Delete item"
         close={close}
+        description="Are you sure?"
         discard={handleDiscard}
       />,
     );
   };
 
   const editItemDialogOpen = () => {
-    show(<FormDialog title="Edit item" close={close} />);
+    show(
+      <FormDialog
+        title="Edit item"
+        close={close}
+        dialogForm={
+          <ItemForm
+            handleSubmit={handleEdit}
+            close={close}
+            isEdit
+            defaultValues={{
+              serialCode: item?.serialCode,
+              type: item?.type,
+              qualityState: item?.qualityState,
+              comment: item?.comment,
+              managerOwner: item?.managerOwner.id,
+            }}
+          />
+        }
+      />,
+    );
   };
 
   return (

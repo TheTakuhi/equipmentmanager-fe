@@ -2,20 +2,20 @@ import { FC } from "react";
 
 import { Box, Heading, SkeletonText, useTheme } from "@chakra-ui/react";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { usersRoute } from "../../../../common/routes/common/users/usersRoute";
+
 import { useGetUserById } from "../../../../common/hooks/queries/users/useGetUserById";
+import { userDetailRoute } from "../../../../common/routes/common/userDetail/userDetailRoute";
 
 const UserBreadCrumbHeader: FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const userIdParam = useParams({ from: usersRoute }).userId;
-
+  const userIdParam = useParams({ from: userDetailRoute }).userId;
   const { data: user, isLoading } = useGetUserById(userIdParam);
 
   const handleRedirectBack = () => {
     navigate({
-      to: "/equipment-manager/management/users",
+      to: "/equipment-manager/management/my-people",
     });
   };
 
@@ -51,7 +51,7 @@ const UserBreadCrumbHeader: FC = () => {
         }}
         onClick={handleRedirectBack}
       >
-        Users &nbsp;&gt;&nbsp;
+        My People &nbsp;&gt;&nbsp;
       </Heading>
       <Heading
         size="h1"

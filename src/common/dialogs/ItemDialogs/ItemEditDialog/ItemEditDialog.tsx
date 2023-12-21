@@ -49,7 +49,6 @@ const ItemEditDialog: FC<ItemEditDialogProps> = ({ item }) => {
           defaultValues={{
             serialCode: item.serialCode,
             type: item.type,
-            state: item.state,
             qualityState: item.qualityState,
             comment: item.comment,
             managerOwner: item.managerOwner.id,

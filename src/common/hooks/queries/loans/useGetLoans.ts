@@ -16,6 +16,8 @@ type UseGetLoansQueryOptions = UseQueryOptions<Pageable<Loan>, Error>;
 type UseGetLoansQueryParams = {
   includeRemoved?: boolean;
   pageable?: PageableParam;
+  user?: string;
+  item?: string;
 };
 
 type GetLoansQueryKeyHandler = (

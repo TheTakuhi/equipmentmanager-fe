@@ -1,60 +1,54 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 
-import TSTable, {
-  TableStateProps,
-} from "../../../common/components/TSTable/TSTable";
-import { TableSearchQuery } from "../../../common/forms/useTableSearchForm/useTableSearchForm";
+import { useSearch } from "@tanstack/react-router";
+
+import TSTable from "../../../common/components/TSTable/TSTable";
 import { useGetItems } from "../../../common/hooks/queries/items/useGetItems";
 import { useItemsTableColumns } from "../../../common/hooks/utils/useItemsTableColumns";
+import { Item } from "../../../common/models/item/Item";
+import { SearchParams } from "../../../common/models/SearchParams";
+import { ITEMSRoute } from "../../../common/routes/common/items/itemsRoute";
 
 interface ItemsTableContainerProps {
-  searchQuery?: TableSearchQuery;
   tableHeight: string;
 }
 
-const ItemsTableContainer: FC<ItemsTableContainerProps> = ({
-  searchQuery,
-  tableHeight,
-}) => {
+const ItemsTableContainer: FC<ItemsTableContainerProps> = ({ tableHeight }) => {
   const columns = useItemsTableColumns();
-  const [tableStateProps, setTableStateProps] = useState<TableStateProps>({
-    pageIndex: 0,
-    pageSize: 15,
-    sort: "",
-    sortDirection: "",
-    columnFilters: [],
-  });
+
+  const search: SearchParams = useSearch({ from: `${ITEMSRoute.id}/` });
 
   const {
     data: itemsData,
     isLoading: isLoadingItems,
     refetch,
-  } = useGetItems({
-    [`${searchQuery?.param}`]: searchQuery?.value,
-    [`${
-      tableStateProps.columnFilters ? tableStateProps.columnFilters[0]?.id : ""
-    }`]: tableStateProps.columnFilters
-      ? tableStateProps.columnFilters[0]?.value
-      : "",
-    pageable: {
-      page: tableStateProps.pageIndex,
-      size: tableStateProps.pageSize,
-      sort: tableStateProps.sort,
-      [`${tableStateProps.sort}.dir`]: tableStateProps.sortDirection,
-    },
-  });
+  } = useGetItems(
+    search.pagination !== undefined && search.table !== undefined
+      ? {
+          [`${search.search !== undefined ? search.search.param : ""}`]:
+            search.search !== undefined ? search.search.value : "",
+          [`${search.table.columnFilters[0]?.id}`]:
+            search.table.columnFilters[0]?.value,
+          pageable: {
+            page: search.pagination.index,
+            size: search.pagination.size,
+            sort: search.table.sort,
+          },
+        }
+      : {},
+  );
 
   useEffect(() => {
     refetch();
-  }, [searchQuery, tableStateProps]);
+  }, [search]);
 
   return (
-    <TSTable
+    <TSTable<Item>
+      route={`${ITEMSRoute.id}/`}
       columns={columns}
       data={itemsData?.content ?? []}
       isLoading={isLoadingItems}
       pageable={itemsData}
-      tableStateCallback={(info) => setTableStateProps(info)}
       tableHeight={tableHeight}
     />
   );

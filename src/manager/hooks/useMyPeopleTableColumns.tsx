@@ -1,10 +1,10 @@
 import { createColumnHelper } from "@tanstack/react-table";
 
-import UserActionMenu from "../../common/components/ActionMenu/UserActionMenu";
+import MyPeopleActionMenu from "../../common/components/ActionMenu/MyPeopleActionMenu";
 import { User } from "../../common/models/user/User";
 
 // TODO fix type of userRoles from string to enum with Row check? in all useColumns
-export const useUsersTableColumns = () => {
+export const useMyPeopleTableColumns = () => {
   const columnHelper = createColumnHelper<User>();
 
   return [
@@ -56,7 +56,7 @@ export const useUsersTableColumns = () => {
     columnHelper.display({
       id: "actions",
       header: "",
-      cell: (info) => <UserActionMenu user={info.row.original} />,
+      cell: (info) => <MyPeopleActionMenu user={info.row.original} />,
       enableColumnFilter: false,
       enableSorting: false,
     }),

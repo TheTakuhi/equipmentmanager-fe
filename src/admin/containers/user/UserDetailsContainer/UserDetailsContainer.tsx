@@ -1,18 +1,27 @@
 import { FC } from "react";
 
-import { Box, Divider, GridItem, SimpleGrid, Skeleton, SkeletonText, useMediaQuery, useTheme } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  GridItem,
+  SimpleGrid,
+  Skeleton,
+  SkeletonText,
+  useMediaQuery,
+  useTheme,
+} from "@chakra-ui/react";
 import { useParams } from "@tanstack/react-router";
 
-import { usersRoute } from "../../../../common/routes/common/users/usersRoute";
-import { useGetUserById } from "../../../../common/hooks/queries/users/useGetUserById";
-import UserDetailRow from "../../../components/UserDetailRow";
 import UserAvatar from "../../../../common/components/CurrentUser/UserAvatar";
+import { useGetUserById } from "../../../../common/hooks/queries/users/useGetUserById";
+import { userDetailRoute } from "../../../../common/routes/common/userDetail/userDetailRoute";
+import UserDetailRow from "../../../components/UserDetailRow";
 
 const UserDetailsContainer: FC = () => {
   const theme = useTheme();
 
-  const userIdParam = useParams({ from: usersRoute }).userId;
-  const { data: user, isLoading: isLoadingUser } = useGetUserById(userIdParam);
+  const userIdParam = useParams({ from: userDetailRoute }).userId;
+  const { data: user, isLoading } = useGetUserById(userIdParam);
 
   const [isSmallerThanMD] = useMediaQuery("(max-width: 768px)");
   const [isSmallerThanLG] = useMediaQuery("(max-width: 992px)");
@@ -20,7 +29,7 @@ const UserDetailsContainer: FC = () => {
   const [isBiggerThanLG] = useMediaQuery("(min-width: 992px)");
 
   // TODO style Skeleton as custom component
-  if (isLoadingUser)
+  if (isLoading)
     return (
       <>
         <Box
@@ -91,15 +100,22 @@ const UserDetailsContainer: FC = () => {
         borderBottom: "1px solid #313033",
         display: "flex",
         alignItems: isSmallerThanMD ? "" : "center",
-        gap: "1.25rem"
+        gap: "1.25rem",
       }}
     >
-      <UserAvatar avatarWidth="4rem" avatarHeight="4rem" badgeTop="2.75rem" badgeLeft="2.75rem" isLoadingUser={isLoadingUser} currentUser={user} />
+      <UserAvatar
+        avatarWidth="4rem"
+        avatarHeight="4rem"
+        badgeTop="2.75rem"
+        badgeLeft="2.75rem"
+        isLoadingUser={isLoading}
+        currentUser={user}
+      />
       <SimpleGrid
         columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 3 }}
         spacing="19px"
         sx={{
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <GridItem

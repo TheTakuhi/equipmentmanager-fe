@@ -13,18 +13,17 @@ import {
 } from "@chakra-ui/react";
 import { useParams } from "@tanstack/react-router";
 
-import Badge from "../../../common/components/Badge";
 import { useGetItemById } from "../../../common/hooks/queries/items/useGetItemById";
 import { useGetLoanByItemId } from "../../../common/hooks/queries/loans/useGetLoanByItemId";
 import { ItemState } from "../../../common/models/item/ItemState";
-import { itemsRoute } from "../../../common/routes/common/items/itemsRoute";
+import { itemDetailRoute } from "../../../common/routes/common/itemDetail/itemDetailRoute";
 import ItemDetailHeader from "../../components/ItemDetailHeader";
 import ItemDetailRow from "../../components/ItemDetailRow";
 
 const ItemDetailsContainer: FC = () => {
   const theme = useTheme();
 
-  const itemIdParam = useParams({ from: itemsRoute }).itemId;
+  const itemIdParam = useParams({ from: itemDetailRoute }).itemId;
   const { data: item, isLoading: isLoadingItem } = useGetItemById(itemIdParam);
   const { data: loan, isLoading: isLoadingLoan } =
     useGetLoanByItemId(itemIdParam);
@@ -106,7 +105,7 @@ const ItemDetailsContainer: FC = () => {
         borderBottom: "1px solid #313033",
       }}
     >
-      <ItemDetailHeader />
+      <ItemDetailHeader item={item} />
       <SimpleGrid
         columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
         spacing="19px"
@@ -146,16 +145,17 @@ const ItemDetailsContainer: FC = () => {
             }}
             pl={isSmallerThanMD ? "0px" : "21px"}
           >
-            <ItemDetailRow
-              label="Created by"
-              text={item?.managerOwner.fullName}
-            />
-            <ItemDetailRow
-              label="State"
-              pill={
-                <Badge variant="info" label={item?.state.toString() || ""} />
-              }
-            />
+            {/* //TODO FIX ITEM DETAIL USER INFO */}
+            {/* <ItemDetailRow */}
+            {/*  label="Created by" */}
+            {/*  text={item?.managerOwner.fullName} */}
+            {/* /> */}
+            {/* <ItemDetailRow */}
+            {/*  label="State" */}
+            {/*  pill={ */}
+            {/*    <Badge variant="info" label={item?.state.toString() || ""} /> */}
+            {/*  } */}
+            {/* /> */}
             <ItemDetailRow
               label="Lender"
               text={

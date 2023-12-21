@@ -31,12 +31,6 @@ export type TableSearchParams = {
   columnFilters: ColumnFilter[];
 };
 
-export interface TableStateProps extends PaginationStateProps {
-  sort: string;
-  sortDirection: string;
-  columnFilters?: ColumnFilter[];
-}
-
 type TSTableProps<T extends object> = {
   route: string;
   data: T[];

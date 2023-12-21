@@ -8,6 +8,7 @@ import SearchBar from "../../../common/components/SearchBar";
 import SortFilter from "../../../common/components/SortFilter";
 import FormDialog from "../../../common/dialogs/FormDialog";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
+import { LOANSRoute } from "../../../common/routes/common/loans/loansRoute";
 
 const LoansTopContainer: FC = () => {
   const { show, close } = useActionDialog();
@@ -64,12 +65,12 @@ const LoansTopContainer: FC = () => {
           />
           {/* TODO - fix searchbar param width for longer param labels */}
           <SearchBar
+            route={LOANSRoute.id}
             options={[
               { value: "itemCode", label: "Item code" },
               { value: "borrower", label: "Borrower's name" },
               { value: "lendingDate", label: "Lending date" },
             ]}
-            handleSubmit={() => {}}
           />
         </HStack>
         <Spacer />

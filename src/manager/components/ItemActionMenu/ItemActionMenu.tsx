@@ -20,8 +20,8 @@ const ItemActionMenu: FC<ItemActionMenuProps> = ({ item }) => {
 
   const handleItemDetailClick = () => {
     navigate({
-      params: { itemId: item.id },
-      to: "/equipment-manager/management/items/$itemId",
+      params: { itemDetailId: item.id },
+      to: "/equipment-manager/management/item-detail/$itemDetailId",
     });
   };
 

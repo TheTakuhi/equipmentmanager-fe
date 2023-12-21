@@ -6,17 +6,23 @@ import TSTable from "../../../common/components/TSTable/TSTable";
 import { useGetLoans } from "../../../common/hooks/queries/loans/useGetLoans";
 import { Loan } from "../../../common/models/loan/Loan";
 import { SearchParams } from "../../../common/models/SearchParams";
-import { LOANSRoute } from "../../../common/routes/common/loans/loansRoute";
-import { useLoansTableColumns } from "../../hooks/useLoansTableColumns";
 
-interface LoansTableContainerProps {
+interface LoansHistoryTableContainerProps {
   tableHeight: string;
+  route: string;
+  columns: any;
+  userLoanHistory?: string;
+  itemLoanHistory?: string;
 }
 
-const LoansTableContainer: FC<LoansTableContainerProps> = ({ tableHeight }) => {
-  const columns = useLoansTableColumns();
-
-  const search: SearchParams = useSearch({ from: `${LOANSRoute.id}/` });
+const LoansHistoryTableContainer: FC<LoansHistoryTableContainerProps> = ({
+  tableHeight,
+  route,
+  columns,
+  userLoanHistory,
+  itemLoanHistory,
+}) => {
+  const search: SearchParams = useSearch({ from: route });
 
   const {
     data: loansData,
@@ -34,6 +40,8 @@ const LoansTableContainer: FC<LoansTableContainerProps> = ({ tableHeight }) => {
             size: search.pagination.size,
             sort: search.table.sort,
           },
+          user: userLoanHistory,
+          item: itemLoanHistory,
         }
       : {},
   );
@@ -44,7 +52,7 @@ const LoansTableContainer: FC<LoansTableContainerProps> = ({ tableHeight }) => {
 
   return (
     <TSTable<Loan>
-      route={`${LOANSRoute.id}/`}
+      route={route}
       columns={columns}
       data={loansData?.content ?? []}
       isLoading={isLoadingLoans}
@@ -54,4 +62,4 @@ const LoansTableContainer: FC<LoansTableContainerProps> = ({ tableHeight }) => {
   );
 };
 
-export default LoansTableContainer;
+export default LoansHistoryTableContainer;

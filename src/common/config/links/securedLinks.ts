@@ -34,8 +34,8 @@ export const teams: MainNavigationLink = {
 export const myPeople: MainNavigationLink = {
   url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/my-people`),
   partialPath: "/equipment-manager/management/my-people",
-  label: "My people",
-  key: "My people",
+  label: "My People",
+  key: "My People",
   icon: User,
   allowedRoles: [MANAGER, ADMIN],
 };
@@ -49,12 +49,22 @@ export const users: MainNavigationLink = {
   allowedRoles: [ADMIN],
 };
 
+export const userDetail: MainNavigationLink = {
+  url: getFullUrl(`${import.meta.env.VITE_APP_PUBLIC_URL}/userDetail`),
+  partialPath: "/equipment-manager/management/userDetail",
+  label: "User detail",
+  key: "User detail",
+  icon: Users,
+  allowedRoles: [MANAGER, ADMIN],
+};
+
 export const secLinks = {
   items,
   loans,
   teams,
   myPeople,
   users,
+  userDetail,
 };
 
 const links = {
