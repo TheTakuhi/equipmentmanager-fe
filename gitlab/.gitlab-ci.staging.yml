@@ -1,0 +1,115 @@
+variables:
+  MAIN_ENVIRONMENT: "main"
+  PRODUCTION_ENVIRONMENT: "production"
+  STAGING_ENVIRONMENT: "staging"
+
+stages:
+  - version
+  - merge
+  - setup
+  - build
+  - deploy
+
+version_codebase:
+  stage: version
+  image:
+    name: node:18
+    pull_policy: if-not-present
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE !~ /^version\(release\):/
+  before_script:
+    - git config --global user.email $BOT_EMAIL
+    - git config --global user.name $BOT_NAME
+    - git fetch $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH
+    - git checkout -b $CI_COMMIT_BRANCH
+  script:
+    - npx standard-version -a
+    # - git push --tags $GITLAB_PROJECT_ORIGIN -o ci.skip -> option if no regex would be provided to message above.
+    - git push --tags $GITLAB_PROJECT_ORIGIN
+    #    - git pull $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH
+    # - git push -u $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH -o ci.skip
+    - git push -u $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH
+  tags:
+    - ah1-docker
+
+cache:
+  key: $CI_PIPELINE_ID
+  policy: pull
+  untracked: true
+
+merge_main_to_staging:
+  stage: merge
+  image:
+    name: node:18
+    pull_policy: if-not-present
+  rules:
+    - if: $CI_COMMIT_BRANCH == $STAGING_ENVIRONMENT
+  before_script:
+    - git config --global user.email $BOT_EMAIL
+    - git config --global user.name $BOT_NAME
+  script:
+    - git checkout $MAIN_ENVIRONMENT
+    - git checkout $CI_COMMIT_BRANCH
+    - git merge $MAIN_ENVIRONMENT
+    - git push -u $GITLAB_PROJECT_ORIGIN $CI_COMMIT_BRANCH
+  tags:
+    - ah1-docker
+
+install_modules:
+  stage: setup
+  image: node:18
+  rules:
+    - if: $CI_COMMIT_BRANCH == $ENVIRONMENT_NAME
+  before_script:
+    - git config --global user.email $BOT_EMAIL
+    - git config --global user.name $BOT_NAME
+    - git config --global pull.rebase true
+  script:
+    - git checkout -f $CI_COMMIT_BRANCH && git pull
+    - npm install -g --force yarn
+    - yarn install --frozen-lockfile --no-progress
+  cache:
+    key: $CI_PIPELINE_ID
+    policy: pull-push
+    paths:
+      - .yarn
+      - node_modules
+  tags:
+    - ah1-docker
+
+build_application:
+  stage: build
+  image:
+    name: node:18
+    pull_policy: if-not-present
+  rules:
+    - if: $CI_COMMIT_BRANCH == $ENVIRONMENT_NAME
+  before_script:
+    - export REACT_APP_PUBLIC_URL=$PUBLIC_URL
+    - export REACT_APP_HOST_CORE=$HOST_CORE
+    - export REACT_APP_HOST_IDP=$HOST_IDP
+    - export REACT_APP_HOST_APPSHUB=$HOST_APPSHUB
+    - export REACT_APP_REALM=$REALM
+    - export REACT_APP_CLIENT_ID=$CLIENT_ID
+    - export REACT_APP_MOCKED=$MOCKED
+    - git config --global user.email $BOT_EMAIL
+    - git config --global user.name $BOT_NAME
+    - git config --global pull.rebase true
+  script:
+    - git checkout -f $CI_COMMIT_BRANCH && git pull
+    - CI=false yarn build
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - build/*
+  tags:
+    - ah1-docker
+
+deploy_to_staging:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == $ENVIRONMENT_NAME
+  script:
+    - cp -rf build/* /var/www/$LOCATION/
+  tags:
+    - ah1-shell
