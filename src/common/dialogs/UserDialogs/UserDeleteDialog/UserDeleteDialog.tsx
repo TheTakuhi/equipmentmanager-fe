@@ -7,7 +7,7 @@ import { useUserDeleteMutation } from "../../../hooks/mutations/users/useUserDel
 import { User } from "../../../models/user/User";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
 import { toastOptions } from "../../../utils/toastOptions";
-import DiscardDialog from "../../DiscardDialog";
+import DiscardUserDialog from "../../DiscardUserDialog";
 
 interface UserDeleteDialogProps {
   user: User;
@@ -36,12 +36,14 @@ const UserDeleteDialog: FC<UserDeleteDialogProps> = ({ user }) => {
 
   // TODO IMPLEMENT SELECT NEW OWNER OF ITEMS BEFORE DELETING USER
   return (
-    <DiscardDialog
+    <DiscardUserDialog
       title="Delete user"
       close={close}
-      description={`You’re about to delete ${user.fullName}. 
-      Are you sure you want to delete this user? This action cannot be reversed!`}
+      description={`You’re about to delete user ${user.fullName}.
+      This action cannot be reversed! Select new owner of ${user.fullName}'s owned items.
+      After successfully updating ownership of the items, discard button is going to get enabled.`}
       discard={handleDelete}
+      user={user}
     />
   );
 };
