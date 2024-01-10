@@ -14,6 +14,9 @@ const rootKey = "items";
 type UseGetItemsQueryOptions = UseQueryOptions<Pageable<Item>, Error>;
 
 type UseGetItemsQueryParams = {
+  login?: string;
+  id?: string;
+  fullName?: string;
   includeRemoved?: boolean;
   pageable?: PageableParam;
 };
