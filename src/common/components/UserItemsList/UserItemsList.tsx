@@ -1,6 +1,13 @@
 import { FC } from "react";
 
-import { Box, List, ListIcon, ListItem, useTheme } from "@chakra-ui/react";
+import {
+  Box,
+  List,
+  ListIcon,
+  ListItem,
+  Text,
+  useTheme,
+} from "@chakra-ui/react";
 import { Circle } from "react-feather";
 
 import { Item } from "../../models/item/Item";
@@ -12,6 +19,30 @@ interface UserItemsListProps {
 
 const UserItemsList: FC<UserItemsListProps> = ({ allUserItems }) => {
   const theme = useTheme();
+
+  if (allUserItems?.totalElements === 0 || allUserItems === undefined)
+    return (
+      <Box
+        sx={{
+          backgroundColor: theme.palette.secondary.main,
+          p: "0.5rem 1rem",
+          height: "10rem",
+          overflowY: "auto",
+          borderRadius: "1rem",
+        }}
+      >
+        <Text
+          sx={{
+            fontSize: theme.components.Text.sizes.body1.fontSize,
+            fontStyle: "italic",
+            textAlign: "center",
+            p: "3.5rem 1rem",
+          }}
+        >
+          No data found
+        </Text>
+      </Box>
+    );
 
   return (
     <Box

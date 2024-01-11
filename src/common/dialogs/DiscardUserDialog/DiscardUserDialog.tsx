@@ -68,8 +68,16 @@ const DiscardUserDialog: FC<StepperDialogProps> = ({
     login: user?.login,
   });
 
-  // TODO style Skeleton loading
-  if (isLoadingAllUserItems) return <Skeleton />;
+  if (isLoadingAllUserItems)
+    return (
+      <Skeleton
+        height="1rem"
+        width="auto"
+        mt="1rem"
+        startColor="#222222"
+        endColor="#444444"
+      />
+    );
 
   return (
     <AlertDialog
@@ -150,6 +158,11 @@ const DiscardUserDialog: FC<StepperDialogProps> = ({
                 isDisabled={
                   !isFormSubmitted || allUserItems?.totalElements !== 0
                 }
+                sx={{
+                  "&:hover:disabled": {
+                    backgroundColor: theme.palette.primary.dark,
+                  },
+                }}
               />
             </Box>
           </AlertDialogFooter>

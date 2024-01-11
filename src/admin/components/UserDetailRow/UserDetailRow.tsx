@@ -16,7 +16,6 @@ const UserDetailRow: FC<UserDetailRowProps> = ({ label, text, pill }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width: "auto",
       }}
     >
       <Text

@@ -21,7 +21,6 @@ const MyPeopleTableContainer: FC<MyPeopleTableContainerProps> = ({
 
   const search: SearchParams = useSearch({ from: `${allMyPeopleRoute.id}` });
 
-  // TODO - implement query params from search
   const {
     data: usersData,
     isLoading: isLoadingUsers,

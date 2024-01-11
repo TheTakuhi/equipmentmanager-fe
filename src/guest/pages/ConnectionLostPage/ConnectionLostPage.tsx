@@ -1,31 +1,61 @@
 import { FC } from "react";
 
-import { Box, Divider } from "@chakra-ui/react";
+import { Box, Grid, Text, useTheme } from "@chakra-ui/react";
+
+import ConnectionGif from "../../../common/resources/no_connection_animation.gif";
 
 const ConnectionLostPage: FC = () => {
-  // TODO implement connection lost page
+  const theme = useTheme();
+
   return (
-    <Box
-      sx={{
-        width: "100%",
-        position: "relative",
-        minHeight: "100vh",
-        p: 2,
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "column",
-        color: ({ palette }) => palette.primary.main,
-        backgroundColor: "#280071",
-      }}
-    >
-      <Divider
-        sx={{
-          my: 2,
-          width: "2rem",
-          backgroundColor: (theme) => theme.palette.primary.main,
-        }}
-      />
-    </Box>
+    <Grid>
+      <Grid>
+        <Box
+          sx={{
+            height: "100%",
+            paddingY: "1.5rem",
+            textAlign: "center",
+          }}
+        >
+          <Text
+            sx={{
+              color: theme.palette.text.primary,
+              fontSize: "2rem",
+              width: "100%",
+            }}
+          >
+            Connection lost
+          </Text>
+          <Text
+            sx={{
+              color: theme.palette.text.primary,
+              fontSize: "1.5rem",
+              width: "100%",
+              pt: "0.25rem",
+            }}
+          >
+            Something went wrong, please try again later
+          </Text>
+          <Box
+            minWidth="5rem"
+            minHeight="5rem"
+            width="50%"
+            sx={{
+              pt: "2rem",
+              ml: "25%",
+            }}
+          >
+            <img
+              style={{
+                width: "100%",
+              }}
+              src={ConnectionGif}
+              alt="connectionGif"
+            />
+          </Box>
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

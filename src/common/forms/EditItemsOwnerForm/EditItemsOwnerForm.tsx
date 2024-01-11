@@ -34,8 +34,16 @@ const EditItemsOwnerForm: FC<EditItemsOwnerProps> = ({
       }),
     );
 
-  // TODO IMPLEMENT SKELETON LOADING
-  if (isLoadingOwnerCandidates) return <Skeleton />;
+  if (isLoadingOwnerCandidates)
+    return (
+      <Skeleton
+        height="1rem"
+        width="auto"
+        mt="1rem"
+        startColor="#222222"
+        endColor="#444444"
+      />
+    );
 
   return (
     <FormProvider {...form}>

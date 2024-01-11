@@ -3,7 +3,6 @@ import { createColumnHelper } from "@tanstack/react-table";
 import MyPeopleActionMenu from "../../common/components/ActionMenu/MyPeopleActionMenu";
 import { User } from "../../common/models/user/User";
 
-// TODO fix type of userRoles from string to enum with Row check? in all useColumns
 export const useMyPeopleTableColumns = () => {
   const columnHelper = createColumnHelper<User>();
 

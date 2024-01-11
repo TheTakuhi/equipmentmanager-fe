@@ -1,26 +1,17 @@
 import { FC } from "react";
 
-import {
-  Box,
-  Divider,
-  GridItem,
-  SimpleGrid,
-  Skeleton,
-  SkeletonText,
-  useMediaQuery,
-  useTheme,
-} from "@chakra-ui/react";
+import { Divider, GridItem, SimpleGrid, useMediaQuery } from "@chakra-ui/react";
 import { useParams } from "@tanstack/react-router";
 
 import UserAvatar from "../../../../common/components/CurrentUser/UserAvatar";
+import UserDetailSkeleton from "../../../../common/components/Skeletons/UserDetailSkeleton";
 import { useGetUserById } from "../../../../common/hooks/queries/users/useGetUserById";
-import { userDetailRoute } from "../../../../common/routes/common/userDetail/userDetailRoute";
+import { oneUserDetailRoute } from "../../../../common/routes/common/userDetail/user/oneUserDetailRoute";
 import UserDetailRow from "../../../components/UserDetailRow";
 
+// TODO FIX SPACING DESIGN
 const UserDetailsContainer: FC = () => {
-  const theme = useTheme();
-
-  const userIdParam = useParams({ from: userDetailRoute }).userId;
+  const userIdParam = useParams({ from: oneUserDetailRoute }).userDetailId;
   const { data: user, isLoading } = useGetUserById(userIdParam);
 
   const [isSmallerThanMD] = useMediaQuery("(max-width: 768px)");
@@ -28,71 +19,8 @@ const UserDetailsContainer: FC = () => {
   const [isBiggerThanMD] = useMediaQuery("(min-width: 768px)");
   const [isBiggerThanLG] = useMediaQuery("(min-width: 992px)");
 
-  // TODO style Skeleton as custom component
-  if (isLoading)
-    return (
-      <>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "inline-flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <SkeletonText
-            noOfLines={1}
-            spacing="4"
-            skeletonHeight="5"
-            mt="1.75rem"
-            px="1.5rem"
-            startColor="#222222"
-            endColor="#444444"
-            fontSize={theme.components.Heading.sizes.h2.fontSize}
-            width="8rem"
-          />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "inline-flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Skeleton
-              height="40px"
-              width="9rem"
-              mt="1.75rem"
-              mr="0.625rem"
-              startColor="#222222"
-              endColor="#444444"
-            />
-            <Skeleton
-              height="40px"
-              width="7rem"
-              mt="1.75rem"
-              mr="1.25rem"
-              startColor="#222222"
-              endColor="#444444"
-            />
-          </Box>
-        </Box>
-        <SkeletonText
-          noOfLines={5}
-          spacing="4"
-          skeletonHeight="3"
-          mt="0.75rem"
-          pb="1.85rem"
-          px="1.5rem"
-          startColor="#222222"
-          endColor="#444444"
-          fontSize={theme.components.Heading.sizes.h2.fontSize}
-          width="65%"
-        />
-      </>
-    );
+  if (isLoading) return <UserDetailSkeleton />;
 
-  // TODO style spacing
   return (
     <SimpleGrid
       sx={{
@@ -113,7 +41,6 @@ const UserDetailsContainer: FC = () => {
       />
       <SimpleGrid
         columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 3 }}
-        spacing="19px"
         sx={{
           alignItems: "center",
         }}
@@ -123,7 +50,6 @@ const UserDetailsContainer: FC = () => {
             height: "auto",
             display: "flex",
             flexDirection: "column",
-            gap: "0.625rem",
           }}
         >
           <UserDetailRow label="Full name" text={user?.fullName} />
@@ -146,9 +72,8 @@ const UserDetailsContainer: FC = () => {
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              gap: "0.625rem",
             }}
-            pl={isSmallerThanMD ? "0px" : "21px"}
+            px={isSmallerThanMD ? "0px" : "1.25rem"}
           >
             <UserDetailRow label="Email" text={user?.email} />
           </GridItem>
@@ -171,9 +96,8 @@ const UserDetailsContainer: FC = () => {
               display: "flex",
               width: "100%",
               flexDirection: "column",
-              gap: "0.625rem",
             }}
-            pl={isSmallerThanLG ? "0px" : "21px"}
+            pl={isSmallerThanLG ? "0px" : "1.25rem"}
           >
             <UserDetailRow label="Login" text={user?.login} />
           </GridItem>

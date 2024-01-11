@@ -4,13 +4,13 @@ import { Box, Heading, SkeletonText, useTheme } from "@chakra-ui/react";
 import { useNavigate, useParams } from "@tanstack/react-router";
 
 import { useGetUserById } from "../../../../common/hooks/queries/users/useGetUserById";
-import { userDetailRoute } from "../../../../common/routes/common/userDetail/userDetailRoute";
+import { oneUserDetailRoute } from "../../../../common/routes/common/userDetail/user/oneUserDetailRoute";
 
 const UserBreadCrumbHeader: FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const userIdParam = useParams({ from: userDetailRoute }).userId;
+  const userIdParam = useParams({ from: oneUserDetailRoute }).userDetailId;
   const { data: user, isLoading } = useGetUserById(userIdParam);
 
   const handleRedirectBack = () => {

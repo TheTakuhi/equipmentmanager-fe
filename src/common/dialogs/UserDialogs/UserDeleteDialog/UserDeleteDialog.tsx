@@ -34,7 +34,6 @@ const UserDeleteDialog: FC<UserDeleteDialogProps> = ({ user }) => {
     });
   };
 
-  // TODO IMPLEMENT SELECT NEW OWNER OF ITEMS BEFORE DELETING USER
   return (
     <DiscardUserDialog
       title="Delete user"
