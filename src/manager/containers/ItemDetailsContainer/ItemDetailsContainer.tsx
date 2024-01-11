@@ -1,29 +1,30 @@
 import { FC } from "react";
 
 import {
-  Box,
   Divider,
   GridItem,
   SimpleGrid,
-  Skeleton,
-  SkeletonText,
   Text,
   useMediaQuery,
   useTheme,
 } from "@chakra-ui/react";
-import { useParams } from "@tanstack/react-router";
 
+import ItemDetailSkeleton from "../../../common/components/Skeletons/ItemDetailSkeleton";
 import { useGetItemById } from "../../../common/hooks/queries/items/useGetItemById";
 import { useGetLoanByItemId } from "../../../common/hooks/queries/loans/useGetLoanByItemId";
 import { ItemState } from "../../../common/models/item/ItemState";
-import { itemDetailRoute } from "../../../common/routes/common/itemDetail/itemDetailRoute";
 import ItemDetailHeader from "../../components/ItemDetailHeader";
 import ItemDetailRow from "../../components/ItemDetailRow";
 
-const ItemDetailsContainer: FC = () => {
+interface ItemDetailsContainerProps {
+  itemIdParam: any;
+}
+
+const ItemDetailsContainer: FC<ItemDetailsContainerProps> = ({
+  itemIdParam,
+}) => {
   const theme = useTheme();
 
-  const itemIdParam = useParams({ from: itemDetailRoute }).itemId;
   const { data: item, isLoading: isLoadingItem } = useGetItemById(itemIdParam);
   const { data: loan, isLoading: isLoadingLoan } =
     useGetLoanByItemId(itemIdParam);
@@ -33,69 +34,7 @@ const ItemDetailsContainer: FC = () => {
   const [isBiggerThanMD] = useMediaQuery("(min-width: 768px)");
   const [isBiggerThanLG] = useMediaQuery("(min-width: 992px)");
 
-  // TODO style Skeleton as custom component
-  if (isLoadingItem || isLoadingLoan)
-    return (
-      <>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "inline-flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <SkeletonText
-            noOfLines={1}
-            spacing="4"
-            skeletonHeight="5"
-            mt="1.75rem"
-            px="1.5rem"
-            startColor="#222222"
-            endColor="#444444"
-            fontSize={theme.components.Heading.sizes.h2.fontSize}
-            width="8rem"
-          />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "inline-flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Skeleton
-              height="40px"
-              width="9rem"
-              mt="1.75rem"
-              mr="0.625rem"
-              startColor="#222222"
-              endColor="#444444"
-            />
-            <Skeleton
-              height="40px"
-              width="7rem"
-              mt="1.75rem"
-              mr="1.25rem"
-              startColor="#222222"
-              endColor="#444444"
-            />
-          </Box>
-        </Box>
-        <SkeletonText
-          noOfLines={5}
-          spacing="4"
-          skeletonHeight="3"
-          mt="0.75rem"
-          pb="1.85rem"
-          px="1.5rem"
-          startColor="#222222"
-          endColor="#444444"
-          fontSize={theme.components.Heading.sizes.h2.fontSize}
-          width="65%"
-        />
-      </>
-    );
+  if (isLoadingItem || isLoadingLoan) return <ItemDetailSkeleton />;
 
   return (
     <SimpleGrid

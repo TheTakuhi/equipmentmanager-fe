@@ -14,8 +14,7 @@ import { X } from "react-feather";
 
 interface FormDialogProps {
   title: string;
-  // TODO after implementing forms make this mandatory
-  dialogForm?: ReactNode;
+  dialogForm: ReactNode;
   close: () => void;
 }
 

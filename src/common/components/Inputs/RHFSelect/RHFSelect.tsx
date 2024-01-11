@@ -58,10 +58,8 @@ const RHFSelect = <T extends object>({
             {...rest}
             isDisabled={disabled}
             value={input}
-            // TODO fix ts-ignore
-            // @ts-ignore
-            onChange={(newValue: SingleValue<SelectOption>, _) =>
-              handleInputChange(newValue)
+            onChange={(newValue: unknown) =>
+              handleInputChange(newValue as SingleValue<SelectOption>)
             }
             options={options}
             useBasicStyles

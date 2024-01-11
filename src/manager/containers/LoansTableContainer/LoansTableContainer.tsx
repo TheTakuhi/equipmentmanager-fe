@@ -18,7 +18,6 @@ const LoansTableContainer: FC<LoansTableContainerProps> = ({ tableHeight }) => {
 
   const search: SearchParams = useSearch({ from: `${LOANSRoute.id}/` });
 
-  // TODO - implement query params from search
   const {
     data: loansData,
     isLoading: isLoadingLoans,

@@ -36,8 +36,16 @@ const AddMemberForm: FC<AddMemberProps> = ({
       }),
     );
 
-  // TODO IMPLEMENT ITEM FORM SKELETON LOADING
-  if (isLoadingMemberCandidates) return <Skeleton />;
+  if (isLoadingMemberCandidates)
+    return (
+      <Skeleton
+        height="1rem"
+        width="auto"
+        mt="1rem"
+        startColor="#222222"
+        endColor="#444444"
+      />
+    );
 
   return (
     <FormProvider {...form}>

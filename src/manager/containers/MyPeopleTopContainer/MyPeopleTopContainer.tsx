@@ -22,7 +22,6 @@ const MyPeopleTopContainer: FC = () => {
               { value: "desc", label: "Oldest" },
             ]}
           />
-          {/* TODO - implement searchParams */}
           <SearchBar
             route={allMyPeopleRoute.id}
             options={[

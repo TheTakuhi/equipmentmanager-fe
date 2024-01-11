@@ -37,25 +37,6 @@ const LoansTopContainer: FC = () => {
       },
     });
 
-  // TODO implement like this after adding forms
-  // const { mutate: mutateDeleteItem } = useItemDeleteMutation("123");
-
-  // const handleDelete = () => {
-  //   mutateDeleteItem(undefined, {
-  //     onSuccess: () => {
-  //       toast.success("Item loaned successfully", toastOptions);
-  //       close();
-  //     },
-  //     onError: (error) => {
-  //       toast.error(
-  //         error.response?.data.message ?? "An error has occurred",
-  //         toastOptions,
-  //       );
-  //       close();
-  //     },
-  //   });
-  // };
-
   const createLoanDialogOpen = () => {
     show(
       <FormDialog
@@ -79,7 +60,6 @@ const LoansTopContainer: FC = () => {
               { value: "desc", label: "Oldest" },
             ]}
           />
-          {/* TODO - fix searchbar param width for longer param labels */}
           <SearchBar
             route={LOANSRoute.id}
             options={[
