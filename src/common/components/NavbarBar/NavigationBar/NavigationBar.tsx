@@ -4,14 +4,17 @@ import { Box, Stack, Text, useTheme } from "@chakra-ui/react";
 
 import packageInfo from "../../../../../package.json";
 import { secLinks } from "../../../config/links/securedLinks";
+import { useGetCurrentUser } from "../../../hooks/queries/users/useGetCurrentUser";
 import { useGetBackendVersion } from "../../../hooks/queries/utility/useGetBackendVersion";
+import { useActiveRoles } from "../../../providers/ActiveRolesProvider/ActiveRolesProvider";
 import { useNavbar } from "../../../providers/NavbarProvider/NavbarProvider";
-import UserAvatar from "../../CurrentUser/UserAvatar";
+import { CustomRole } from "../../../security/model/Role";
 import CurrentUserLogout from "../../CurrentUser/CurrentUserLogout";
 import CurrentUserName from "../../CurrentUser/CurrentUserUsername";
+import UserAvatar from "../../CurrentUser/UserAvatar";
+import ClearCacheButton from "../ClearCacheButton";
 import HelpDialogIconButton from "../HelpDialogIconButton";
 import NavbarIconButton from "../NavbarIconButton";
-import { useGetCurrentUser } from "../../../hooks/queries/users/useGetCurrentUser";
 
 const NavigationBar: FC = () => {
   const theme = useTheme();
@@ -19,6 +22,8 @@ const NavigationBar: FC = () => {
   const { isLoading: isLoadingUser, data: currentUser } = useGetCurrentUser();
   const { navbarState, setNavbarState } = useNavbar();
   const { data: backendVersion, isLoading } = useGetBackendVersion();
+
+  const { activeRoles } = useActiveRoles();
 
   const getBackendVersion = () => {
     if (isLoading || !backendVersion) return "unknown";
@@ -71,7 +76,10 @@ const NavigationBar: FC = () => {
               })
             }
           >
-            <UserAvatar isLoadingUser={isLoadingUser} currentUser={currentUser} />
+            <UserAvatar
+              isLoadingUser={isLoadingUser}
+              currentUser={currentUser}
+            />
             <CurrentUserName open={navbarState} />
           </Box>
           <Stack
@@ -102,11 +110,15 @@ const NavigationBar: FC = () => {
               open={navbarState}
               title="Teams"
             />
-            <NavbarIconButton
-              link={secLinks.users}
-              open={navbarState}
-              title="Users"
-            />
+            {activeRoles.includes(CustomRole.ADMIN) ? (
+              <NavbarIconButton
+                link={secLinks.users}
+                open={navbarState}
+                title="Users"
+              />
+            ) : (
+              " "
+            )}
           </Stack>
         </Box>
         <Box>
@@ -120,6 +132,7 @@ const NavigationBar: FC = () => {
               borderTop: "1px solid #313033",
             }}
           >
+            <ClearCacheButton open={navbarState} />
             <HelpDialogIconButton open={navbarState} />
             <CurrentUserLogout open={navbarState} />
           </Stack>

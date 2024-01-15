@@ -1,21 +1,22 @@
 import { FC } from "react";
 
+import { Skeleton } from "@chakra-ui/react";
 import { Navigate } from "@tanstack/react-router";
 
-import { useKeycloakResourceAccess } from "../../security/hooks/queries/useKeycloakResourceAccess";
+import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
+import { useActiveRoles } from "../../providers/ActiveRolesProvider/ActiveRolesProvider";
 import { DefaultRole } from "../../security/model/Role";
 
 const IndexRouteCheckpoint: FC = () => {
-  const roles = useKeycloakResourceAccess();
+  const { activeRoles } = useActiveRoles();
 
-  const isGuest =
-    roles &&
-    roles["equipment-manager-fe"] &&
-    roles["equipment-manager-fe"].roles.includes(DefaultRole.GUEST);
+  const { isLoading } = useGetUsers();
+
+  if (isLoading) return <Skeleton />;
 
   return (
     <>
-      {isGuest ? (
+      {activeRoles[0]?.includes(DefaultRole.GUEST) ? (
         <Navigate
           to={`${import.meta.env.VITE_APP_PUBLIC_URL}/guest`}
           params={{}}

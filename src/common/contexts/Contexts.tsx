@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 
 import { queryClient } from "../config/react-query/reactQuery";
 import ActionDialogProvider from "../providers/ActionDialogProvider";
+import ActiveRolesProvider from "../providers/ActiveRolesProvider";
 import KeycloakAuthProvider from "../providers/KeycloakAuthProvider/KeycloakAuthProvider";
 import NavbarProvider from "../providers/NavbarProvider";
 import { UserAuthProvider } from "../providers/UserAuthProvider/UserAuthProvider";
@@ -19,14 +20,16 @@ function Contexts() {
     return (
       <StrictMode>
         <QueryClientProvider client={queryClient}>
-          <UserAuthProvider>
-            <ActionDialogProvider>
-              <NavbarProvider>
-                <ToastContainer />
-                <RouterProvider router={router} />
-              </NavbarProvider>
-            </ActionDialogProvider>
-          </UserAuthProvider>
+          <ActiveRolesProvider>
+            <UserAuthProvider>
+              <ActionDialogProvider>
+                <NavbarProvider>
+                  <ToastContainer />
+                  <RouterProvider router={router} />
+                </NavbarProvider>
+              </ActionDialogProvider>
+            </UserAuthProvider>
+          </ActiveRolesProvider>
         </QueryClientProvider>
       </StrictMode>
     );
@@ -35,14 +38,16 @@ function Contexts() {
     <KeycloakAuthProvider>
       <StrictMode>
         <QueryClientProvider client={queryClient}>
-          <UserAuthProvider>
-            <ActionDialogProvider>
-              <NavbarProvider>
-                <ToastContainer />
-                <RouterProvider router={router} />
-              </NavbarProvider>
-            </ActionDialogProvider>
-          </UserAuthProvider>
+          <ActiveRolesProvider>
+            <UserAuthProvider>
+              <ActionDialogProvider>
+                <NavbarProvider>
+                  <ToastContainer />
+                  <RouterProvider router={router} />
+                </NavbarProvider>
+              </ActionDialogProvider>
+            </UserAuthProvider>
+          </ActiveRolesProvider>
         </QueryClientProvider>
       </StrictMode>
     </KeycloakAuthProvider>

@@ -1,8 +1,8 @@
 import { FC } from "react";
 
-import Avatar from "../../Avatar";
-import { DefaultRole } from "../../../security/model/Role";
 import { User } from "../../../models/user/User";
+import { DefaultRole } from "../../../security/model/Role";
+import Avatar from "../../Avatar";
 
 export interface CurrentUserAvatarProps {
   onClick?: (() => void) | undefined;
@@ -14,10 +14,23 @@ export interface CurrentUserAvatarProps {
   currentUser: User | undefined;
 }
 
-const UserAvatar: FC<CurrentUserAvatarProps> = ({ onClick , avatarWidth, avatarHeight, badgeTop, badgeLeft, isLoadingUser, currentUser}) => {
+const UserAvatar: FC<CurrentUserAvatarProps> = ({
+  onClick,
+  avatarWidth,
+  avatarHeight,
+  badgeTop,
+  badgeLeft,
+  isLoadingUser,
+  currentUser,
+}) => {
   if (isLoadingUser || !currentUser)
     return (
-      <Avatar userDetail={{ userRoles: [DefaultRole.GUEST], photo: currentUser?.photo }} />
+      <Avatar
+        userDetail={{
+          userRoles: [DefaultRole.GUEST],
+          photo: currentUser?.photo,
+        }}
+      />
     );
 
   return (
