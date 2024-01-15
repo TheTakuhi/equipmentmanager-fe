@@ -2,65 +2,41 @@ import { FC } from "react";
 
 import { Box, Text, useTheme } from "@chakra-ui/react";
 import { useNavigate } from "@tanstack/react-router";
-import { LogOut } from "react-feather";
+import { RefreshCw } from "react-feather";
 import { toast } from "react-toastify";
 
 import { useActiveRoles } from "../../../providers/ActiveRolesProvider/ActiveRolesProvider";
 import keycloak from "../../../security/config/keycloak";
 import { clearKeycloakCache } from "../../../security/hooks/useMountKeycloak";
-import { DefaultRole, Role } from "../../../security/model/Role";
 import { inMockedDevEnv } from "../../../utils/environment";
 import { toastOptions } from "../../../utils/toastOptions";
+import { handleLogoutAction } from "../../CurrentUser/CurrentUserLogout/CurrentUserLogout";
 
-export interface CurrentUserProps {
+export interface ClearCacheButtonProps {
   open: boolean;
 }
 
-export const handleLogoutAction = (navigate: any, checkedRoutes: Role) => {
-  if (checkedRoutes.includes(DefaultRole.GUEST)) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    navigate({
-      from: undefined,
-      hash: undefined,
-      params: undefined,
-      replace: false,
-      search: {},
-      state: undefined,
-      to: `${import.meta.env.VITE_APP_PUBLIC_URL}/guest`,
-    });
-  } else {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    navigate({
-      from: undefined,
-      hash: undefined,
-      params: undefined,
-      replace: false,
-      search: {},
-      state: undefined,
-      to: `${import.meta.env.VITE_APP_PUBLIC_URL}/management/my-people/`,
-    });
-  }
-};
-
-const CurrentUserLogout: FC<CurrentUserProps> = ({ open }) => {
+const ClearCacheButton: FC<ClearCacheButtonProps> = ({ open }) => {
   const boxWidth = open ? "auto" : "2.75rem";
   const theme = useTheme();
   const navigate = useNavigate();
   const { activeRoles } = useActiveRoles();
 
-  const handleLogout = () => {
+  const handleClick = () => {
     if (inMockedDevEnv()) {
-      toast.success("Sign out", toastOptions);
+      toast.success("Cache cleared", toastOptions);
+      localStorage.clear();
     } else {
       handleLogoutAction(navigate, activeRoles[0]);
       keycloak.logout().then(clearKeycloakCache);
+      localStorage.clear();
     }
   };
 
   return (
     <Box
       display="flex"
-      onClick={handleLogout}
+      onClick={handleClick}
       sx={{
         p: open ? "0.5rem 0.625rem" : "0.5rem 0rem",
         cursor: "pointer",
@@ -79,9 +55,9 @@ const CurrentUserLogout: FC<CurrentUserProps> = ({ open }) => {
         alignItems: "center",
         gap: "0.625rem",
       }}
-      title="Sign out"
+      title="Clear cache"
     >
-      <LogOut color={theme.palette.text.primary} />
+      <RefreshCw color="#FFFFFF" width="1.5rem" height="1.5rem" />
       {open ? (
         <Text
           sx={{
@@ -95,7 +71,7 @@ const CurrentUserLogout: FC<CurrentUserProps> = ({ open }) => {
             whiteSpace: "nowrap",
           }}
         >
-          Sign out
+          Clear cache
         </Text>
       ) : (
         ""
@@ -104,4 +80,4 @@ const CurrentUserLogout: FC<CurrentUserProps> = ({ open }) => {
   );
 };
 
-export default CurrentUserLogout;
+export default ClearCacheButton;

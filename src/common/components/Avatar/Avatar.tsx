@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { Avatar as AvatarOrigin, Box } from "@chakra-ui/react";
 
+import { useActiveRoles } from "../../providers/ActiveRolesProvider/ActiveRolesProvider";
 import { Role } from "../../security/model/Role";
 import RoleBadge from "../RoleBadge";
 
@@ -29,7 +30,15 @@ const getFullName = ({
   lastName?: string | null;
 }): string => `${lastName} ${firstName}`;
 
-const Avatar: FC<AvatarProps> = ({ userDetail, onClick, avatarWidth, avatarHeight, badgeTop, badgeLeft }) => {
+const Avatar: FC<AvatarProps> = ({
+  userDetail,
+  onClick,
+  avatarWidth,
+  avatarHeight,
+  badgeTop,
+  badgeLeft,
+}) => {
+  const { activeRoles } = useActiveRoles();
   if (!userDetail) return <AvatarOrigin />;
 
   return (
@@ -39,8 +48,8 @@ const Avatar: FC<AvatarProps> = ({ userDetail, onClick, avatarWidth, avatarHeigh
           cursor: "pointer",
           backgroundColor: "#b06d5f",
           color: (t) => t.palette.text.primary,
-          width: avatarWidth ? avatarWidth : "2.5rem",
-          height: avatarHeight ? avatarHeight : "2.5rem",
+          width: avatarWidth || "2.5rem",
+          height: avatarHeight || "2.5rem",
           position: "relative",
           border: (t) => `1px solid ${t.palette.secondary.light}`,
         }}
@@ -53,11 +62,11 @@ const Avatar: FC<AvatarProps> = ({ userDetail, onClick, avatarWidth, avatarHeigh
         onClick={onClick || undefined}
       />
       <RoleBadge
-        label={userDetail ? userDetail.userRoles[0].toString() : "u"}
+        label={activeRoles ? activeRoles[0].toString() : "u"}
         sx={{
           position: "absolute",
-          top: badgeTop ? badgeTop : "1.75rem",
-          left: badgeLeft ? badgeLeft : "1.75rem"
+          top: badgeTop || "1.75rem",
+          left: badgeLeft || "1.75rem",
         }}
       />
     </Box>
