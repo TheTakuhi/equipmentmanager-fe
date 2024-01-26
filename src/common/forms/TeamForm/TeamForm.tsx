@@ -5,9 +5,9 @@ import { FormProvider } from "react-hook-form";
 
 import { useTeamForm } from "./hooks/useTeamForm/useTeamForm";
 import Button from "../../components/Button";
-import RHFAutocomplete from "../../components/Inputs/RHFAutocomplete";
 import RHFInput from "../../components/Inputs/RHFInput";
 import RHFMultiSelect from "../../components/Inputs/RHFMultiSelect";
+import RHFSelect from "../../components/Inputs/RHFSelect";
 import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
 import { TeamFormValues } from "../../models/team/TeamFormValues";
 import { SelectOption } from "../../models/utils/SelectOption";
@@ -41,6 +41,7 @@ const TeamForm: FC<TeamFormProps> = ({
       ownerOptions.push({
         value: owner.id,
         label: owner.fullName,
+        id: owner.id,
       }),
     );
 
@@ -50,6 +51,7 @@ const TeamForm: FC<TeamFormProps> = ({
       const option: SelectOption = {
         value: member.id,
         label: member.fullName,
+        id: member.id,
       };
       memberOptions.push(option);
     });
@@ -77,7 +79,7 @@ const TeamForm: FC<TeamFormProps> = ({
               disabled={disabled}
               required
             />
-            <RHFAutocomplete<TeamFormValues>
+            <RHFSelect<TeamFormValues>
               name="owner"
               label="Team owner"
               options={ownerOptions}

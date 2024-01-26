@@ -17,11 +17,19 @@ interface ItemEditDialogProps {
 
 const ItemEditDialog: FC<ItemEditDialogProps> = ({ item }) => {
   const { close } = useActionDialog();
-  const { mutate: mutateItemEdit } = useItemEditMutation(item.id, true);
+  const { mutate: mutateItemEdit } = useItemEditMutation(item.id);
 
-  const handleSubmit: ItemFormSubmitHandler = (values) =>
+  const handleSubmit: ItemFormSubmitHandler = ({
+    type: { value: typeValue },
+    qualityState: { value: qualityValue },
+    ownerId: { id },
+    ...values
+  }) =>
     mutateItemEdit(
       {
+        type: typeValue,
+        qualityState: qualityValue,
+        ownerId: id,
         ...values,
       },
       {
@@ -48,10 +56,18 @@ const ItemEditDialog: FC<ItemEditDialogProps> = ({ item }) => {
           isEdit
           defaultValues={{
             serialCode: item.serialCode,
-            type: item.type,
-            qualityState: item.qualityState,
             comment: item.comment,
-            managerOwner: item.managerOwner.id,
+            type: { label: item.type.toLowerCase(), value: item.type },
+            qualityState: {
+              label: item.qualityState.toLowerCase(),
+              value: item.qualityState,
+            },
+            ownerId: {
+              label: item.owner.fullName,
+              value: item.owner.id,
+              id: item.owner.id,
+            },
+            state: item.state,
           }}
         />
       }

@@ -11,16 +11,15 @@ import {
 import { Circle } from "react-feather";
 
 import { Item } from "../../models/item/Item";
-import { Pageable } from "../../models/utils/Pageable";
 
 interface UserItemsListProps {
-  allUserItems?: Pageable<Item>;
+  allUserItems?: Item[];
 }
 
 const UserItemsList: FC<UserItemsListProps> = ({ allUserItems }) => {
   const theme = useTheme();
 
-  if (allUserItems?.totalElements === 0 || allUserItems === undefined)
+  if (allUserItems?.length === 0 || allUserItems === undefined)
     return (
       <Box
         sx={{
@@ -55,7 +54,7 @@ const UserItemsList: FC<UserItemsListProps> = ({ allUserItems }) => {
       }}
     >
       <List spacing={1}>
-        {allUserItems?.content.map((item) => (
+        {allUserItems?.map((item) => (
           <ListItem
             key={item.serialCode}
             sx={{

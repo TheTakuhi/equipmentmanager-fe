@@ -2,7 +2,7 @@ import { User } from "../user/User";
 
 export interface Team {
   id: string;
-  teamName: string; // TODO check with BE name
+  teamName: string;
   owner: User;
   members: User[];
 }

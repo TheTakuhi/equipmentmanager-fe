@@ -6,16 +6,28 @@ import {
   getEnvVariable,
 } from "../../../config/env/getEnvVariable";
 import { Item } from "../../../models/item/Item";
+import { UserSelectOption } from "../../../models/user/UserSelectOption";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 
-// TODO EDIT ITEMS OWNER MUTATION AFTER ENDPOINT IS DONE
-export const useEditItemsOwnerMutation = (itemId?: string) => {
+export const useEditItemsOwnerMutation = (fromUserId?: string) => {
   const securedAxios = useSecuredAxios();
 
-  return useMutation<Item, AxiosError<any, any>, { id: string }>({
-    mutationFn: (id) =>
+  return useMutation<
+    Item,
+    AxiosError<any, any>,
+    Partial<
+      Omit<UserSelectOption, "toUserId"> & {
+        toUserId: string;
+      }
+    >
+  >({
+    mutationFn: (toUserId) =>
       securedAxios
-        .put(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items/${itemId}`, id)
-        .then((response) => response.data as Item),
+        .patch(
+          `${getEnvVariable(
+            EnvVariableName.HOST_CORE,
+          )}/items/from/${fromUserId}/to/${toUserId.toUserId}`,
+        )
+        .then((response) => response.data),
   });
 };

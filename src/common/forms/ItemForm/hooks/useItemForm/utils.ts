@@ -4,9 +4,9 @@ export const createDefaultValues = (
   defs?: Partial<ItemFormValues>,
 ): ItemFormValues => ({
   serialCode: "",
-  type: "",
+  type: { value: "", label: "" },
   comment: "",
-  qualityState: "",
-  managerOwner: "",
+  qualityState: { value: "", label: "" },
+  ownerId: { value: "", label: "", id: "" },
   ...defs,
 });

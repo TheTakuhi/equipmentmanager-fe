@@ -17,7 +17,7 @@ import { useActionDialog } from "../../../common/providers/ActionDialogProvider/
 import { toastOptions } from "../../../common/utils/toastOptions";
 
 interface ItemDetailHeaderProps {
-  item?: Item;
+  item: Item;
 }
 
 const ItemDetailHeader: FC<ItemDetailHeaderProps> = ({ item }) => {
@@ -42,19 +42,27 @@ const ItemDetailHeader: FC<ItemDetailHeaderProps> = ({ item }) => {
     });
   };
 
-  const handleEdit: ItemFormSubmitHandler = (values) =>
-    mutateEditItem(values, {
-      onSuccess: () => {
-        toast.success("Item edited", toastOptions);
-        close();
+  const handleEdit: ItemFormSubmitHandler = ({
+    type: { value: typeValue },
+    qualityState: { value: qualityValue },
+    owner: { id },
+    ...values
+  }) =>
+    mutateEditItem(
+      { type: typeValue, qualityState: qualityValue, owner: id, ...values },
+      {
+        onSuccess: () => {
+          toast.success("Item edited", toastOptions);
+          close();
+        },
+        onError: (error) => {
+          toast.error(
+            error.response?.data.message ?? "An error has occurred",
+            toastOptions,
+          );
+        },
       },
-      onError: (error) => {
-        toast.error(
-          error.response?.data.message ?? "An error has occurred",
-          toastOptions,
-        );
-      },
-    });
+    );
 
   const discardDialogOpen = () => {
     show(
@@ -78,11 +86,19 @@ const ItemDetailHeader: FC<ItemDetailHeaderProps> = ({ item }) => {
             close={close}
             isEdit
             defaultValues={{
-              serialCode: item?.serialCode,
-              type: item?.type,
-              qualityState: item?.qualityState,
-              comment: item?.comment,
-              managerOwner: item?.managerOwner.id,
+              serialCode: item.serialCode,
+              comment: item.comment,
+              type: { label: item.type.toLowerCase(), value: item.type },
+              qualityState: {
+                label: item.qualityState.toLowerCase(),
+                value: item.qualityState,
+              },
+              owner: {
+                label: item.owner.fullName,
+                value: item.owner.id,
+                id: item.owner.id,
+              },
+              state: item.state,
             }}
           />
         }

@@ -17,7 +17,7 @@ import ItemDetailHeader from "../../components/ItemDetailHeader";
 import ItemDetailRow from "../../components/ItemDetailRow";
 
 interface ItemDetailsContainerProps {
-  itemIdParam: any;
+  itemIdParam: string;
 }
 
 const ItemDetailsContainer: FC<ItemDetailsContainerProps> = ({
@@ -34,7 +34,8 @@ const ItemDetailsContainer: FC<ItemDetailsContainerProps> = ({
   const [isBiggerThanMD] = useMediaQuery("(min-width: 768px)");
   const [isBiggerThanLG] = useMediaQuery("(min-width: 992px)");
 
-  if (isLoadingItem || isLoadingLoan) return <ItemDetailSkeleton />;
+  if (isLoadingItem || isLoadingLoan || item === undefined)
+    return <ItemDetailSkeleton />;
 
   return (
     <SimpleGrid
@@ -60,7 +61,7 @@ const ItemDetailsContainer: FC<ItemDetailsContainerProps> = ({
           <ItemDetailRow label="Serial code" text={item?.serialCode} />
           <ItemDetailRow label="Type" text={item?.type} />
           <ItemDetailRow label="Quality state" text={item?.qualityState} />
-          <ItemDetailRow label="Date of creation" text={item?.dateOfCreation} />
+          <ItemDetailRow label="Creation date" text={item?.creationDate} />
         </GridItem>
         <GridItem sx={{ display: "flex" }}>
           {isBiggerThanMD ? (
@@ -87,7 +88,7 @@ const ItemDetailsContainer: FC<ItemDetailsContainerProps> = ({
             {/* //TODO FIX ITEM DETAIL USER INFO */}
             {/* <ItemDetailRow */}
             {/*  label="Created by" */}
-            {/*  text={item?.managerOwner.fullName} */}
+            {/*  text={item?.owner.fullName} */}
             {/* /> */}
             {/* <ItemDetailRow */}
             {/*  label="State" */}

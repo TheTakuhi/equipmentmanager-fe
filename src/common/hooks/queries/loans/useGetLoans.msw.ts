@@ -20,8 +20,8 @@ const getMockedLoans = (): Loan[] => {
         comment: "Od polívky a kečupu",
         state: ItemState.BORROWED,
         qualityState: QualityState.SLIGHTLY_USED,
-        dateOfCreation: "2023-10-31T01:30:00.000-05:00",
-        managerOwner: {
+        creationDate: "2023-10-31T01:30:00.000-05:00",
+        owner: {
           id: "01ef73d8-70b8-4bf9-953d-b69f32c1762c",
           login: "theshrek",
           email: "shrek@swamp.ffa",
@@ -58,8 +58,8 @@ const getMockedLoans = (): Loan[] => {
         comment: "",
         state: ItemState.BORROWED,
         qualityState: QualityState.NEW,
-        dateOfCreation: "2023-07-31T01:30:00.000-05:00",
-        managerOwner: {
+        creationDate: "2023-07-31T01:30:00.000-05:00",
+        owner: {
           id: "01ef73d8-70b8-4bf9-953d-b69f32c1762c",
           login: "theshrek",
           email: "shrek@swamp.ffa",

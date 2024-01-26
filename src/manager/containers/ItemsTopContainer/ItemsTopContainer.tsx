@@ -1,20 +1,40 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 
-import { Flex, Heading, HStack, Spacer } from "@chakra-ui/react";
+import { Checkbox, Flex, Heading, HStack, Spacer } from "@chakra-ui/react";
 import { Download, Plus } from "react-feather";
 
 import Button from "../../../common/components/Button";
 import SearchBar from "../../../common/components/SearchBar";
+import ItemsTopContainerSkeleton from "../../../common/components/Skeletons/ItemsTopContainerSkeleton";
 import SortFilter from "../../../common/components/SortFilter";
 import ItemCreateDialog from "../../../common/dialogs/ItemDialogs/ItemCreateDialog";
+import { useGetCurrentUser } from "../../../common/hooks/queries/users/useGetCurrentUser";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
 import { allItemsRoute } from "../../../common/routes/common/items/allItems/allItemsRoute";
 
-const ItemsTopContainer: FC = () => {
+interface ItemsTopContainerProps {
+  includeDiscarded: boolean;
+  onIncludeDiscardedChange: (includeDiscarded: boolean) => void;
+}
+const ItemsTopContainer: FC<ItemsTopContainerProps> = ({
+  includeDiscarded,
+  onIncludeDiscardedChange,
+}) => {
   const { show } = useActionDialog();
 
+  const { data: currentUser, isLoading: isLoadingCurrentUser } =
+    useGetCurrentUser();
+
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newIncludeDiscarded = event.target.checked;
+    onIncludeDiscardedChange(newIncludeDiscarded);
+  };
+
+  if (isLoadingCurrentUser || currentUser === undefined)
+    return <ItemsTopContainerSkeleton />;
+
   const addItemDialogOpen = () => {
-    show(<ItemCreateDialog />);
+    show(<ItemCreateDialog currentUser={currentUser} />);
   };
 
   return (
@@ -31,11 +51,22 @@ const ItemsTopContainer: FC = () => {
             ]}
             sx={{ width: "max-content" }}
           />
-          <HStack gap="0">
+          <HStack gap="0.625rem">
             <SearchBar
               route={allItemsRoute.id}
-              options={[{ value: "itemCode", label: "Item code" }]}
+              options={[
+                { value: "serialCode", label: "Item code" },
+                { value: "type", label: "Item type" },
+                { value: "state", label: "Item state" },
+                { value: "qualityState", label: "Item quality" },
+              ]}
             />
+            <Checkbox
+              checked={includeDiscarded}
+              onChange={handleCheckboxChange}
+            >
+              Include discarded items
+            </Checkbox>
           </HStack>
         </HStack>
         <Spacer />
