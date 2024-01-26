@@ -17,12 +17,11 @@ const rootKey = "items";
 type UseGetItemsQueryOptions = UseQueryOptions<Pageable<Item>, Error>;
 
 type UseGetItemsQueryParams = {
-  id?: string;
   serialCode?: string;
   type?: ItemType;
   state?: ItemState;
   qualityState?: QualityState;
-  includeDiscarded?: boolean;
+  includeDiscarded: boolean;
   pageable?: PageableParam;
 };
 

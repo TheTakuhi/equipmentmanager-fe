@@ -11,7 +11,7 @@ import { ITEMSRoute } from "../../../common/routes/common/items/itemsRoute";
 
 interface ItemsTableContainerProps {
   tableHeight: string;
-  includeDiscarded?: boolean;
+  includeDiscarded: boolean;
 }
 
 const ItemsTableContainer: FC<ItemsTableContainerProps> = ({
@@ -40,7 +40,7 @@ const ItemsTableContainer: FC<ItemsTableContainerProps> = ({
           },
           includeDiscarded,
         }
-      : {},
+      : { includeDiscarded },
   );
 
   useEffect(() => {
