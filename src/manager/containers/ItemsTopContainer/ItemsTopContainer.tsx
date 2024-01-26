@@ -10,7 +10,7 @@ import SortFilter from "../../../common/components/SortFilter";
 import ItemCreateDialog from "../../../common/dialogs/ItemDialogs/ItemCreateDialog";
 import { useGetCurrentUser } from "../../../common/hooks/queries/users/useGetCurrentUser";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
-import { allItemsRoute } from "../../../common/routes/common/items/allItems/allItemsRoute";
+import { ITEMSRoute } from "../../../common/routes/common/items/itemsRoute";
 
 interface ItemsTopContainerProps {
   includeDiscarded: boolean;
@@ -53,7 +53,7 @@ const ItemsTopContainer: FC<ItemsTopContainerProps> = ({
           />
           <HStack gap="0.625rem">
             <SearchBar
-              route={allItemsRoute.id}
+              route={ITEMSRoute.id}
               options={[
                 { value: "serialCode", label: "Item code" },
                 { value: "type", label: "Item type" },
