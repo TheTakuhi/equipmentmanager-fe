@@ -11,9 +11,13 @@ import { ITEMSRoute } from "../../../common/routes/common/items/itemsRoute";
 
 interface ItemsTableContainerProps {
   tableHeight: string;
+  includeDiscarded?: boolean;
 }
 
-const ItemsTableContainer: FC<ItemsTableContainerProps> = ({ tableHeight }) => {
+const ItemsTableContainer: FC<ItemsTableContainerProps> = ({
+  tableHeight,
+  includeDiscarded,
+}) => {
   const columns = useItemsTableColumns();
 
   const search: SearchParams = useSearch({ from: `${ITEMSRoute.id}/` });
@@ -34,13 +38,14 @@ const ItemsTableContainer: FC<ItemsTableContainerProps> = ({ tableHeight }) => {
             size: search.pagination.size,
             sort: search.table.sort,
           },
+          includeDiscarded,
         }
       : {},
   );
 
   useEffect(() => {
     refetch();
-  }, [search]);
+  }, [search, includeDiscarded]);
 
   return (
     <TSTable<Item>

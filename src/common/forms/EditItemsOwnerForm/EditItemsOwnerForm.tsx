@@ -5,15 +5,16 @@ import { FormProvider } from "react-hook-form";
 
 import { useEditItemsOwnerForm } from "./hooks/useEditItemsOwnerForm/useEditItemsOwnerForm";
 import Button from "../../components/Button";
-import RHFAutocomplete from "../../components/Inputs/RHFAutocomplete";
+import RHFSelect from "../../components/Inputs/RHFSelect";
 import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
+import { UserSelectOption } from "../../models/user/UserSelectOption";
 import { SelectOption } from "../../models/utils/SelectOption";
 
-export type EditItemsOwnerSubmitHandler = (values: { id: string }) => void;
+export type EditItemsOwnerSubmitHandler = (values: UserSelectOption) => void;
 
 interface EditItemsOwnerProps {
   handleSubmit: EditItemsOwnerSubmitHandler;
-  defaultValues?: { id: string };
+  defaultValues?: Partial<UserSelectOption>;
 }
 
 const EditItemsOwnerForm: FC<EditItemsOwnerProps> = ({
@@ -31,6 +32,7 @@ const EditItemsOwnerForm: FC<EditItemsOwnerProps> = ({
       memberOptions.push({
         value: member.id,
         label: member.fullName,
+        id: member.id,
       }),
     );
 
@@ -50,8 +52,8 @@ const EditItemsOwnerForm: FC<EditItemsOwnerProps> = ({
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <SimpleGrid sx={{ gap: "1rem" }}>
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
-            <RHFAutocomplete
-              name="id"
+            <RHFSelect<UserSelectOption>
+              name="toUserId"
               label="New owner of items"
               options={memberOptions}
               required

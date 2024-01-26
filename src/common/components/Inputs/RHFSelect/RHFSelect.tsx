@@ -1,12 +1,10 @@
-import { useState } from "react";
-
 import {
   FormControl,
   FormErrorMessage,
   FormLabel,
   useTheme,
 } from "@chakra-ui/react";
-import { Props, Select, SingleValue } from "chakra-react-select";
+import { Props, Select } from "chakra-react-select";
 import { Controller, FieldPath, useFormContext } from "react-hook-form";
 
 import { SelectOption } from "../../../models/utils/SelectOption";
@@ -28,11 +26,8 @@ const RHFSelect = <T extends object>({
   ...rest
 }: RHFSelectProps<T>) => {
   const theme = useTheme();
-  const { control } = useFormContext();
-  const [input, setInput] = useState<SingleValue<SelectOption>>(options[0]);
-  const handleInputChange = (newValue: SingleValue<SelectOption>) =>
-    setInput(newValue);
-  const isError = input === undefined;
+  const { control } = useFormContext<T, SelectOption>();
+  const isError = options === undefined;
 
   return (
     <Controller
@@ -43,7 +38,6 @@ const RHFSelect = <T extends object>({
           isRequired={required}
           isInvalid={isError}
           sx={{ display: "flex", flexDirection: "column" }}
-          label="String"
         >
           <FormLabel
             sx={{
@@ -57,10 +51,6 @@ const RHFSelect = <T extends object>({
             {...field}
             {...rest}
             isDisabled={disabled}
-            value={input}
-            onChange={(newValue: unknown) =>
-              handleInputChange(newValue as SingleValue<SelectOption>)
-            }
             options={options}
             useBasicStyles
             chakraStyles={{
@@ -81,7 +71,7 @@ const RHFSelect = <T extends object>({
               }),
             }}
           />
-          {!isError || !required ? (
+          {isError || !required ? (
             ""
           ) : (
             <FormErrorMessage

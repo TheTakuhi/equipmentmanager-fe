@@ -16,7 +16,7 @@ export const useGetBackendVersion = () => {
     queryKey: getBackendVersionKey(),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/utility/be-version`)
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/actuator/info`)
         .then((response) => response.data.build.version as string),
   });
 };

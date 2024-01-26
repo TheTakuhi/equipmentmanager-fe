@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useRef } from "react";
 
 import {
   AlertDialog,
@@ -17,10 +17,11 @@ import { toast } from "react-toastify";
 
 import Button from "../../components/Button";
 import UserItemsList from "../../components/UserItemsList";
+import { queryClient } from "../../config/react-query/reactQuery";
 import EditItemsOwnerForm from "../../forms/EditItemsOwnerForm";
 import { EditItemsOwnerSubmitHandler } from "../../forms/EditItemsOwnerForm/EditItemsOwnerForm";
 import { useEditItemsOwnerMutation } from "../../hooks/mutations/items/useEditItemsOwnerMutation";
-import { useGetItems } from "../../hooks/queries/items/useGetItems";
+import { useGetItemsByOwnerId } from "../../hooks/queries/items/useGetItemsByOwnerId";
 import { TeamFormValues } from "../../models/team/TeamFormValues";
 import { User } from "../../models/user/User";
 import { toastOptions } from "../../utils/toastOptions";
@@ -43,18 +44,18 @@ const DiscardUserDialog: FC<StepperDialogProps> = ({
 }) => {
   const theme = useTheme();
   const cancelRef = useRef<HTMLButtonElement | null>(null);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
-  const { mutate: mutateItemsEditOwner } = useEditItemsOwnerMutation();
-  const handleSubmit: EditItemsOwnerSubmitHandler = (values) =>
+  const { mutate: mutateItemsEditOwner } = useEditItemsOwnerMutation(user?.id);
+  const handleSubmit: EditItemsOwnerSubmitHandler = ({
+    toUserId: { value: userValue },
+    ...values
+  }) =>
     mutateItemsEditOwner(
-      {
-        ...values,
-      },
+      { toUserId: userValue, ...values },
       {
         onSuccess: () => {
           toast.success("Items owner changed", toastOptions);
-          setIsFormSubmitted(true);
+          queryClient.invalidateQueries();
         },
         onError: (error) =>
           toast.error(
@@ -64,9 +65,8 @@ const DiscardUserDialog: FC<StepperDialogProps> = ({
       },
     );
 
-  const { data: allUserItems, isLoading: isLoadingAllUserItems } = useGetItems({
-    login: user?.login,
-  });
+  const { data: allUserItems, isLoading: isLoadingAllUserItems } =
+    useGetItemsByOwnerId(user?.id);
 
   if (isLoadingAllUserItems)
     return (
@@ -134,12 +134,16 @@ const DiscardUserDialog: FC<StepperDialogProps> = ({
           >
             {description}
             <UserItemsList allUserItems={allUserItems} />
-            <EditItemsOwnerForm
-              handleSubmit={handleSubmit}
-              defaultValues={{
-                id: "",
-              }}
-            />
+            {allUserItems?.length === 0 ? (
+              ""
+            ) : (
+              <EditItemsOwnerForm
+                handleSubmit={handleSubmit}
+                defaultValues={{
+                  toUserId: { value: "", label: "", id: "" },
+                }}
+              />
+            )}
           </AlertDialogBody>
           <AlertDialogFooter>
             <Box
@@ -155,9 +159,7 @@ const DiscardUserDialog: FC<StepperDialogProps> = ({
                 variant="primary"
                 label="Discard"
                 onClick={discard}
-                isDisabled={
-                  !isFormSubmitted || allUserItems?.totalElements !== 0
-                }
+                isDisabled={allUserItems?.length !== 0}
                 sx={{
                   "&:hover:disabled": {
                     backgroundColor: theme.palette.primary.dark,

@@ -5,10 +5,10 @@ import { FormProvider } from "react-hook-form";
 
 import { useItemForm } from "./hooks/useItemForm/useItemForm";
 import Button from "../../components/Button";
-import RHFAutocomplete from "../../components/Inputs/RHFAutocomplete";
 import RHFInput from "../../components/Inputs/RHFInput";
 import RHFSelect from "../../components/Inputs/RHFSelect";
 import RHFTextArea from "../../components/Inputs/RHFTextArea";
+import { useGetCurrentUser } from "../../hooks/queries/users/useGetCurrentUser";
 import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
 import { useItemQualityStates } from "../../hooks/queries/utility/useItemQualityStates";
 import { useItemTypes } from "../../hooks/queries/utility/useItemTypes";
@@ -22,7 +22,7 @@ interface ItemFormProps {
   disabled?: boolean;
   defaultValues?: Partial<ItemFormValues>;
   close: () => void;
-  isEdit?: true;
+  isEdit?: boolean;
 }
 
 const ItemForm: FC<ItemFormProps> = ({
@@ -38,11 +38,18 @@ const ItemForm: FC<ItemFormProps> = ({
   const { itemQualityStates, isLoading: isLoadingQualityStates } =
     useItemQualityStates();
 
-  // TODO IMPLEMENT FOR BOTH MANAGER & ADMIN
+  const { data: currentUser, isLoading: isLoadingCurrentUser } =
+    useGetCurrentUser();
+
   const { data: ownerCandidates, isLoading: isLoadingOwnerCandidates } =
     useGetUsers();
 
-  if (isLoadingItemTypes || isLoadingQualityStates || isLoadingOwnerCandidates)
+  if (
+    isLoadingItemTypes ||
+    isLoadingQualityStates ||
+    isLoadingOwnerCandidates ||
+    isLoadingCurrentUser
+  )
     return (
       <Skeleton
         height="1rem"
@@ -81,11 +88,14 @@ const ItemForm: FC<ItemFormProps> = ({
               disabled={disabled}
               required
             />
-            <RHFAutocomplete<ItemFormValues>
-              name="managerOwner"
+            <RHFSelect<ItemFormValues>
+              name="ownerId"
               label="Item owner"
-              options={parseUsersToSelectOptions(ownerCandidates?.content)}
-              disabled={disabled}
+              options={parseUsersToSelectOptions(
+                ownerCandidates?.content,
+                currentUser,
+              )}
+              disabled={!isEdit}
               required
             />
           </SimpleGrid>

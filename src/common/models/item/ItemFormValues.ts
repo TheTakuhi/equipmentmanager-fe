@@ -1,7 +1,18 @@
 export interface ItemFormValues {
   serialCode: string;
-  type?: string;
   comment?: string;
-  qualityState?: string;
-  managerOwner: string;
+  type: {
+    label: string;
+    value: string;
+  };
+  qualityState: {
+    label: string;
+    value: string;
+  };
+  ownerId: {
+    label: string;
+    value: string;
+    id: string;
+  };
+  state?: string;
 }

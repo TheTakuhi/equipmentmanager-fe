@@ -5,7 +5,7 @@ import { FormProvider } from "react-hook-form";
 
 import { useAddMemberForm } from "./hooks/useAddMemberForm/useAddMemberForm";
 import Button from "../../components/Button";
-import RHFAutocomplete from "../../components/Inputs/RHFAutocomplete";
+import RHFSelect from "../../components/Inputs/RHFSelect";
 import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
 import { SelectOption } from "../../models/utils/SelectOption";
 
@@ -33,6 +33,7 @@ const AddMemberForm: FC<AddMemberProps> = ({
       memberOptions.push({
         value: member.id,
         label: member.fullName,
+        id: member.id,
       }),
     );
 
@@ -52,7 +53,7 @@ const AddMemberForm: FC<AddMemberProps> = ({
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <SimpleGrid sx={{ gap: "1rem" }}>
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
-            <RHFAutocomplete
+            <RHFSelect
               name="id"
               label="New member"
               options={memberOptions}

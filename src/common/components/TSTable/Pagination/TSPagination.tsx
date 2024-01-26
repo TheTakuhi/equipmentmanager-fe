@@ -80,7 +80,8 @@ const TSPagination: FC<TSPaginationProps> = ({
     (pageable &&
       pageable.totalElements < paginationProps.pageSize &&
       paginationProps.pageIndex !== 0) ||
-    totalPages === undefined
+    totalPages === undefined ||
+    pageable?.totalElements === 0
   )
     return <Skeleton />;
 

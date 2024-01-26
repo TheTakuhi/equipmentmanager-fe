@@ -10,6 +10,6 @@ export interface Item {
   comment: string;
   state: ItemState;
   qualityState: QualityState;
-  dateOfCreation: string;
-  managerOwner: User;
+  creationDate: string;
+  owner: User;
 }

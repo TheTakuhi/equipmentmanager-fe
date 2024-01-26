@@ -5,8 +5,8 @@ import { FormProvider } from "react-hook-form";
 
 import { useLoanForm } from "./hooks/useLoanForm/useLoanForm";
 import Button from "../../components/Button";
-import RHFAutocomplete from "../../components/Inputs/RHFAutocomplete";
 import RHFDatePicker from "../../components/Inputs/RHFDatePicker";
+import RHFSelect from "../../components/Inputs/RHFSelect";
 import { useGetItems } from "../../hooks/queries/items/useGetItems";
 import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
 import { LoanFormValues } from "../../models/loan/LoanFormValues";
@@ -42,13 +42,13 @@ const LoanForm: FC<LoanFormProps & { isEdit?: boolean; close: () => void }> = ({
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <SimpleGrid sx={{ gap: "1rem" }}>
-          <RHFAutocomplete<LoanFormValues>
+          <RHFSelect<LoanFormValues>
             name="itemId"
             options={parseItemsToSelectOptions(items?.content)}
             label="Item"
             required
           />
-          <RHFAutocomplete<LoanFormValues>
+          <RHFSelect<LoanFormValues>
             name="borrowerId"
             options={parseUsersToSelectOptions(users?.content)}
             label="Borrower"
