@@ -3,7 +3,12 @@ import { useState } from "react";
 import { FormControl, FormLabel, useTheme } from "@chakra-ui/react";
 import { DatepickerConfigs, SingleDatepicker } from "chakra-dayzed-datepicker";
 import { DateTime } from "luxon";
-import { Controller, FieldPath, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  FieldPath,
+  FieldValues,
+  useFormContext,
+} from "react-hook-form";
 
 import { propsConfigs } from "./propsConfigs";
 
@@ -22,7 +27,7 @@ const RHFDatePicker = <T extends object>({
   ...rest
 }: RHFDatePickerProps<T>) => {
   const theme = useTheme();
-  const { control } = useFormContext();
+  const { control } = useFormContext<FieldValues, T>();
 
   type FirstDayOfWeek = DatepickerConfigs["firstDayOfWeek"];
   const [firstDayOfWeek] = useState<FirstDayOfWeek>(1);

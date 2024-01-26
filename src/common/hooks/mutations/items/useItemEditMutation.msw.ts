@@ -10,8 +10,8 @@ const getMockedEditItemResponse = (): Item => {
   return {
     id: "123",
     serialCode: "123",
-    type: ItemType.LAPTOP,
     comment: "updated",
+    type: ItemType.LAPTOP,
     state: ItemState.AVAILABLE,
     qualityState: QualityState.GOOD,
     creationDate: "2023-10-31T01:30:00.000-05:00",

@@ -8,7 +8,12 @@ import {
   useTheme,
 } from "@chakra-ui/react";
 import { Props } from "chakra-react-select";
-import { Controller, FieldPath, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  FieldPath,
+  FieldValues,
+  useFormContext,
+} from "react-hook-form";
 
 type RHFRadioGroupProps<T extends object> = Props & {
   name: FieldPath<T>;
@@ -21,7 +26,7 @@ const RHFRadioGroup = <T extends object>({
   label,
   options,
 }: RHFRadioGroupProps<T>) => {
-  const { control } = useFormContext();
+  const { control } = useFormContext<FieldValues, T>();
   const theme = useTheme();
 
   return (
