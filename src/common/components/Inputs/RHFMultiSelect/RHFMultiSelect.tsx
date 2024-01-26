@@ -5,7 +5,12 @@ import {
   useTheme,
 } from "@chakra-ui/react";
 import { Props, Select } from "chakra-react-select";
-import { Controller, FieldPath, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  FieldPath,
+  FieldValues,
+  useFormContext,
+} from "react-hook-form";
 
 import { SelectOption } from "../../../models/utils/SelectOption";
 
@@ -26,7 +31,7 @@ const RHFMultiSelect = <T extends object>({
   ...rest
 }: RHFMultiSelectProps<T>) => {
   const theme = useTheme();
-  const { control } = useFormContext();
+  const { control } = useFormContext<FieldValues, T>();
 
   return (
     <Controller

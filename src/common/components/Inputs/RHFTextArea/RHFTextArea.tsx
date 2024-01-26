@@ -1,6 +1,11 @@
 import { FormControl, FormLabel, Textarea, useTheme } from "@chakra-ui/react";
 import { Props } from "chakra-react-select";
-import { Controller, FieldPath, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  FieldPath,
+  FieldValues,
+  useFormContext,
+} from "react-hook-form";
 
 type RHFTextAreaProps<T extends object> = Props & {
   variant?: string;
@@ -18,7 +23,7 @@ const RHFTextArea = <T extends object>({
   name,
 }: RHFTextAreaProps<T>) => {
   const theme = useTheme();
-  const { control } = useFormContext();
+  const { control } = useFormContext<FieldValues, T>();
 
   return (
     <Controller

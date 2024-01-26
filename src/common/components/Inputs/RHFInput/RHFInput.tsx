@@ -1,7 +1,12 @@
 import { FormControl, FormLabel, Input, useTheme } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import { Props } from "chakra-react-select";
-import { Controller, FieldPath, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  FieldPath,
+  FieldValues,
+  useFormContext,
+} from "react-hook-form";
 
 type RHFInputProps<T extends object> = Props & {
   variant?: string;
@@ -23,7 +28,7 @@ const RHFInput = <T extends object>({
   name,
 }: RHFInputProps<T>) => {
   const theme = useTheme();
-  const { control } = useFormContext();
+  const { control } = useFormContext<FieldValues, T>();
 
   const customStyles = css`
     ::-webkit-calendar-picker-indicator {
