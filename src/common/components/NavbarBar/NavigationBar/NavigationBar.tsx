@@ -15,6 +15,7 @@ import UserAvatar from "../../CurrentUser/UserAvatar";
 import ClearCacheButton from "../ClearCacheButton";
 import HelpDialogIconButton from "../HelpDialogIconButton";
 import NavbarIconButton from "../NavbarIconButton";
+import "./style.scss";
 
 const NavigationBar: FC = () => {
   const theme = useTheme();
@@ -88,6 +89,7 @@ const NavigationBar: FC = () => {
               gap: "0.75rem",
               p: "0.75rem 0rem",
               borderTop: "1px solid #313033",
+              overflow: "hidden",
             }}
           >
             <NavbarIconButton
@@ -149,11 +151,8 @@ const NavigationBar: FC = () => {
               <Text
                 sx={{
                   color: theme.palette.text.disabled,
-                  // animationName: "slide-in",
-                  // animationDuration: "0.2s",
-                  // animationDelay: "0.1s",
-                  // animationFillMode: "forwards",
                   fontSize: "0.625em",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {`${getFrontendVersion()}/${getBackendVersion()}`}

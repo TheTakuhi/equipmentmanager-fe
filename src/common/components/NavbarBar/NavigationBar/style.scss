@@ -1,12 +1,14 @@
 @keyframes slide-in {
   0% {
-    left: -50%;
     opacity: 0;
     display: none;
     width: 0;
   }
-  40% {
+  30% {
     opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
   }
   70% {
     opacity: 0.9;
@@ -22,38 +24,57 @@
 
 @keyframes border-grow {
   0% {
-    left: 0;
-    opacity: 1;
-    width: 2.75rem;
-    border-radius: 3rem;
+    overflow: hidden;
+    display: inline-flex;
+    min-width: 2.75rem;
   }
-  15% {
-    opacity: 1;
-    animation-delay: 22ms;
+  100% {
+    display: inline-flex;
+    width: 9.375rem;
+  }
+}
+
+@keyframes border-collapse-nav {
+  0% {
+    left: 0;
+    visibility: visible;
+    display: inline-flex;
+    justify-content: flex-start;
+    padding-left: 0.7rem;
+    overflow: hidden;
+    width: 9.375rem;
   }
   100% {
     left: 0;
-    display: inline-flex;
-    width: 195px;
+    opacity: 1;
     visibility: visible;
-    border-radius: 0.5rem;
+    display: inline-flex;
+    justify-content: flex-start;
+    padding-left: 0.7rem;
+    overflow: hidden;
+    width: 2.75rem;
   }
 }
+
 
 @keyframes border-collapse {
   0% {
     left: 0;
-    display: inline-flex;
-    width: 195px;
     visibility: visible;
-    border-radius: 0.5rem;
-  }
-  15% {
-    opacity: 1;
+    display: inline-flex;
+    justify-content: flex-start;
+    padding-left: 0.65rem;
+    overflow: hidden;
+    width: 9.375rem;
   }
   100% {
     left: 0;
+    opacity: 1;
+    visibility: visible;
+    display: inline-flex;
+    justify-content: flex-start;
+    padding-left: 0.65rem;
+    overflow: hidden;
     width: 2.75rem;
-    border-radius: 3rem;
   }
 }

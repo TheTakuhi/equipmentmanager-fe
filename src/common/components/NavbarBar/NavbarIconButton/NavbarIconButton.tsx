@@ -19,7 +19,7 @@ const NavbarIconButton: FC<NavbarIconButtonProps> = ({
   open,
   title,
 }) => {
-  const boxWidth = open ? "auto" : "2.75rem";
+  const boxWidth = open ? "9.375rem" : "2.75rem";
   const theme = useTheme();
   const Icon = link.icon;
 
@@ -42,7 +42,7 @@ const NavbarIconButton: FC<NavbarIconButtonProps> = ({
         inactiveProps={inactiveProps}
         display="flex"
         sx={{
-          p: open ? "0.5rem 0.625rem" : "0.5rem 0rem",
+          p: open ? "0.5rem 0.7rem" : "0.5rem 0rem",
           cursor: "pointer",
           width: boxWidth,
           "&:hover": {
@@ -50,10 +50,9 @@ const NavbarIconButton: FC<NavbarIconButtonProps> = ({
             transition: "ease-in 0.15s",
           },
           borderRadius: theme.borderRadius.element,
-          // color: "#FFFFFF",
-          // animation: open
-          //   ? `border-grow 0.28s ease-in-out forwards`
-          //   : `border-collapse 0.2s ease-in-out backwards`,
+          animation: open
+            ? `border-grow 0.3s ease-in-out forwards`
+            : `border-collapse-nav 0.3s ease-in-out backwards`,
           textDecoration: "none",
           justifyContent: open ? "" : "center",
           alignItems: "center",
@@ -61,24 +60,23 @@ const NavbarIconButton: FC<NavbarIconButtonProps> = ({
         }}
         title={label || link.label}
       >
-        <Icon width="1.375em" height="1.375em" />
+        <Icon width="1.375rem" height="1.375rem" />
         {open ? (
           <Text
             sx={{
               color: theme.palette.text.primary,
-              // animationName: "slide-in",
-              // animationDuration: "0.2s",
-              // animationDelay: "0.1s",
-              // animationFillMode: "forwards",
+              visibility: "hidden",
+              animationName: "slide-in",
+              animationDuration: "0.2s",
+              animationDelay: "0.1s",
+              animationFillMode: "forwards",
               size: "sidebar",
               whiteSpace: "nowrap",
             }}
           >
             {title}
           </Text>
-        ) : (
-          ""
-        )}
+        ) : null}
       </Box>
     </RoleAccessPermission>
   );
