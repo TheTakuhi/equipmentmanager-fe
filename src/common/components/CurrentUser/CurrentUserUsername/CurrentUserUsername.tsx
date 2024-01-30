@@ -25,13 +25,14 @@ const CurrentUserName: FC<CurrentUserProps> = ({ open }) => {
           <Text
             sx={{
               color: theme.palette.text.primary,
-              // animationName: "slide-in",
-              // animationDuration: "0.2s",
-              // animationDelay: "0.1s",
-              // animationFillMode: "forwards",
               size: "sidebar",
               pl: "0.75rem",
-              overflow: "hidden",
+              visibility: "hidden",
+              animationName: "slide-in",
+              animationDuration: "0.2s",
+              animationDelay: "0.1s",
+              animationFillMode: "forwards",
+              whiteSpace: "nowrap",
             }}
           >
             {`${data.firstName}`}
@@ -39,13 +40,14 @@ const CurrentUserName: FC<CurrentUserProps> = ({ open }) => {
           <Text
             sx={{
               color: theme.palette.text.primary,
-              // animationName: "slide-in",
-              // animationDuration: "0.2s",
-              // animationDelay: "0.1s",
-              // animationFillMode: "forwards",
               size: "sidebar",
               pl: "0.75rem",
-              overflow: "hidden",
+              visibility: "hidden",
+              animationName: "slide-in",
+              animationDuration: "0.2s",
+              animationDelay: "0.1s",
+              animationFillMode: "forwards",
+              whiteSpace: "nowrap",
             }}
           >
             {`${data.lastName}`}

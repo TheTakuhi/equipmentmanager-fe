@@ -17,7 +17,7 @@ export interface ClearCacheButtonProps {
 }
 
 const ClearCacheButton: FC<ClearCacheButtonProps> = ({ open }) => {
-  const boxWidth = open ? "auto" : "2.75rem";
+  const boxWidth = open ? "9.375rem" : "2.75rem";
   const theme = useTheme();
   const navigate = useNavigate();
   const { activeRoles } = useActiveRoles();
@@ -46,10 +46,9 @@ const ClearCacheButton: FC<ClearCacheButtonProps> = ({ open }) => {
           transition: "ease-in 0.15s",
         },
         borderRadius: theme.borderRadius.element,
-        color: "#FFFFFF",
-        // animation: open
-        //   ? `border-grow 0.28s ease-in-out forwards`
-        //   : `border-collapse 0.2s ease-in-out backwards`,
+        animation: open
+          ? `border-grow 0.28s ease-in-out forwards`
+          : `border-collapse 0.2s ease-in-out backwards`,
         textDecoration: "none",
         justifyContent: open ? "" : "center",
         alignItems: "center",
@@ -62,11 +61,11 @@ const ClearCacheButton: FC<ClearCacheButtonProps> = ({ open }) => {
         <Text
           sx={{
             color: theme.palette.text.primary,
-            // visibility: "hidden",
-            // animationName: "slide-in",
-            // animationDuration: "0.2s",
-            // animationDelay: "0.1s",
-            // animationFillMode: "forwards",
+            visibility: "hidden",
+            animationName: "slide-in",
+            animationDuration: "0.2s",
+            animationDelay: "0.1s",
+            animationFillMode: "forwards",
             size: "sidebar",
             whiteSpace: "nowrap",
           }}
