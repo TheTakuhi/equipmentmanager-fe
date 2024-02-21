@@ -35,7 +35,7 @@ type TSTableProps<T extends object> = {
   route: string;
   data: T[];
   columns: any[];
-  isLoading: boolean;
+  isLoading?: boolean;
   pageable?: Pageable<Omit<T, "content">>;
   filterData?: any;
   tableHeight: string;

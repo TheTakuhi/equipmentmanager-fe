@@ -1,21 +1,22 @@
 import { FC } from "react";
 
 import TSTable from "../../../common/components/TSTable";
-import { useGetUsers } from "../../../common/hooks/queries/users/useGetUsers";
+import { Team } from "../../../common/models/team/Team";
 import { TEAMSRoute } from "../../../common/routes/common/teams/teamsRoute";
 import { useTeamMembersTableColumns } from "../../hooks/useTeamMembersTableColumns";
 
-const TeamTableContainer: FC = () => {
-  const columns = useTeamMembersTableColumns();
+type TeamTableContainerProps = {
+  team: Team;
+};
 
-  const { data, isLoading } = useGetUsers();
+const TeamTableContainer: FC<TeamTableContainerProps> = ({ team }) => {
+  const columns = useTeamMembersTableColumns(team);
 
   return (
     <TSTable
       route={TEAMSRoute.id}
       columns={columns}
-      data={data?.content ?? []}
-      isLoading={isLoading}
+      data={team.members}
       tableHeight="unset"
       hidePagination
     />

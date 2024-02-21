@@ -14,14 +14,12 @@ import {
 import { X } from "react-feather";
 
 import Button from "../../components/Button";
-import { TeamFormValues } from "../../models/team/TeamFormValues";
 
 interface DiscardDialogProps {
   close: () => void;
   title: string;
   description: string;
   discard?: () => void;
-  removeMember?: (values: TeamFormValues) => void;
 }
 
 const DiscardDialog: FC<DiscardDialogProps> = ({

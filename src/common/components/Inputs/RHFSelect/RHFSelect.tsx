@@ -11,7 +11,6 @@ import { SelectOption } from "../../../models/utils/SelectOption";
 
 type RHFSelectProps<T extends object> = Props & {
   required?: boolean;
-  disabled?: boolean;
   label: string;
   options: SelectOption[];
   name: FieldPath<T>;
@@ -20,7 +19,6 @@ type RHFSelectProps<T extends object> = Props & {
 const RHFSelect = <T extends object>({
   label,
   required,
-  disabled,
   options,
   name,
   ...rest
@@ -50,7 +48,6 @@ const RHFSelect = <T extends object>({
           <Select
             {...field}
             {...rest}
-            isDisabled={disabled}
             options={options}
             useBasicStyles
             chakraStyles={{

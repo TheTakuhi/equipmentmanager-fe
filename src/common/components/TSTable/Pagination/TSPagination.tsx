@@ -28,7 +28,7 @@ export type PaginationStateProps = {
 interface TSPaginationProps {
   route: string;
   pageable?: Pageable<any>;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 // TODO - delete page sizes 1 and 5 after testing

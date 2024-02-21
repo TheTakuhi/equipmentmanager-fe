@@ -22,7 +22,7 @@ import EditItemsOwnerForm from "../../forms/EditItemsOwnerForm";
 import { EditItemsOwnerSubmitHandler } from "../../forms/EditItemsOwnerForm/EditItemsOwnerForm";
 import { useEditItemsOwnerMutation } from "../../hooks/mutations/items/useEditItemsOwnerMutation";
 import { useGetItemsByOwnerId } from "../../hooks/queries/items/useGetItemsByOwnerId";
-import { TeamFormValues } from "../../models/team/TeamFormValues";
+import { TeamFormRequestValues } from "../../models/team/TeamFormRequestValues";
 import { User } from "../../models/user/User";
 import { toastOptions } from "../../utils/toastOptions";
 
@@ -31,7 +31,7 @@ interface StepperDialogProps {
   title: string;
   description: string;
   discard?: () => void;
-  removeMember?: (values: TeamFormValues) => void;
+  removeMember?: (values: TeamFormRequestValues) => void;
   user?: User;
 }
 

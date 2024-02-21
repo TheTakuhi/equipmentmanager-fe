@@ -1,5 +1,10 @@
 import { object, ObjectSchema, string } from "yup";
 
-export const schema: ObjectSchema<{ id: string }> = object({
-  id: string().required(),
+import { TeamMemberRequestType } from "./AddMemberForm";
+
+export const schema: ObjectSchema<TeamMemberRequestType> = object({
+  member: object().shape({
+    value: string().required(),
+    label: string().required(),
+  }),
 });

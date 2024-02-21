@@ -14,14 +14,12 @@ export const parseUsersToSelectOptions = (
     options.push({
       value: currentUser.id,
       label: currentUser.fullName,
-      id: currentUser.id,
     });
   } else {
     users.map((user) =>
       options.push({
         value: user.id,
         label: user.fullName,
-        id: user.id,
       }),
     );
   }
@@ -38,7 +36,6 @@ export const parseItemsToSelectOptions = (items?: Item[]) => {
     options.push({
       value: item.id,
       label: `${item.serialCode}, ${item.type.toLowerCase().replace("_", " ")}`,
-      id: item.id,
     }),
   );
 

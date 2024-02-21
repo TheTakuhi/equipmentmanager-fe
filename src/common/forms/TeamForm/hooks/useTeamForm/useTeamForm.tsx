@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
 import { createDefaultValues } from "./utils";
-import { TeamFormValues } from "../../../../models/team/TeamFormValues";
+import { TeamFormValues } from "../../../../models/team/TeamFormRequestValues";
 import { schema } from "../../schema";
 
 export type TeamFormProps = {

@@ -6,7 +6,7 @@ import {
   getEnvVariable,
 } from "../../../config/env/getEnvVariable";
 import { Team } from "../../../models/team/Team";
-import { TeamFormValues } from "../../../models/team/TeamFormValues";
+import { TeamFormRequestValues } from "../../../models/team/TeamFormRequestValues";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 
 export const useTeamEditMutation = (teamId: string) => {
@@ -15,7 +15,7 @@ export const useTeamEditMutation = (teamId: string) => {
   return useMutation<
     Team,
     AxiosError<any, any>,
-    Partial<TeamFormValues>,
+    Partial<TeamFormRequestValues>,
     unknown
   >({
     mutationFn: (team) =>

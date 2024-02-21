@@ -6,38 +6,48 @@ import { FormProvider } from "react-hook-form";
 import { useAddMemberForm } from "./hooks/useAddMemberForm/useAddMemberForm";
 import Button from "../../components/Button";
 import RHFSelect from "../../components/Inputs/RHFSelect";
+import { useGetTeamById } from "../../hooks/queries/teams/useGetTeamById";
 import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
 import { SelectOption } from "../../models/utils/SelectOption";
+import { parseUsersToSelectOptions } from "../../utils/selectOptionsParser";
 
-export type AddMemberSubmitHandler = (values: { id: string }) => void;
+export type TeamMemberRequestType = {
+  member: {
+    value: string;
+    label: string;
+  };
+};
+
+export type TeamMemberSubmitHandler = (values: TeamMemberRequestType) => void;
 
 interface AddMemberProps {
-  handleSubmit: AddMemberSubmitHandler;
-  defaultValues?: { id: string };
+  handleSubmit: TeamMemberSubmitHandler;
+  defaultValues?: TeamMemberRequestType;
   close: () => void;
+  teamId: string;
 }
 
 const AddMemberForm: FC<AddMemberProps> = ({
   handleSubmit,
   defaultValues,
   close,
+  teamId,
 }) => {
   const form = useAddMemberForm({ defaultValues });
+
+  const { data: teamInfo, isLoading: isLoadingTeamInfo } =
+    useGetTeamById(teamId);
 
   const { data: memberCandidates, isLoading: isLoadingMemberCandidates } =
     useGetUsers();
 
-  const memberOptions: SelectOption[] = [];
-  if (memberCandidates)
-    memberCandidates.content.map((member) =>
-      memberOptions.push({
-        value: member.id,
-        label: member.fullName,
-        id: member.id,
-      }),
-    );
+  const memberOptions: SelectOption[] = parseUsersToSelectOptions(
+    memberCandidates?.content.filter(
+      (m) => !teamInfo?.members.find((v) => v.id === m.id),
+    ),
+  );
 
-  if (isLoadingMemberCandidates)
+  if (isLoadingMemberCandidates || isLoadingTeamInfo)
     return (
       <Skeleton
         height="1rem"
@@ -54,7 +64,7 @@ const AddMemberForm: FC<AddMemberProps> = ({
         <SimpleGrid sx={{ gap: "1rem" }}>
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem" }}>
             <RHFSelect
-              name="id"
+              name="member"
               label="New member"
               options={memberOptions}
               required
