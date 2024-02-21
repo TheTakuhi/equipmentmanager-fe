@@ -1,16 +1,10 @@
 import { FC } from "react";
 
-import {
-  Box,
-  Flex,
-  Heading,
-  IconButton,
-  Spacer,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import { Edit2 } from "react-feather";
+import { Box, Flex, Heading, Spacer, Text, VStack } from "@chakra-ui/react";
+import { Trash, Edit2 } from "react-feather";
 
+import { IconButton } from "../../../common/components/IconButton";
+import TeamDeleteDialog from "../../../common/dialogs/TeamDialogs/TeamDeleteDialog";
 import TeamEditDialog from "../../../common/dialogs/TeamDialogs/TeamEditDialog";
 import { Team } from "../../../common/models/team/Team";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
@@ -48,6 +42,8 @@ const TeamContainer: FC<TeamContainerProps> = ({ team }) => {
 
   const handleTeamEdit = () => show(<TeamEditDialog team={team} />);
 
+  const handleTeamDelete = () => show(<TeamDeleteDialog team={team} />);
+
   return (
     <Box
       sx={{
@@ -67,20 +63,13 @@ const TeamContainer: FC<TeamContainerProps> = ({ team }) => {
         <Heading size="h2">{team.teamName}</Heading>
         <IconButton
           onClick={handleTeamEdit}
-          isRound
           aria-label="Edit team"
-          icon={<Edit2 color={theme.palette.text.disabled} />}
-          size="sm"
-          sx={{
-            bg: "none",
-            minHeight: "32px",
-            transition: theme.transition.default,
-
-            _hover: {
-              bg: theme.palette.secondary.light,
-              svg: { stroke: theme.palette.text.primary },
-            },
-          }}
+          icon={Edit2}
+        />
+        <IconButton
+          onClick={handleTeamDelete}
+          aria-label="Delete team"
+          icon={Trash}
         />
         <Spacer />
         <Text
@@ -95,7 +84,7 @@ const TeamContainer: FC<TeamContainerProps> = ({ team }) => {
 
       <VStack sx={{ gap: "1rem", paddingY: "1rem", alignItems: "flex-start" }}>
         <TeamTopContainer />
-        <TeamTableContainer />
+        <TeamTableContainer team={team} />
       </VStack>
     </Box>
   );

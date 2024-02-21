@@ -1,10 +1,13 @@
 import { FC } from "react";
 
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Info, Trash } from "react-feather";
 
 import Menu from "../../../common/components/Menu";
+import TeamRemoveMemberDialog from "../../../common/dialogs/TeamDialogs/TeamRemoveMemberDialog";
 import { User } from "../../../common/models/user/User";
+import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
+import { TEAMSRoute } from "../../../common/routes/common/teams/teamsRoute";
 import { userDetailRoute } from "../../../common/routes/common/userDetail/userDetailRoute";
 
 interface TeamActionMenuProps {
@@ -13,18 +16,17 @@ interface TeamActionMenuProps {
 
 const TeamActionMenu: FC<TeamActionMenuProps> = ({ user }) => {
   const navigate = useNavigate();
-  // const { show } = useActionDialog();
+  const { active }: { active: string } = useSearch({ from: TEAMSRoute.id });
+  const { show } = useActionDialog();
 
-  // TODO - check if matches
   const handleUserDetailClick = () => {
     navigate({
       to: `${userDetailRoute.id}/${user.id}`,
     });
   };
 
-  // TODO - implement
-  const handleRemoveMemberClick = () => {};
-  // show(<TeamRemoveMemberDialog team={} user={user} />);
+  const handleRemoveMemberClick = () =>
+    show(<TeamRemoveMemberDialog teamId={active} user={user} />);
 
   return (
     <Menu

@@ -6,55 +6,44 @@ import { FormProvider } from "react-hook-form";
 import { useTeamForm } from "./hooks/useTeamForm/useTeamForm";
 import Button from "../../components/Button";
 import RHFInput from "../../components/Inputs/RHFInput";
-import RHFMultiSelect from "../../components/Inputs/RHFMultiSelect";
 import RHFSelect from "../../components/Inputs/RHFSelect";
 import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
-import { TeamFormValues } from "../../models/team/TeamFormValues";
+import { TeamFormValues } from "../../models/team/TeamFormRequestValues";
 import { SelectOption } from "../../models/utils/SelectOption";
+import { useActiveRoles } from "../../providers/ActiveRolesProvider/ActiveRolesProvider";
+import { CustomRole } from "../../security/model/Role";
+import { parseUsersToSelectOptions } from "../../utils/selectOptionsParser";
 
 export type TeamFormSubmitHandler = (values: TeamFormValues) => void;
 
 interface TeamFormProps {
   handleSubmit: TeamFormSubmitHandler;
-  disabled?: boolean;
   defaultValues?: Partial<TeamFormValues>;
   close: () => void;
   isEdit?: true;
+  isSubmitting: boolean;
 }
 
 const TeamForm: FC<TeamFormProps> = ({
   handleSubmit,
-  disabled,
   defaultValues,
   close,
   isEdit,
+  isSubmitting,
 }) => {
   const form = useTeamForm({ defaultValues });
+  const { activeRoles } = useActiveRoles();
 
-  // TODO IMPLEMENT FOR BOTH MANAGER & ADMIN
   const { data: ownerCandidates, isLoading: isLoadingOwnerCandidates } =
     useGetUsers();
 
-  const ownerOptions: SelectOption[] = [];
-  if (ownerCandidates)
-    ownerCandidates.content.map((owner) =>
-      ownerOptions.push({
-        value: owner.id,
-        label: owner.fullName,
-        id: owner.id,
-      }),
-    );
+  const ownerOptions: SelectOption[] = parseUsersToSelectOptions(
+    ownerCandidates?.content,
+  );
 
-  const memberOptions: SelectOption[] = [];
-  if (ownerCandidates)
-    ownerCandidates.content.forEach((member) => {
-      const option: SelectOption = {
-        value: member.id,
-        label: member.fullName,
-        id: member.id,
-      };
-      memberOptions.push(option);
-    });
+  const memberOptions: SelectOption[] = ownerOptions.filter(
+    (m) => m.value !== form.watch("owner").value,
+  );
 
   if (isLoadingOwnerCandidates)
     return (
@@ -76,22 +65,23 @@ const TeamForm: FC<TeamFormProps> = ({
               name="teamName"
               label="Name"
               type="text"
-              disabled={disabled}
               required
             />
             <RHFSelect<TeamFormValues>
               name="owner"
               label="Team owner"
               options={ownerOptions}
-              disabled={disabled}
+              isDisabled={
+                activeRoles[0].includes(CustomRole.MANAGER) && !isEdit
+              }
               required
             />
-            <RHFMultiSelect<TeamFormValues>
+            <RHFSelect<TeamFormValues>
               name="members"
-              formLabel="Members"
+              label="Members"
               options={memberOptions}
-              disabled={disabled}
               required
+              isMulti
             />
           </SimpleGrid>
           <SimpleGrid columns={{ base: 1 }} sx={{ gap: "1rem", pb: "1rem" }}>
@@ -104,10 +94,13 @@ const TeamForm: FC<TeamFormProps> = ({
               }}
             >
               <Button variant="secondary" label="Close" onClick={close} />
+              {/* TODO - submitting button style adjustment needed */}
               <Button
                 variant="primary"
                 label={isEdit ? "Edit team" : "Create team"}
                 type="submit"
+                isLoading={isSubmitting}
+                loadingText="Submitting"
               />
             </Box>
           </SimpleGrid>

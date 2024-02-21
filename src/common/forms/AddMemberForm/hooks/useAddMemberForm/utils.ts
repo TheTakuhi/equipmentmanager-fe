@@ -1,4 +1,11 @@
-export const createDefaultValues = (defs?: { id: string }): { id: string } => ({
-  id: "",
+import { TeamMemberRequestType } from "../../AddMemberForm";
+
+export const createDefaultValues = (
+  defs?: TeamMemberRequestType,
+): TeamMemberRequestType => ({
+  member: {
+    value: "",
+    label: "",
+  },
   ...defs,
 });

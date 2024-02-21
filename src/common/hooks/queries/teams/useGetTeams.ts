@@ -5,23 +5,23 @@ import {
   getEnvVariable,
 } from "../../../config/env/getEnvVariable";
 import { Team } from "../../../models/team/Team";
+import { Pageable } from "../../../models/utils/Pageable";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 import { getQueryKeys } from "../utility/getQueryKeys";
 
 const rootKey = "teams";
 
-type UseGetTeamsQueryOptions = UseQueryOptions<Team[], Error>;
+type UseGetTeamsQueryOptions = UseQueryOptions<Pageable<Team>, Error>;
 
-// TODO implement after BE is done (ID/login/in url/email)
 type UseGetTeamsQueryParams = {
-  name?: string;
-  ownerLogin?: string;
-  memberLogin?: string;
+  page?: number;
+  size?: number;
+  sort?: string[];
 };
 
 type GetTeamsQueryKeyHandler = (
   params?: UseGetTeamsQueryParams,
-) => (string | undefined)[];
+) => (string | number | undefined)[];
 
 export const getTeamsQueryKey: GetTeamsQueryKeyHandler = (params) => {
   return getQueryKeys(params ?? [], rootKey);
@@ -32,16 +32,15 @@ export const useGetTeams = (
   options?: UseGetTeamsQueryOptions,
 ) => {
   const securedAxios = useSecuredAxios();
-  const { ...restParams } = params || {};
 
-  return useQuery<Team[], Error>({
+  return useQuery<Pageable<Team>, Error>({
     queryKey: getTeamsQueryKey(),
     queryFn: () =>
       securedAxios
         .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/teams`, {
-          params: { ...restParams },
+          params,
         })
-        .then((response) => response.data as Team[]),
+        .then((response) => response.data as Pageable<Team>),
     ...options,
   });
 };

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import { queryClient } from "../../../config/react-query/reactQuery";
 import AddMemberForm from "../../../forms/AddMemberForm";
-import { AddMemberSubmitHandler } from "../../../forms/AddMemberForm/AddMemberForm";
+import { TeamMemberSubmitHandler } from "../../../forms/AddMemberForm/AddMemberForm";
 import { useTeamAddMemberMutation } from "../../../hooks/mutations/teams/useTeamAddMemberMutation";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
 import { toastOptions } from "../../../utils/toastOptions";
@@ -18,10 +18,10 @@ const TeamAddMemberDialog: FC<TeamAddMemberDialogProps> = ({ teamId }) => {
   const { close } = useActionDialog();
   const { mutate: mutateTeamAddMember } = useTeamAddMemberMutation(teamId);
 
-  const handleSubmit: AddMemberSubmitHandler = (values) =>
+  const handleSubmit: TeamMemberSubmitHandler = (values) =>
     mutateTeamAddMember(
       {
-        ...values,
+        userId: values.member.value,
       },
       {
         onSuccess: () => {
@@ -38,15 +38,13 @@ const TeamAddMemberDialog: FC<TeamAddMemberDialogProps> = ({ teamId }) => {
 
   return (
     <FormDialog
-      title="Add member to team"
+      title="Add member to the team"
       close={close}
       dialogForm={
         <AddMemberForm
           handleSubmit={handleSubmit}
           close={close}
-          defaultValues={{
-            id: "",
-          }}
+          teamId={teamId}
         />
       }
     />

@@ -11,10 +11,14 @@ import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 export const useTeamAddMemberMutation = (teamId: string) => {
   const securedAxios = useSecuredAxios();
 
-  return useMutation<Team, AxiosError<any, any>, { id: string }>({
-    mutationFn: (id) =>
+  return useMutation<Team, AxiosError<any, any>, { userId: string }>({
+    mutationFn: (values) =>
       securedAxios
-        .put(`${getEnvVariable(EnvVariableName.HOST_CORE)}/teams/${teamId}`, id)
+        .patch(
+          `${getEnvVariable(
+            EnvVariableName.HOST_CORE,
+          )}/teams/${teamId}/add/${values.userId}`,
+        )
         .then((response) => response.data as Team),
   });
 };

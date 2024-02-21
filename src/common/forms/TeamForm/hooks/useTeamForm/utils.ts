@@ -1,10 +1,10 @@
-import { TeamFormValues } from "../../../../models/team/TeamFormValues";
+import { TeamFormValues } from "../../../../models/team/TeamFormRequestValues";
 
 export const createDefaultValues = (
   defs?: Partial<TeamFormValues>,
 ): TeamFormValues => ({
   teamName: "",
-  owner: "",
+  owner: { value: "", label: "" },
   members: [],
   ...defs,
 });

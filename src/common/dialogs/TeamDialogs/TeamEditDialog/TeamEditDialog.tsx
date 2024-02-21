@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { toast } from "react-toastify";
 
@@ -16,26 +16,41 @@ interface TeamEditDialogProps {
 }
 
 const TeamEditDialog: FC<TeamEditDialogProps> = ({ team }) => {
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const { close } = useActionDialog();
   const { mutate: mutateTeamEdit } = useTeamEditMutation(team.id);
 
-  const handleSubmit: TeamFormSubmitHandler = (values) =>
+  const handleSubmit: TeamFormSubmitHandler = (values) => {
+    setIsSubmitting(true);
     mutateTeamEdit(
       {
-        ...values,
+        teamName: values.teamName,
+        ownerId: values.owner.value,
+        // TODO - membersIds after dto update on BE
+        // @ts-ignore
+        membersIds: [
+          values.owner.value,
+          ...values.members
+            .filter((m) => m.value !== values.owner.value)
+            .map((m) => m.value),
+        ],
       },
       {
         onSuccess: () => {
           toast.success("Team edited", toastOptions);
           queryClient.invalidateQueries().then(close);
         },
-        onError: (error) =>
+        onError: (error) => {
           toast.error(
             error.response?.data.message ?? "An error has occurred",
             toastOptions,
-          ),
+          );
+          setIsSubmitting(false);
+        },
       },
     );
+  };
 
   return (
     <FormDialog
@@ -45,11 +60,14 @@ const TeamEditDialog: FC<TeamEditDialogProps> = ({ team }) => {
         <TeamForm
           handleSubmit={handleSubmit}
           close={close}
+          isSubmitting={isSubmitting}
           isEdit
           defaultValues={{
             teamName: team.teamName,
-            owner: team.owner.id,
-            members: team.members.map((member) => member.id),
+            owner: { value: team.owner.id, label: team.owner.fullName },
+            members: team.members.map((m) => {
+              return { value: m.id, label: m.fullName };
+            }),
           }}
         />
       }

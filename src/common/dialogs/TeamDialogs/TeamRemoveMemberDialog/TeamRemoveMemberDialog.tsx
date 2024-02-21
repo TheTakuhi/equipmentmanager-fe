@@ -3,30 +3,28 @@ import { FC } from "react";
 import { toast } from "react-toastify";
 
 import { queryClient } from "../../../config/react-query/reactQuery";
-import { TeamFormSubmitHandler } from "../../../forms/TeamForm/TeamForm";
 import { useTeamRemoveMemberMutation } from "../../../hooks/mutations/teams/useTeamRemoveMemberMutation";
-import { Team } from "../../../models/team/Team";
 import { User } from "../../../models/user/User";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
 import { toastOptions } from "../../../utils/toastOptions";
 import DiscardDialog from "../../DiscardDialog";
 
 interface TeamRemoveMemberDialogProps {
-  team: Team;
+  teamId: string;
   user: User;
 }
 
 const TeamRemoveMemberDialog: FC<TeamRemoveMemberDialogProps> = ({
   user,
-  team,
+  teamId,
 }) => {
   const { close } = useActionDialog();
-  const { mutate: mutateTeamEdit } = useTeamRemoveMemberMutation(team.id);
+  const { mutate: mutateTeamEdit } = useTeamRemoveMemberMutation(teamId);
 
-  const handleSubmit: TeamFormSubmitHandler = (values) =>
+  const handleSubmit = () =>
     mutateTeamEdit(
       {
-        ...values,
+        userId: user.id,
       },
       {
         onSuccess: () => {
@@ -43,11 +41,11 @@ const TeamRemoveMemberDialog: FC<TeamRemoveMemberDialogProps> = ({
 
   return (
     <DiscardDialog
-      title="Remove member from team"
+      title="Remove member from the team"
       close={close}
-      description={`You’re about to delete team member ${user?.fullName}. 
-        Are you sure you want to delete this member?`}
-      removeMember={handleSubmit}
+      description={`You’re about to remove team member ${user?.fullName}. 
+        Are you sure you want to remove this member?`}
+      discard={() => handleSubmit()}
     />
   );
 };

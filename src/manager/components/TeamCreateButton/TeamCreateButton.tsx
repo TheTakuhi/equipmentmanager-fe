@@ -42,7 +42,7 @@ const TeamCreateButton = () => {
           fontWeight: "600",
         }}
       >
-        Create team
+        Create a team
       </Text>
       <Plus width="1em" height="1em" color={theme.palette.text.disabled} />
     </Button>
