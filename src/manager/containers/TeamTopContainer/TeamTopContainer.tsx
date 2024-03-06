@@ -1,4 +1,4 @@
-import { Heading, HStack, Spacer } from "@chakra-ui/react";
+import { HStack, Spacer } from "@chakra-ui/react";
 import { useSearch } from "@tanstack/react-router";
 import { UserPlus } from "react-feather";
 
@@ -14,28 +14,23 @@ const TeamTopContainer = () => {
   const handleAddMember = () => show(<TeamAddMemberDialog teamId={active} />);
 
   return (
-    <>
-      <Heading size="h3" sx={{ paddingX: "1.5rem" }}>
-        Members
-      </Heading>
-      <HStack sx={{ width: "100%", paddingX: "1.5rem" }}>
-        <SearchBar
-          route={TEAMSRoute.id}
-          options={[
-            { value: "name", label: "Name" },
-            { value: "login", label: "Login" },
-            { value: "email", label: "Email" },
-          ]}
-        />
-        <Spacer />
-        <Button
-          variant="primary"
-          label="Add member"
-          startIcon={<UserPlus />}
-          onClick={handleAddMember}
-        />
-      </HStack>
-    </>
+    <HStack sx={{ width: "100%", paddingX: "1.5rem" }}>
+      <SearchBar
+        route={TEAMSRoute.id}
+        options={[
+          { value: "name", label: "Name" },
+          { value: "login", label: "Login" },
+          { value: "email", label: "Email" },
+        ]}
+      />
+      <Spacer />
+      <Button
+        variant="primary"
+        label="Add member"
+        startIcon={<UserPlus />}
+        onClick={handleAddMember}
+      />
+    </HStack>
   );
 };
 
