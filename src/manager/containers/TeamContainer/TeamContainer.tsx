@@ -60,7 +60,7 @@ const TeamContainer: FC<TeamContainerProps> = ({ team }) => {
           alignItems: "baseline",
         }}
       >
-        <Heading size="h2">{team.teamName}</Heading>
+        <Heading size="h2">{team.teamName}&apos;s members</Heading>
         <IconButton
           onClick={handleTeamEdit}
           aria-label="Edit team"

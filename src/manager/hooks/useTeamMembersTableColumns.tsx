@@ -1,9 +1,9 @@
-import { HStack, Text } from "@chakra-ui/react";
+import { HStack, Text, Tooltip } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
-import { Star } from "react-feather";
 
 import { Team } from "../../common/models/team/Team";
 import { User } from "../../common/models/user/User";
+import { Crown } from "../../common/theme/icons";
 import TeamActionMenu from "../components/TeamActionMenu";
 
 export const useTeamMembersTableColumns = (team: Team) => {
@@ -17,7 +17,14 @@ export const useTeamMembersTableColumns = (team: Team) => {
           <HStack spacing="0.5rem">
             <Text sx={{ fontSize: "1em" }}>{info.getValue()}</Text>
             {team.owner.id === info.row.original.id ? (
-              <Star width="1.125em" height="1.125em" color="#7A7A80" />
+              <Tooltip
+                hasArrow
+                label="Team's owner"
+                placement="right"
+                openDelay={500}
+              >
+                <Crown width="1.125em" height="1.125em" stroke="#7A7A80" />
+              </Tooltip>
             ) : null}
           </HStack>
         );

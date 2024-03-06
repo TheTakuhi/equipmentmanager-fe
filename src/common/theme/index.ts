@@ -1,5 +1,6 @@
 import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
 
+import { BadgeStyle } from "./components/badge";
 import { ButtonStyle } from "./components/button";
 import { CheckboxStyle } from "./components/checkbox";
 import { Heading } from "./components/heading";
@@ -10,7 +11,6 @@ import { Text } from "./components/text";
 import { Textarea } from "./components/textarea";
 import { palette } from "./palette";
 import { styles } from "./styles";
-import { BadgeStyle } from "./components/badge";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
