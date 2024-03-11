@@ -1,4 +1,8 @@
 import { Role } from "../../security/model/Role";
+import { ItemCropped } from "../item/ItemCropped";
+import { LoanCropped } from "../loan/LoanCropped";
+import { TeamCropped } from "../team/TeamCropped";
+import { AuditInfo } from "../utils/AuditInfo";
 
 export interface User {
   id: string;
@@ -9,6 +13,11 @@ export interface User {
   fullName: string;
   photo: string;
   userRoles: Role[];
-  ownedContractIds: string[];
-  managedContractIds: string[];
+  auditInfo: AuditInfo;
+  removed: boolean;
+  teams: TeamCropped[];
+  ownedTeams: TeamCropped[];
+  loans: LoanCropped[];
+  borrowings: LoanCropped[];
+  ownedItems: ItemCropped[];
 }

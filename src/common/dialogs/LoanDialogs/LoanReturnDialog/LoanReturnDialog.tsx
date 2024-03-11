@@ -1,15 +1,12 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { DateTime } from "luxon";
-import { toast } from "react-toastify";
 
-import { queryClient } from "../../../config/react-query/reactQuery";
 import LoanForm from "../../../forms/LoanForm";
 import { LoanFormSubmitHandler } from "../../../forms/LoanForm/LoanForm";
-import { useLoanEditMutation } from "../../../hooks/mutations/loans/useLoanEditMutation";
+import { useLoanPatchMutation } from "../../../hooks/mutations/loans/useLoanPatchMutation";
 import { Loan } from "../../../models/loan/Loan";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
-import { toastOptions } from "../../../utils/toastOptions";
 import FormDialog from "../../FormDialog";
 
 interface LoanReturnDialogProps {
@@ -17,27 +14,24 @@ interface LoanReturnDialogProps {
 }
 
 const LoanReturnDialog: FC<LoanReturnDialogProps> = ({ loan }) => {
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const { close } = useActionDialog();
 
-  const { mutate: mutateLoanEdit } = useLoanEditMutation(loan.id);
+  const { mutate: mutateLoanEdit } = useLoanPatchMutation(loan.id);
 
-  const handleSubmit: LoanFormSubmitHandler = (values) =>
+  const handleSubmit: LoanFormSubmitHandler = (values) => {
+    setIsSubmitting(true);
     mutateLoanEdit(
       {
-        ...values,
+        returnDate: values.returnDate!,
       },
       {
-        onSuccess: () => {
-          toast.success("Loan returned", toastOptions);
-          queryClient.invalidateQueries().then(close);
-        },
-        onError: (error) =>
-          toast.error(
-            error.response?.data.message ?? "An error has occurred",
-            toastOptions,
-          ),
+        onSuccess: () => close(),
+        onError: () => setIsSubmitting(false),
       },
     );
+  };
 
   return (
     <FormDialog
@@ -49,11 +43,18 @@ const LoanReturnDialog: FC<LoanReturnDialogProps> = ({ loan }) => {
           close={close}
           isEdit
           defaultValues={{
-            itemId: loan.item.id,
-            borrowerId: loan.lender.id,
-            dateOfLending: loan.dateOfLending,
-            dateOfReturning: DateTime.local().toFormat("yyyy-MM-dd"),
+            item: {
+              value: loan.item.id,
+              label: `${loan.item.serialCode}, ${loan.item.type}`,
+            },
+            borrower: {
+              value: loan.lender.id,
+              label: loan.lender.fullName,
+            },
+            loanDate: loan.loanDate,
+            returnDate: DateTime.local().toFormat("yyyy-MM-dd"),
           }}
+          isSubmitting={isSubmitting}
         />
       }
     />

@@ -29,21 +29,11 @@ export const useItemsTableColumns = () => {
     columnHelper.accessor("type", {
       header: "Type",
       cell: (info) => info.getValue(),
-      sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.type;
-        const value2 = rowB.original.type;
-        return value1.localeCompare(value2, "cs");
-      },
       enableColumnFilter: false,
     }),
     columnHelper.accessor("qualityState", {
       header: "Quality state",
       cell: (info) => info.getValue(),
-      sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.qualityState;
-        const value2 = rowB.original.qualityState;
-        return value1.localeCompare(value2, "cs");
-      },
       enableColumnFilter: false,
     }),
     columnHelper.accessor("state", {
@@ -54,9 +44,14 @@ export const useItemsTableColumns = () => {
           label={info.getValue()}
         />
       ),
+      enableColumnFilter: false,
+    }),
+    columnHelper.accessor("owner.fullName", {
+      header: "Owner",
+      cell: (info) => info.getValue(),
       sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.state;
-        const value2 = rowB.original.state;
+        const value1 = rowA.original.owner.fullName;
+        const value2 = rowB.original.owner.fullName;
         return value1.localeCompare(value2, "cs");
       },
       enableColumnFilter: false,

@@ -9,6 +9,7 @@ import RHFDatePicker from "../../components/Inputs/RHFDatePicker";
 import RHFSelect from "../../components/Inputs/RHFSelect";
 import { useGetItems } from "../../hooks/queries/items/useGetItems";
 import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
+import { ItemState } from "../../models/item/ItemState";
 import { LoanFormValues } from "../../models/loan/LoanFormValues";
 import {
   parseItemsToSelectOptions,
@@ -20,49 +21,54 @@ export type LoanFormSubmitHandler = (values: LoanFormValues) => void;
 type LoanFormProps = {
   handleSubmit: LoanFormSubmitHandler;
   defaultValues?: Partial<LoanFormValues>;
+  isEdit?: boolean;
+  close: () => void;
+  isSubmitting: boolean;
 };
 
-const LoanForm: FC<LoanFormProps & { isEdit?: boolean; close: () => void }> = ({
+const LoanForm: FC<LoanFormProps> = ({
   handleSubmit,
   defaultValues,
   isEdit,
   close,
+  isSubmitting,
 }) => {
   const form = useLoanForm({ defaultValues });
 
-  // TODO - specify queries (items from current user + available borrowers according to current user)
-  const { data: items, isLoading: isLoadingItems } = useGetItems();
+  const { data: items, isLoading: isLoadingItems } = useGetItems({
+    state: ItemState.AVAILABLE,
+  });
   const { data: users, isLoading: isLoadingUsers } = useGetUsers();
 
   if (isLoadingUsers || isLoadingItems) return <Skeleton height="1rem" />;
 
-  // TODO - disable field based on isEdit after connection to BE
-  // TODO - itemId & borrowerId are selected correctly, but not shown in select
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <SimpleGrid sx={{ gap: "1rem" }}>
           <RHFSelect<LoanFormValues>
-            name="itemId"
+            name="item"
             options={parseItemsToSelectOptions(items?.content)}
             label="Item"
-            required
+            required={!isEdit}
+            isDisabled={isEdit}
           />
           <RHFSelect<LoanFormValues>
-            name="borrowerId"
+            name="borrower"
             options={parseUsersToSelectOptions(users?.content)}
             label="Borrower"
-            required
+            required={!isEdit}
+            isDisabled={isEdit}
           />
           {isEdit ? (
             <RHFDatePicker<LoanFormValues>
+              name="returnDate"
               label="Return date"
-              name="dateOfReturning"
               required={isEdit}
             />
           ) : (
             <RHFDatePicker<LoanFormValues>
-              name="dateOfLending"
+              name="loanDate"
               label="Lending date"
               required
             />
@@ -82,6 +88,8 @@ const LoanForm: FC<LoanFormProps & { isEdit?: boolean; close: () => void }> = ({
                 variant="primary"
                 label={isEdit ? "Return item" : "Lend item"}
                 type="submit"
+                isLoading={isSubmitting}
+                loadingText="Submitting"
               />
             </Box>
           </SimpleGrid>

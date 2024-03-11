@@ -1,10 +1,8 @@
 import { ItemState } from "./ItemState";
 import { ItemType } from "./ItemType";
 import { QualityState } from "./QualityState";
-import { Loan } from "../loan/Loan";
-import { UserCropped } from "../user/UserCropped";
 
-export interface Item {
+export type ItemCropped = {
   id: string;
   serialCode: string;
   comment: string;
@@ -12,6 +10,6 @@ export interface Item {
   state: ItemState;
   qualityState: QualityState;
   creationDate: string;
-  owner: UserCropped;
-  loans: Loan[];
-}
+  ownerId: string;
+  loansId: string[];
+};

@@ -18,7 +18,7 @@ const LoanActionMenu: FC<LoanActionMenuProps> = ({ loan }) => {
 
   const handleUserDetailClick = () => {
     navigate({
-      params: { userDetailId: loan.lender.id },
+      params: { userDetailId: loan.borrower.id },
       to: "/equipment-manager/management/user-detail/$userDetailId",
     });
   };

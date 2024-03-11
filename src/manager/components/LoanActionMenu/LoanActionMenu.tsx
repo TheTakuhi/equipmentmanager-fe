@@ -4,6 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { ArrowDownLeft, Bell, Info } from "react-feather";
 
 import Menu from "../../../common/components/Menu";
+import { MenuItemType } from "../../../common/components/Menu/Menu";
 import LoanReturnDialog from "../../../common/dialogs/LoanDialogs/LoanReturnDialog";
 import { Loan } from "../../../common/models/loan/Loan";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
@@ -18,7 +19,7 @@ const LoanActionMenu: FC<LoanActionMenuProps> = ({ loan }) => {
 
   const handleUserDetailClick = () => {
     navigate({
-      params: { userDetailId: loan.lender.id },
+      params: { userDetailId: loan.borrower.id },
       to: "/equipment-manager/management/user-detail/$userDetailId",
     });
   };
@@ -40,32 +41,37 @@ const LoanActionMenu: FC<LoanActionMenuProps> = ({ loan }) => {
     console.log("NOTIFY LENDER");
   };
 
-  return (
-    <Menu
-      menuItems={[
-        {
-          label: "Item details",
-          icon: <Info />,
-          onClick: handleItemDetailClick,
-        },
-        {
-          label: "User details",
-          icon: <Info />,
-          onClick: handleUserDetailClick,
-        },
-        {
-          label: "Return item",
-          icon: <ArrowDownLeft />,
-          onClick: handleEditClick,
-        },
-        {
-          label: "Notify lender",
-          icon: <Bell />,
-          onClick: handleNotifyLenderClick,
-        },
-      ]}
-    />
+  const menuItems: MenuItemType[] = [];
+
+  if (!loan.returnDate) {
+    menuItems.push({
+      label: "Return item",
+      icon: <ArrowDownLeft />,
+      onClick: handleEditClick,
+    });
+  }
+
+  menuItems.push(
+    ...[
+      {
+        label: "Item details",
+        icon: <Info />,
+        onClick: handleItemDetailClick,
+      },
+      {
+        label: "User details",
+        icon: <Info />,
+        onClick: handleUserDetailClick,
+      },
+      {
+        label: "Notify lender",
+        icon: <Bell />,
+        onClick: handleNotifyLenderClick,
+      },
+    ],
   );
+
+  return <Menu menuItems={menuItems} />;
 };
 
 export default LoanActionMenu;

@@ -8,20 +8,28 @@ import {
 } from "../../../config/env/getEnvVariable";
 import { queryClient } from "../../../config/react-query/reactQuery";
 import { Loan } from "../../../models/loan/Loan";
-import { LoanCreateDTO } from "../../../models/loan/LoanCreateDTO";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 import { toastOptions } from "../../../utils/toastOptions";
 
-export const useLoanCreateMutation = () => {
+export const useLoanPatchMutation = (loanId: string) => {
   const securedAxios = useSecuredAxios();
 
-  return useMutation<Loan, AxiosError<any, any>, LoanCreateDTO, unknown>({
-    mutationFn: (loan: LoanCreateDTO) =>
+  return useMutation<
+    Loan,
+    AxiosError<any, any>,
+    { returnDate: string },
+    unknown
+  >({
+    mutationFn: ({ returnDate }) =>
       securedAxios
-        .post(`${getEnvVariable(EnvVariableName.HOST_CORE)}/loans`, loan)
+        .patch(
+          `${getEnvVariable(
+            EnvVariableName.HOST_CORE,
+          )}/loans/${loanId}/${returnDate}`,
+        )
         .then((response) => response.data as Loan),
     onSuccess: () => {
-      toast.success("Loan created", toastOptions);
+      toast.success("Item returned", toastOptions);
       queryClient.invalidateQueries();
     },
     onError: (error) =>

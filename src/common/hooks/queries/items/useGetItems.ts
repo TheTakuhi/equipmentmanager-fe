@@ -21,7 +21,7 @@ type UseGetItemsQueryParams = {
   type?: ItemType;
   state?: ItemState;
   qualityState?: QualityState;
-  includeDiscarded: boolean;
+  includeDiscarded?: boolean;
   pageable?: PageableParam;
 };
 
@@ -41,7 +41,7 @@ export const useGetItems = (
   const { pageable, ...restParams } = params || {};
 
   return useQuery<Pageable<Item>, Error>({
-    queryKey: getItemsQueryKey(),
+    queryKey: getItemsQueryKey(params),
     queryFn: () =>
       securedAxios
         .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items`, {

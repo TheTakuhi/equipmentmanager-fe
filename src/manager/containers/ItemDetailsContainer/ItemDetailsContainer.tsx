@@ -99,7 +99,9 @@ const ItemDetailsContainer: FC<ItemDetailsContainerProps> = ({
             <ItemDetailRow
               label="Lender"
               text={
-                item?.state === ItemState.BORROWED ? loan?.lender.fullName : "-"
+                item?.state === ItemState.BORROWED
+                  ? loan?.borrower.fullName
+                  : "-"
               }
             />
           </GridItem>

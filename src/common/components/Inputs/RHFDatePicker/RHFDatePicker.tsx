@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-import { FormControl, FormLabel, useTheme } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  useTheme,
+} from "@chakra-ui/react";
 import { DatepickerConfigs, SingleDatepicker } from "chakra-dayzed-datepicker";
 import { DateTime } from "luxon";
 import {
@@ -65,6 +70,9 @@ const RHFDatePicker = <T extends object>({
             }}
             propsConfigs={propsConfigs}
           />
+          <FormHelperText sx={{ color: "#FC8181" }}>
+            {error?.message}
+          </FormHelperText>
         </FormControl>
       )}
     />

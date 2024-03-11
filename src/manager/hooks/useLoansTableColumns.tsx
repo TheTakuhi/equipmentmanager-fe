@@ -9,59 +9,34 @@ export const useLoansTableColumns = () => {
   return [
     columnHelper.accessor("item.serialCode", {
       header: "Item",
-      cell: (info) => info.getValue(),
+      cell: ({ row }) => {
+        return (
+          <div>
+            {row.original.item.serialCode},{" "}
+            {row.original.item.type}
+          </div>
+        );
+      },
       enableColumnFilter: false,
     }),
-    columnHelper.accessor("lender.fullName", {
-      header: "Lender",
+    columnHelper.accessor("borrower.fullName", {
+      header: "Borrower",
       cell: (info) => info.getValue(),
       sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.lender.fullName;
-        const value2 = rowB.original.lender.fullName;
+        const value1 = rowA.original.borrower.fullName;
+        const value2 = rowB.original.borrower.fullName;
         return value1.localeCompare(value2, "cs");
       },
       enableColumnFilter: false,
     }),
-    columnHelper.accessor("dateOfLending", {
+    columnHelper.accessor("loanDate", {
       header: "Lending date",
-      cell: (info) => (
-        <div
-          style={{
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-          title={info.getValue()}
-        >
-          {info.getValue()}
-        </div>
-      ),
-      sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.dateOfLending;
-        const value2 = rowB.original.dateOfLending;
-        return value1.localeCompare(value2, "cs");
-      },
+      cell: (info) => info.getValue(),
       enableColumnFilter: false,
     }),
-    columnHelper.accessor("dateOfReturning", {
+    columnHelper.accessor("returnDate", {
       header: "Returned",
-      cell: (info) => (
-        <div
-          style={{
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-          title={info.getValue()}
-        >
-          {info.getValue()}
-        </div>
-      ),
-      sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.dateOfLending;
-        const value2 = rowB.original.dateOfLending;
-        return value1.localeCompare(value2, "cs");
-      },
+      cell: (info) => info.getValue(),
       enableColumnFilter: false,
     }),
     columnHelper.accessor((row) => row, {

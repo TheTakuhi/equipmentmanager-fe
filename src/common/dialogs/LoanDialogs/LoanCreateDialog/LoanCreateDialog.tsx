@@ -1,14 +1,10 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
-import { toast } from "react-toastify";
-
-import { queryClient } from "../../../config/react-query/reactQuery";
 import LoanForm from "../../../forms/LoanForm";
 import { LoanFormSubmitHandler } from "../../../forms/LoanForm/LoanForm";
 import { useLoanCreateMutation } from "../../../hooks/mutations/loans/useLoanCreateMutation";
 import { Item } from "../../../models/item/Item";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
-import { toastOptions } from "../../../utils/toastOptions";
 import FormDialog from "../../FormDialog";
 
 type LoanCreateDialogProps = {
@@ -16,28 +12,25 @@ type LoanCreateDialogProps = {
 };
 
 const LoanCreateDialog: FC<LoanCreateDialogProps> = ({ item }) => {
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { close } = useActionDialog();
 
   const { mutate: mutateLoanCreate } = useLoanCreateMutation();
 
-  const handleSubmit: LoanFormSubmitHandler = (values) =>
+  const handleSubmit: LoanFormSubmitHandler = (values) => {
+    setIsSubmitting(true);
     mutateLoanCreate(
       {
-        ...values,
+        loanDate: values.loanDate,
+        itemId: values.item.value,
+        borrowerId: values.borrower.value,
       },
       {
-        onSuccess: () => {
-          toast.success("Loan created", toastOptions);
-          queryClient.invalidateQueries().then(close);
-        },
-        onError: (error) => {
-          toast.error(
-            error.response?.data.message ?? "An error has occurred",
-            toastOptions,
-          );
-        },
+        onSuccess: () => close(),
+        onError: () => setIsSubmitting(false),
       },
     );
+  };
 
   return (
     <FormDialog
@@ -47,7 +40,13 @@ const LoanCreateDialog: FC<LoanCreateDialogProps> = ({ item }) => {
         <LoanForm
           handleSubmit={handleSubmit}
           close={close}
-          defaultValues={{ itemId: item?.id }}
+          defaultValues={{
+            item: {
+              value: item?.id ?? "",
+              label: item ? `${item.serialCode}, ${item.type}` : "",
+            },
+          }}
+          isSubmitting={isSubmitting}
         />
       }
     />
