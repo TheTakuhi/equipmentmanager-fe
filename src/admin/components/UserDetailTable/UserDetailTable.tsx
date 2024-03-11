@@ -1,11 +1,24 @@
 import { FC } from "react";
 
-import { Flex, Heading, HStack, Input, Select, Spacer } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  HStack,
+  Input,
+  Select,
+  Skeleton,
+  Spacer,
+} from "@chakra-ui/react";
+import { useParams } from "@tanstack/react-router";
 import { Download } from "react-feather";
 
 import Button from "../../../common/components/Button";
 import SortFilter from "../../../common/components/SortFilter";
-import { userDetailRoute } from "../../../common/routes/common/userDetail/userDetailRoute";
+import { useGetUserById } from "../../../common/hooks/queries/users/useGetUserById";
+import {
+  USERDETAILRoute,
+  userDetailRoute,
+} from "../../../common/routes/common/userDetail/userDetailRoute";
 import LoansHistoryTableContainer from "../../../manager/containers/LoansHistoryTableContainer";
 import { useLoansHistoryUserDetailTableColumns } from "../../../manager/hooks/useLoansHistoryUserDetailTableColumns";
 
@@ -15,6 +28,13 @@ interface UserDetailTableProps {
 
 const UserDetailTable: FC<UserDetailTableProps> = ({ tableHeight }) => {
   const columns = useLoansHistoryUserDetailTableColumns();
+  const params: { userDetailId: string } = useParams({
+    from: USERDETAILRoute.id,
+  });
+
+  const { data: user, isLoading } = useGetUserById(params.userDetailId);
+
+  if (isLoading) return <Skeleton />;
 
   return (
     <>
@@ -51,6 +71,7 @@ const UserDetailTable: FC<UserDetailTableProps> = ({ tableHeight }) => {
         tableHeight={tableHeight}
         route={`${userDetailRoute.id}/$userDetailId`}
         columns={columns}
+        userName={user?.login}
       />
     </>
   );

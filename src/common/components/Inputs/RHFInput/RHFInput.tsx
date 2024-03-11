@@ -1,4 +1,10 @@
-import { FormControl, FormLabel, Input, useTheme } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  useTheme,
+} from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import { Props } from "chakra-react-select";
 import {
@@ -44,7 +50,7 @@ const RHFInput = <T extends object>({
     <Controller
       control={control}
       name={name}
-      render={({ field }) => {
+      render={({ field, fieldState: { error } }) => {
         return (
           <FormControl
             isRequired={required}
@@ -66,6 +72,7 @@ const RHFInput = <T extends object>({
               disabled={disabled}
               css={customStyles}
             />
+            <FormHelperText>{error?.message}</FormHelperText>
           </FormControl>
         );
       }}

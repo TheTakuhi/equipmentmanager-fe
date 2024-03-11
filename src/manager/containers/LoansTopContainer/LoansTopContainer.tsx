@@ -2,50 +2,18 @@ import { FC } from "react";
 
 import { Flex, Heading, HStack, Spacer } from "@chakra-ui/react";
 import { Download, Plus } from "react-feather";
-import { toast } from "react-toastify";
 
 import Button from "../../../common/components/Button";
 import SearchBar from "../../../common/components/SearchBar";
 import SortFilter from "../../../common/components/SortFilter";
-import { queryClient } from "../../../common/config/react-query/reactQuery";
-import FormDialog from "../../../common/dialogs/FormDialog";
-import LoanForm, {
-  LoanFormSubmitHandler,
-} from "../../../common/forms/LoanForm/LoanForm";
-import { useLoanCreateMutation } from "../../../common/hooks/mutations/loans/useLoanCreateMutation";
+import LoanCreateDialog from "../../../common/dialogs/LoanDialogs/LoanCreateDialog";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
 import { LOANSRoute } from "../../../common/routes/common/loans/loansRoute";
-import { toastOptions } from "../../../common/utils/toastOptions";
 
 const LoansTopContainer: FC = () => {
-  const { show, close } = useActionDialog();
+  const { show } = useActionDialog();
 
-  const { mutate: mutateCreateLoan } = useLoanCreateMutation();
-
-  const handleAdd: LoanFormSubmitHandler = (values) =>
-    mutateCreateLoan(values, {
-      onSuccess: () => {
-        toast.success("Loan created", toastOptions);
-        queryClient.invalidateQueries();
-        close();
-      },
-      onError: (error) => {
-        toast.error(
-          error.response?.data.message ?? "An error has occurred",
-          toastOptions,
-        );
-      },
-    });
-
-  const createLoanDialogOpen = () => {
-    show(
-      <FormDialog
-        title="Lend item"
-        close={close}
-        dialogForm={<LoanForm handleSubmit={handleAdd} close={close} />}
-      />,
-    );
-  };
+  const createLoanDialogOpen = () => show(<LoanCreateDialog />);
 
   return (
     <>

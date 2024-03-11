@@ -11,16 +11,16 @@ interface LoansHistoryTableContainerProps {
   tableHeight: string;
   route: string;
   columns: any;
-  userLoanHistory?: string;
-  itemLoanHistory?: string;
+  userName?: string;
+  itemSerialCode?: string;
 }
 
 const LoansHistoryTableContainer: FC<LoansHistoryTableContainerProps> = ({
   tableHeight,
   route,
   columns,
-  userLoanHistory,
-  itemLoanHistory,
+  userName,
+  itemSerialCode,
 }) => {
   const search: SearchParams = useSearch({ from: route });
 
@@ -40,15 +40,15 @@ const LoansHistoryTableContainer: FC<LoansHistoryTableContainerProps> = ({
             size: search.pagination.size,
             sort: search.table.sort,
           },
-          user: userLoanHistory,
-          item: itemLoanHistory,
+          borrowerName: userName,
+          serialCode: itemSerialCode,
         }
       : {},
   );
 
   useEffect(() => {
     refetch();
-  }, [search]);
+  }, [search, userName, itemSerialCode]);
 
   return (
     <TSTable<Loan>

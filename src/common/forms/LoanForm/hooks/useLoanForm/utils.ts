@@ -5,9 +5,9 @@ import { LoanFormValues } from "../../../../models/loan/LoanFormValues";
 export const createDefaultValues = (
   defs?: Partial<LoanFormValues>,
 ): LoanFormValues => ({
-  dateOfLending: DateTime.local().toFormat("yyyy-MM-dd"),
-  dateOfReturning: "",
-  itemId: "",
-  borrowerId: "",
+  loanDate: DateTime.local().toFormat("yyyy-MM-dd"),
+  returnDate: "",
+  item: { value: "", label: "" },
+  borrower: { value: "", label: "" },
   ...defs,
 });

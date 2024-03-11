@@ -7,17 +7,17 @@ export const useLoansHistoryItemDetailTableColumns = () => {
   const columnHelper = createColumnHelper<Loan>();
 
   return [
-    columnHelper.accessor("lender.fullName", {
+    columnHelper.accessor("borrower.fullName", {
       header: "Lender",
       cell: (info) => info.getValue(),
       sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.lender.fullName;
-        const value2 = rowB.original.lender.fullName;
+        const value1 = rowA.original.borrower.fullName;
+        const value2 = rowB.original.borrower.fullName;
         return value1.localeCompare(value2, "cs");
       },
       enableColumnFilter: false,
     }),
-    columnHelper.accessor("dateOfLending", {
+    columnHelper.accessor("loanDate", {
       header: "Lending date",
       cell: (info) => (
         <div
@@ -32,13 +32,13 @@ export const useLoansHistoryItemDetailTableColumns = () => {
         </div>
       ),
       sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.dateOfLending;
-        const value2 = rowB.original.dateOfLending;
+        const value1 = rowA.original.loanDate;
+        const value2 = rowB.original.loanDate;
         return value1.localeCompare(value2, "cs");
       },
       enableColumnFilter: false,
     }),
-    columnHelper.accessor("dateOfReturning", {
+    columnHelper.accessor("returnDate", {
       header: "Returned",
       cell: (info) => (
         <div
@@ -53,8 +53,8 @@ export const useLoansHistoryItemDetailTableColumns = () => {
         </div>
       ),
       sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.dateOfLending;
-        const value2 = rowB.original.dateOfLending;
+        const value1 = rowA.original.returnDate;
+        const value2 = rowB.original.returnDate;
         return value1.localeCompare(value2, "cs");
       },
       enableColumnFilter: false,

@@ -30,8 +30,7 @@ const TeamCreateDialog: FC = () => {
       {
         teamName: values.teamName,
         ownerId: values.owner.value,
-        // TODO - membersIds after dto update on BE
-        memberIds: [
+        membersIds: [
           values.owner.value,
           ...values.members
             .filter((m) => m.value !== values.owner.value)

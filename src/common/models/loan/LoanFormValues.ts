@@ -1,6 +1,8 @@
+import { SelectOption } from "../utils/SelectOption";
+
 export interface LoanFormValues {
-  dateOfLending: string;
-  dateOfReturning?: string;
-  itemId: string;
-  borrowerId: string;
+  loanDate: string;
+  returnDate?: string;
+  item: SelectOption;
+  borrower: SelectOption;
 }

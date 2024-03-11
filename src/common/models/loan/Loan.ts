@@ -1,10 +1,11 @@
-import { Item } from "../item/Item";
-import { User } from "../user/User";
+import { ItemCropped } from "../item/ItemCropped";
+import { UserCropped } from "../user/UserCropped";
 
 export interface Loan {
   id: string;
-  dateOfLending: string;
-  dateOfReturning: string;
-  item: Item;
-  lender: User;
+  item: ItemCropped;
+  borrower: UserCropped;
+  lender: UserCropped;
+  loanDate: string;
+  returnDate: string;
 }

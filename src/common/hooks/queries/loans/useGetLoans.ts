@@ -16,8 +16,9 @@ type UseGetLoansQueryOptions = UseQueryOptions<Pageable<Loan>, Error>;
 type UseGetLoansQueryParams = {
   includeRemoved?: boolean;
   pageable?: PageableParam;
-  user?: string;
-  item?: string;
+  borrowerName?: string;
+  lenderName?: string;
+  serialCode?: string;
 };
 
 type GetLoansQueryKeyHandler = (
@@ -36,7 +37,7 @@ export const useGetLoans = (
   const { pageable, ...restParams } = params || {};
 
   return useQuery<Pageable<Loan>, Error>({
-    queryKey: getLoansQueryKey(),
+    queryKey: getLoansQueryKey(params),
     queryFn: () =>
       securedAxios
         .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/loans`, {

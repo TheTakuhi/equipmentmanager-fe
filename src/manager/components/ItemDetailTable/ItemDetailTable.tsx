@@ -1,70 +1,40 @@
 import { FC } from "react";
 
-import { Flex, Heading, HStack, Input, Select, Spacer } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  HStack,
+  Input,
+  Select,
+  Skeleton,
+  Spacer,
+} from "@chakra-ui/react";
 import { ArrowUpRight, Download } from "react-feather";
-import { toast } from "react-toastify";
 
 import Button from "../../../common/components/Button";
 import SortFilter from "../../../common/components/SortFilter";
-import { queryClient } from "../../../common/config/react-query/reactQuery";
-import FormDialog from "../../../common/dialogs/FormDialog";
-import LoanForm from "../../../common/forms/LoanForm";
-import { LoanFormSubmitHandler } from "../../../common/forms/LoanForm/LoanForm";
-import { useLoanCreateMutation } from "../../../common/hooks/mutations/loans/useLoanCreateMutation";
+import LoanCreateDialog from "../../../common/dialogs/LoanDialogs/LoanCreateDialog";
+import { useGetItemById } from "../../../common/hooks/queries/items/useGetItemById";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
 import { itemDetailRoute } from "../../../common/routes/common/itemDetail/itemDetailRoute";
-import { toastOptions } from "../../../common/utils/toastOptions";
 import LoansHistoryTableContainer from "../../containers/LoansHistoryTableContainer";
 import { useLoansHistoryItemDetailTableColumns } from "../../hooks/useLoansHistoryItemDetailTableColumns";
 
 interface ItemDetailTableProps {
   tableHeight: string;
-  itemIdParam: any;
+  itemId: string;
 }
 
-const ItemDetailTable: FC<ItemDetailTableProps> = ({
-  tableHeight,
-  itemIdParam,
-}) => {
-  const { show, close } = useActionDialog();
+const ItemDetailTable: FC<ItemDetailTableProps> = ({ tableHeight, itemId }) => {
+  const { show } = useActionDialog();
   const columns = useLoansHistoryItemDetailTableColumns();
 
-  const { mutate: mutateLoanCreate } = useLoanCreateMutation();
+  const { data: item, isLoading } = useGetItemById(itemId);
 
-  const handleSubmit: LoanFormSubmitHandler = (values) =>
-    mutateLoanCreate(
-      {
-        ...values,
-      },
-      {
-        onSuccess: () => {
-          toast.success("Loan created", toastOptions);
-          queryClient.invalidateQueries().then(close);
-        },
-        onError: (error) => {
-          toast.error(
-            error.response?.data.message ?? "An error has occurred",
-            toastOptions,
-          );
-        },
-      },
-    );
+  const lendItemDialogOpen = () => show(<LoanCreateDialog item={item} />);
 
-  const lendItemDialogOpen = () => {
-    show(
-      <FormDialog
-        title="Lend item"
-        close={close}
-        dialogForm={
-          <LoanForm
-            handleSubmit={handleSubmit}
-            close={close}
-            defaultValues={{ itemId: itemIdParam }}
-          />
-        }
-      />,
-    );
-  };
+  if (isLoading) return <Skeleton />;
+
   return (
     <>
       <Heading size="h2" sx={{ paddingX: "1.5rem", paddingTop: "1rem" }}>
@@ -79,6 +49,7 @@ const ItemDetailTable: FC<ItemDetailTableProps> = ({
             ]}
             sx={{ width: "max-content" }}
           />
+          {/*  TODO - change into SearchBar component */}
           <HStack gap="0">
             <Select variant="filled">
               <option>Serial code</option>

@@ -8,13 +8,15 @@ import ItemDetailsContainer from "../../containers/ItemDetailsContainer";
 
 const ItemDetailPage = () => {
   const tableHeight = `calc(100vh - 364px)`;
-  const itemIdParam = useParams({ from: itemDetailRoute }).itemId;
+  const params: { itemDetailId: string } = useParams({
+    from: itemDetailRoute.id,
+  });
 
   return (
     <Box>
       <BreadCrumbHeader />
-      <ItemDetailsContainer itemIdParam={itemIdParam} />
-      <ItemDetailTable tableHeight={tableHeight} itemIdParam={itemIdParam} />
+      <ItemDetailsContainer itemIdParam={params.itemDetailId} />
+      <ItemDetailTable tableHeight={tableHeight} itemId={params.itemDetailId} />
     </Box>
   );
 };
