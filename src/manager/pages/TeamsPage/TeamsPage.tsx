@@ -15,7 +15,27 @@ const TeamsPage = () => {
     from: TEAMSRoute.id,
   });
 
-  if (isLoading || isError) return <Skeleton height="20px" />;
+  if (isLoading || isError)
+    return (
+      <>
+        <Heading size="h1" sx={{ paddingX: "1.5rem", paddingY: "1rem" }}>
+          Teams
+        </Heading>
+        <Stack
+          direction={["column", "row"]}
+          sx={{ gap: "1.5rem", paddingX: "1.5rem" }}
+        >
+          <VStack sx={{ width: "15rem", gap: "0.75rem" }}>
+            <Skeleton sx={{ width: "100%", height: "65px" }} />
+            <Skeleton sx={{ width: "100%", height: "65px" }} />
+            <Skeleton sx={{ width: "100%", height: "65px" }} />
+          </VStack>
+          <Box sx={{ width: "100%" }}>
+            <Skeleton sx={{ width: "100%", height: "122px" }} />
+          </Box>
+        </Stack>
+      </>
+    );
 
   return (
     <>

@@ -7,6 +7,7 @@ import { Heading } from "./components/heading";
 import { Input } from "./components/input";
 import { MenuStyle } from "./components/menu";
 import { Select } from "./components/select";
+import { Skeleton } from "./components/skeleton";
 import { Text } from "./components/text";
 import { Textarea } from "./components/textarea";
 import { palette } from "./palette";
@@ -37,5 +38,6 @@ export const theme = extendTheme({
     Input,
     Textarea,
     Checkbox: CheckboxStyle,
+    Skeleton,
   },
 });

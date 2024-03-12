@@ -1,8 +1,9 @@
 import { FC } from "react";
 
-import { Box, SimpleGrid, Skeleton } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import { FormProvider } from "react-hook-form";
 
+import { AddMemberFormSkeleton } from "./AddMemberFormSkeleton";
 import { useAddMemberForm } from "./hooks/useAddMemberForm/useAddMemberForm";
 import Button from "../../components/Button";
 import RHFSelect from "../../components/Inputs/RHFSelect";
@@ -48,15 +49,7 @@ const AddMemberForm: FC<AddMemberProps> = ({
   );
 
   if (isLoadingMemberCandidates || isLoadingTeamInfo)
-    return (
-      <Skeleton
-        height="1rem"
-        width="auto"
-        mt="1rem"
-        startColor="#222222"
-        endColor="#444444"
-      />
-    );
+    return <AddMemberFormSkeleton />;
 
   return (
     <FormProvider {...form}>

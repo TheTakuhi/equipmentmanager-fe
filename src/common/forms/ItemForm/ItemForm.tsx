@@ -1,9 +1,10 @@
 import { FC } from "react";
 
-import { Box, SimpleGrid, Skeleton } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import { FormProvider } from "react-hook-form";
 
 import { useItemForm } from "./hooks/useItemForm/useItemForm";
+import { ItemFormSkeleton } from "./ItemFormSkeleton";
 import Button from "../../components/Button";
 import RHFInput from "../../components/Inputs/RHFInput";
 import RHFSelect from "../../components/Inputs/RHFSelect";
@@ -50,15 +51,7 @@ const ItemForm: FC<ItemFormProps> = ({
     isLoadingOwnerCandidates ||
     isLoadingCurrentUser
   )
-    return (
-      <Skeleton
-        height="1rem"
-        width="auto"
-        mt="1rem"
-        startColor="#222222"
-        endColor="#444444"
-      />
-    );
+    return <ItemFormSkeleton />;
 
   return (
     <FormProvider {...form}>
@@ -76,7 +69,7 @@ const ItemForm: FC<ItemFormProps> = ({
               name="type"
               label="Type"
               options={itemTypes}
-              disabled={disabled}
+              isDisabled={disabled}
               required
             />
           </SimpleGrid>
@@ -85,7 +78,7 @@ const ItemForm: FC<ItemFormProps> = ({
               name="qualityState"
               label="Quality state"
               options={itemQualityStates}
-              disabled={disabled}
+              isDisabled={disabled}
               required
             />
             <RHFSelect<ItemFormValues>
@@ -95,7 +88,7 @@ const ItemForm: FC<ItemFormProps> = ({
                 ownerCandidates?.content,
                 currentUser,
               )}
-              disabled={!isEdit}
+              isDisabled={!isEdit}
               required
             />
           </SimpleGrid>

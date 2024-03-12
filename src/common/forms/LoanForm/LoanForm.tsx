@@ -1,9 +1,10 @@
 import { FC } from "react";
 
-import { Box, SimpleGrid, Skeleton } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import { FormProvider } from "react-hook-form";
 
 import { useLoanForm } from "./hooks/useLoanForm/useLoanForm";
+import { LoanFormSkeleton } from "./LoanFormSkeleton";
 import Button from "../../components/Button";
 import RHFDatePicker from "../../components/Inputs/RHFDatePicker";
 import RHFSelect from "../../components/Inputs/RHFSelect";
@@ -40,7 +41,7 @@ const LoanForm: FC<LoanFormProps> = ({
   });
   const { data: users, isLoading: isLoadingUsers } = useGetUsers();
 
-  if (isLoadingUsers || isLoadingItems) return <Skeleton height="1rem" />;
+  if (isLoadingUsers || isLoadingItems) return <LoanFormSkeleton />;
 
   return (
     <FormProvider {...form}>

@@ -1,9 +1,10 @@
 import { FC } from "react";
 
-import { Box, SimpleGrid, Skeleton } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import { FormProvider } from "react-hook-form";
 
 import { useTeamForm } from "./hooks/useTeamForm/useTeamForm";
+import { TeamFormSkeleton } from "./TeamFormSkeleton";
 import Button from "../../components/Button";
 import RHFInput from "../../components/Inputs/RHFInput";
 import RHFSelect from "../../components/Inputs/RHFSelect";
@@ -45,16 +46,7 @@ const TeamForm: FC<TeamFormProps> = ({
     (m) => m.value !== form.watch("owner").value,
   );
 
-  if (isLoadingOwnerCandidates)
-    return (
-      <Skeleton
-        height="1rem"
-        width="auto"
-        mt="1rem"
-        startColor="#222222"
-        endColor="#444444"
-      />
-    );
+  if (isLoadingOwnerCandidates) return <TeamFormSkeleton />;
 
   return (
     <FormProvider {...form}>
