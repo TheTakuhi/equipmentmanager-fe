@@ -5,7 +5,6 @@ import { Download, Plus } from "react-feather";
 
 import Button from "../../../common/components/Button";
 import SearchBar from "../../../common/components/SearchBar";
-import SortFilter from "../../../common/components/SortFilter";
 import LoanCreateDialog from "../../../common/dialogs/LoanDialogs/LoanCreateDialog";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
 import { LOANSRoute } from "../../../common/routes/common/loans/loansRoute";
@@ -22,18 +21,11 @@ const LoansTopContainer: FC = () => {
       </Heading>
       <Flex sx={{ padding: "1rem 1.5rem" }}>
         <HStack gap="0.625rem">
-          <SortFilter
-            options={[
-              { value: "asc", label: "Newest" },
-              { value: "desc", label: "Oldest" },
-            ]}
-          />
           <SearchBar
             route={LOANSRoute.id}
             options={[
-              { value: "itemCode", label: "Item code" },
-              { value: "borrower", label: "Borrower's name" },
-              { value: "lendingDate", label: "Lending date" },
+              { value: "serialCode", label: "Item code" },
+              { value: "borrowerName", label: "Borrower's name" },
             ]}
           />
         </HStack>

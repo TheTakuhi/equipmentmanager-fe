@@ -8,12 +8,12 @@ export const useLoansHistoryUserDetailTableColumns = () => {
 
   return [
     columnHelper.accessor("item.serialCode", {
+      id: "serialCode",
       header: "Item",
       cell: ({ row }) => {
         return (
           <div>
-            {row.original.item.serialCode},{" "}
-            {row.original.item.type}
+            {row.original.item.serialCode}, {row.original.item.type}
           </div>
         );
       },

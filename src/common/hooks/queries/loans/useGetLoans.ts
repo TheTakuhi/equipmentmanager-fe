@@ -14,11 +14,11 @@ const rootKey = "loans";
 type UseGetLoansQueryOptions = UseQueryOptions<Pageable<Loan>, Error>;
 
 type UseGetLoansQueryParams = {
-  includeRemoved?: boolean;
-  pageable?: PageableParam;
+  serialCode?: string;
+  type?: string;
   borrowerName?: string;
   lenderName?: string;
-  serialCode?: string;
+  pageable?: PageableParam;
 };
 
 type GetLoansQueryKeyHandler = (

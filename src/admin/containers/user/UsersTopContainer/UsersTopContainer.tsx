@@ -5,10 +5,9 @@ import { Download, RefreshCw } from "react-feather";
 
 import Button from "../../../../common/components/Button";
 import SearchBar from "../../../../common/components/SearchBar";
-import SortFilter from "../../../../common/components/SortFilter";
 import UsersSyncDialog from "../../../../common/dialogs/UserDialogs/UsersSyncDialog";
 import { useActionDialog } from "../../../../common/providers/ActionDialogProvider/ActionDialogProvider";
-import { USERSRoute } from "../../../../common/routes/common/users/usersRoute";
+import { AllUSERSRoute } from "../../../../common/routes/common/users/allUsers/allUsersRoute";
 
 const UsersTopContainer: FC = () => {
   const { show } = useActionDialog();
@@ -24,14 +23,8 @@ const UsersTopContainer: FC = () => {
       </Heading>
       <Flex sx={{ padding: "1rem 1.5rem" }}>
         <HStack gap="0.625rem">
-          <SortFilter
-            options={[
-              { value: "asc", label: "Newest" },
-              { value: "desc", label: "Oldest" },
-            ]}
-          />
           <SearchBar
-            route={`${USERSRoute.id}/`}
+            route={AllUSERSRoute.id}
             options={[
               { value: "login", label: "Login" },
               { value: "fullName", label: "Name" },

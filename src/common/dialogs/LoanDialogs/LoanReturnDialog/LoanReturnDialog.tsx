@@ -48,8 +48,8 @@ const LoanReturnDialog: FC<LoanReturnDialogProps> = ({ loan }) => {
               label: `${loan.item.serialCode}, ${loan.item.type}`,
             },
             borrower: {
-              value: loan.lender.id,
-              label: loan.lender.fullName,
+              value: loan.borrower.id,
+              label: loan.borrower.fullName,
             },
             loanDate: loan.loanDate,
             returnDate: DateTime.local().toFormat("yyyy-MM-dd"),

@@ -1,6 +1,6 @@
 import { TableSearchQuery } from "./useTableSearchForm";
 
-export const createDefaultSearchValues = (
+export const createDefaultValues = (
   defs?: TableSearchQuery,
 ): TableSearchQuery => ({
   param: "",

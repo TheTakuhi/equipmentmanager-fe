@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import { useSearch } from "@tanstack/react-router";
 
@@ -6,7 +6,8 @@ import TSTable from "../../../common/components/TSTable/TSTable";
 import { useGetLoans } from "../../../common/hooks/queries/loans/useGetLoans";
 import { Loan } from "../../../common/models/loan/Loan";
 import { SearchParams } from "../../../common/models/SearchParams";
-import { LOANSRoute } from "../../../common/routes/common/loans/loansRoute";
+import { AllLOANSRoute } from "../../../common/routes/common/loans/allLoans/allLoansRoute";
+import { createQueryParams } from "../../../common/utils/queryParams";
 import { useLoansTableColumns } from "../../hooks/useLoansTableColumns";
 
 interface LoansTableContainerProps {
@@ -16,35 +17,15 @@ interface LoansTableContainerProps {
 const LoansTableContainer: FC<LoansTableContainerProps> = ({ tableHeight }) => {
   const columns = useLoansTableColumns();
 
-  const search: SearchParams = useSearch({ from: `${LOANSRoute.id}/` });
+  const search: SearchParams = useSearch({ from: AllLOANSRoute.id });
 
-  const {
-    data: loansData,
-    isLoading: isLoadingLoans,
-    refetch,
-  } = useGetLoans(
-    search.pagination !== undefined && search.table !== undefined
-      ? {
-          [`${search.search !== undefined ? search.search.param : ""}`]:
-            search.search !== undefined ? search.search.value : "",
-          [`${search.table.columnFilters[0]?.id}`]:
-            search.table.columnFilters[0]?.value,
-          pageable: {
-            page: search.pagination.index,
-            size: search.pagination.size,
-            sort: search.table.sort,
-          },
-        }
-      : {},
-  );
-
-  useEffect(() => {
-    refetch();
-  }, [search]);
+  const { data: loansData, isLoading: isLoadingLoans } = useGetLoans({
+    ...createQueryParams(search),
+  });
 
   return (
     <TSTable<Loan>
-      route={`${LOANSRoute.id}/`}
+      route={AllLOANSRoute.id}
       columns={columns}
       data={loansData?.content ?? []}
       isLoading={isLoadingLoans}

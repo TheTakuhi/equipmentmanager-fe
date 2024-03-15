@@ -8,7 +8,8 @@ export const useLoansHistoryItemDetailTableColumns = () => {
 
   return [
     columnHelper.accessor("borrower.fullName", {
-      header: "Lender",
+      id: "borrower.fullName",
+      header: "Borrower",
       cell: (info) => info.getValue(),
       sortingFn: (rowA, rowB) => {
         const value1 = rowA.original.borrower.fullName;

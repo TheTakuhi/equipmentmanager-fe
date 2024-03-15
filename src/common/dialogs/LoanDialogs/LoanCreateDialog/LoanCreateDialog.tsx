@@ -47,6 +47,7 @@ const LoanCreateDialog: FC<LoanCreateDialogProps> = ({ item }) => {
             },
           }}
           isSubmitting={isSubmitting}
+          isConcreteItem={!!item}
         />
       }
     />

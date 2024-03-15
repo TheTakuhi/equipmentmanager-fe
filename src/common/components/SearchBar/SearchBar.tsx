@@ -41,8 +41,8 @@ const SearchBar: FC<SearchBarProps> = ({ route, options }) => {
       search: (prev) => ({
         ...prev,
         search: {
-          param: values.param,
-          value: values.value,
+          param: values.value ? values.param : undefined,
+          value: values.value ? values.value : undefined,
         },
       }),
     });
@@ -84,6 +84,7 @@ const SearchBar: FC<SearchBarProps> = ({ route, options }) => {
             name="searchBy"
             options={options}
             value={input}
+            isSearchable={false}
             onChange={(newValue: SingleValue<SelectOption>, _) =>
               handleInputChange(newValue)
             }
@@ -99,6 +100,7 @@ const SearchBar: FC<SearchBarProps> = ({ route, options }) => {
                 bg: theme.palette.secondary.header,
                 borderTopRightRadius: 0,
                 borderBottomRightRadius: 0,
+                minWidth: "max-content",
               }),
               inputContainer: (provided) => ({
                 ...provided,

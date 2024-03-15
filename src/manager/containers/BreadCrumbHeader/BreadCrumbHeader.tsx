@@ -10,9 +10,11 @@ const BreadCrumbHeader: FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const itemIdParam = useParams({ from: itemDetailRoute }).itemId;
+  const params: { itemDetailId: string } = useParams({
+    from: itemDetailRoute.id,
+  });
 
-  const { data: item, isLoading } = useGetItemById(itemIdParam);
+  const { data: item, isLoading } = useGetItemById(params.itemDetailId);
 
   const handleRedirectBack = () => {
     navigate({

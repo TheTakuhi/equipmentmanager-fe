@@ -23,7 +23,6 @@ import { PaginationStateProps } from "./Pagination/TSPagination";
 import { tableHeadStyle, tableRowStyle, tableStyle } from "./tableStyles";
 import { useTanstackTable } from "./useTanstackTable";
 import { Pageable } from "../../models/utils/Pageable";
-import { useNavbar } from "../../providers/NavbarProvider/NavbarProvider";
 import { theme } from "../../theme";
 
 export type TableSearchParams = {
@@ -52,9 +51,6 @@ const TSTable = <T extends object>({
   tableHeight,
   hidePagination,
 }: TSTableProps<T>) => {
-  const { navbarState } = useNavbar();
-  const navbar = navbarState ? 170 : 64;
-
   const navigate = useNavigate({ from: route });
 
   const [paginationProps, setPaginationProps] = useState<PaginationStateProps>({
@@ -86,22 +82,24 @@ const TSTable = <T extends object>({
 
   useEffect(() => {
     const { sorting } = table.getState();
-    const sortName = sorting.length !== 0 ? sorting[0].id : "";
+    const sortName = sorting.length !== 0 ? sorting[0].id : undefined;
     const sortDirection =
-      sorting.length !== 0 ? (sorting[0].desc ? "desc" : "asc") : "";
+      sorting.length !== 0 ? (sorting[0].desc ? "desc" : "asc") : undefined;
 
     navigate({
       search: (prev) => ({
         ...prev,
         table: {
-          sort: `${sortName},${sortDirection}`,
+          sort:
+            sortName && sortDirection
+              ? `${sortName},${sortDirection}`
+              : undefined,
           columnFilters,
         },
       }),
     });
   }, [paginationProps, table.getState().sorting]);
 
-  // TODO PAGINATION TRANSITION ANIMATION FIX
   return (
     <Box
       sx={{
@@ -251,9 +249,7 @@ const TSTable = <T extends object>({
           </Tbody>
         </Table>
       </TableContainer>
-      {hidePagination ? (
-        ""
-      ) : (
+      {hidePagination ? null : (
         <Grid
           sx={{
             "&:first-of-type": {
@@ -266,7 +262,6 @@ const TSTable = <T extends object>({
             p: "0.875rem 0.75rem",
             position: "sticky",
             bottom: 0,
-            width: `calc(100vw - ${navbar}px - 17px)`,
             transition: "all 0.75s",
           }}
         >
