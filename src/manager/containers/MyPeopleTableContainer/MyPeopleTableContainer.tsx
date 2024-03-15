@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import { useSearch } from "@tanstack/react-router";
 
@@ -7,7 +7,8 @@ import { useGetUsers } from "../../../common/hooks/queries/users/useGetUsers";
 import { useAllUserRoles } from "../../../common/hooks/queries/utility/useAllUserRoles";
 import { SearchParams } from "../../../common/models/SearchParams";
 import { User } from "../../../common/models/user/User";
-import { allMyPeopleRoute } from "../../../common/routes/common/myPeople/allMyPeople/allMyPeopleRoute";
+import { ALLMyPeopleRoute } from "../../../common/routes/common/myPeople/allMyPeople/allMyPeopleRoute";
+import { createQueryParams } from "../../../common/utils/queryParams";
 import { useMyPeopleTableColumns } from "../../hooks/useMyPeopleTableColumns";
 
 interface MyPeopleTableContainerProps {
@@ -19,37 +20,17 @@ const MyPeopleTableContainer: FC<MyPeopleTableContainerProps> = ({
 }) => {
   const columns = useMyPeopleTableColumns();
 
-  const search: SearchParams = useSearch({ from: `${allMyPeopleRoute.id}` });
+  const search: SearchParams = useSearch({ from: ALLMyPeopleRoute.id });
 
-  const {
-    data: usersData,
-    isLoading: isLoadingUsers,
-    refetch,
-  } = useGetUsers(
-    search.pagination !== undefined && search.table !== undefined
-      ? {
-          [`${search.search !== undefined ? search.search.param : ""}`]:
-            search.search !== undefined ? search.search.value : "",
-          [`${search.table.columnFilters[0]?.id}`]:
-            search.table.columnFilters[0]?.value,
-          pageable: {
-            page: search.pagination.index,
-            size: search.pagination.size,
-            sort: search.table.sort,
-          },
-        }
-      : {},
-  );
+  const { data: usersData, isLoading: isLoadingUsers } = useGetUsers({
+    ...createQueryParams(search),
+  });
 
   const { userRoles } = useAllUserRoles();
 
-  useEffect(() => {
-    refetch();
-  }, [search]);
-
   return (
     <TSTable<User>
-      route={`${allMyPeopleRoute.id}`}
+      route={ALLMyPeopleRoute.id}
       columns={columns}
       data={usersData?.content ?? []}
       isLoading={isLoadingUsers}

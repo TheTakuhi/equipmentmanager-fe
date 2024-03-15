@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import { useSearch } from "@tanstack/react-router";
 
@@ -6,49 +6,39 @@ import TSTable from "../../../common/components/TSTable/TSTable";
 import { useGetLoans } from "../../../common/hooks/queries/loans/useGetLoans";
 import { Loan } from "../../../common/models/loan/Loan";
 import { SearchParams } from "../../../common/models/SearchParams";
+import { createQueryParams } from "../../../common/utils/queryParams";
 
-interface LoansHistoryTableContainerProps {
+type LoansHistoryTableContainerProps = {
   tableHeight: string;
   route: string;
   columns: any;
   userName?: string;
-  itemSerialCode?: string;
-}
+  serialCode?: string;
+};
 
 const LoansHistoryTableContainer: FC<LoansHistoryTableContainerProps> = ({
   tableHeight,
   route,
   columns,
   userName,
-  itemSerialCode,
+  serialCode,
 }) => {
   const search: SearchParams = useSearch({ from: route });
+  console.log("serialCode", serialCode);
 
-  const {
-    data: loansData,
-    isLoading: isLoadingLoans,
-    refetch,
-  } = useGetLoans(
-    search.pagination !== undefined && search.table !== undefined
-      ? {
-          [`${search.search !== undefined ? search.search.param : ""}`]:
-            search.search !== undefined ? search.search.value : "",
-          [`${search.table.columnFilters[0]?.id}`]:
-            search.table.columnFilters[0]?.value,
-          pageable: {
-            page: search.pagination.index,
-            size: search.pagination.size,
-            sort: search.table.sort,
-          },
-          borrowerName: userName,
-          serialCode: itemSerialCode,
-        }
-      : {},
+  const { data: loansData, isLoading: isLoadingLoans } = useGetLoans({
+    ...createQueryParams(search, {
+      borrowerName: userName,
+      serialCode,
+    }),
+  });
+
+  console.log(
+    createQueryParams(search, {
+      borrowerName: userName,
+      serialCode,
+    }),
   );
-
-  useEffect(() => {
-    refetch();
-  }, [search, userName, itemSerialCode]);
 
   return (
     <TSTable<Loan>

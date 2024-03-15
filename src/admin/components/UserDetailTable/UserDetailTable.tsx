@@ -1,24 +1,13 @@
 import { FC } from "react";
 
-import {
-  Flex,
-  Heading,
-  HStack,
-  Input,
-  Select,
-  Skeleton,
-  Spacer,
-} from "@chakra-ui/react";
+import { Flex, Heading, HStack, Skeleton, Spacer } from "@chakra-ui/react";
 import { useParams } from "@tanstack/react-router";
 import { Download } from "react-feather";
 
 import Button from "../../../common/components/Button";
-import SortFilter from "../../../common/components/SortFilter";
+import SearchBar from "../../../common/components/SearchBar";
 import { useGetUserById } from "../../../common/hooks/queries/users/useGetUserById";
-import {
-  USERDETAILRoute,
-  userDetailRoute,
-} from "../../../common/routes/common/userDetail/userDetailRoute";
+import { ONEUSERDETAILRoute } from "../../../common/routes/common/userDetail/user/oneUserDetailRoute";
 import LoansHistoryTableContainer from "../../../manager/containers/LoansHistoryTableContainer";
 import { useLoansHistoryUserDetailTableColumns } from "../../../manager/hooks/useLoansHistoryUserDetailTableColumns";
 
@@ -29,7 +18,7 @@ interface UserDetailTableProps {
 const UserDetailTable: FC<UserDetailTableProps> = ({ tableHeight }) => {
   const columns = useLoansHistoryUserDetailTableColumns();
   const params: { userDetailId: string } = useParams({
-    from: USERDETAILRoute.id,
+    from: ONEUSERDETAILRoute.id,
   });
 
   const { data: user, isLoading } = useGetUserById(params.userDetailId);
@@ -39,23 +28,18 @@ const UserDetailTable: FC<UserDetailTableProps> = ({ tableHeight }) => {
   return (
     <>
       <Heading size="h2" sx={{ paddingX: "1.5rem", paddingTop: "1rem" }}>
-        Lending history
+        Borrowing history
       </Heading>
       <Flex sx={{ padding: "1rem 1.5rem" }}>
         <HStack gap="0.625rem">
-          <SortFilter
-            options={[
-              { label: "Newest", value: "NEWEST" },
-              { label: "Oldest", value: "OLDEST" },
-            ]}
-            sx={{ width: "max-content" }}
-          />
           <HStack gap="0">
-            <Select variant="filled">
-              <option>Item code</option>
-              <option>Item type</option>
-            </Select>
-            <Input placeholder="Search..." />
+            <SearchBar
+              route={ONEUSERDETAILRoute.id}
+              options={[
+                { value: "serialCode", label: "Item code" },
+                { value: "type", label: "Item type" },
+              ]}
+            />
           </HStack>
         </HStack>
         <Spacer />
@@ -69,7 +53,7 @@ const UserDetailTable: FC<UserDetailTableProps> = ({ tableHeight }) => {
       </Flex>
       <LoansHistoryTableContainer
         tableHeight={tableHeight}
-        route={`${userDetailRoute.id}/$userDetailId`}
+        route={ONEUSERDETAILRoute.id}
         columns={columns}
         userName={user?.login}
       />

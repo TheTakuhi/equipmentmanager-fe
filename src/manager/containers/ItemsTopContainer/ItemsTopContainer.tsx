@@ -6,7 +6,6 @@ import { Download, Plus } from "react-feather";
 import Button from "../../../common/components/Button";
 import SearchBar from "../../../common/components/SearchBar";
 import ItemsTopContainerSkeleton from "../../../common/components/Skeletons/ItemsTopContainerSkeleton";
-import SortFilter from "../../../common/components/SortFilter";
 import ItemCreateDialog from "../../../common/dialogs/ItemDialogs/ItemCreateDialog";
 import { useGetCurrentUser } from "../../../common/hooks/queries/users/useGetCurrentUser";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
@@ -44,13 +43,6 @@ const ItemsTopContainer: FC<ItemsTopContainerProps> = ({
       </Heading>
       <Flex sx={{ padding: "1rem 1.5rem" }}>
         <HStack gap="0.625rem">
-          <SortFilter
-            options={[
-              { label: "Newest", value: "NEWEST" },
-              { label: "Oldest", value: "OLDEST" },
-            ]}
-            sx={{ width: "max-content" }}
-          />
           <HStack gap="0.625rem">
             <SearchBar
               route={ITEMSRoute.id}

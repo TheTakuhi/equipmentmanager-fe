@@ -34,7 +34,7 @@ export const useGetTeams = (
   const securedAxios = useSecuredAxios();
 
   return useQuery<Pageable<Team>, Error>({
-    queryKey: getTeamsQueryKey(),
+    queryKey: getTeamsQueryKey(params),
     queryFn: () =>
       securedAxios
         .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/teams`, {

@@ -5,7 +5,6 @@ import { Download } from "react-feather";
 
 import Button from "../../../common/components/Button";
 import SearchBar from "../../../common/components/SearchBar";
-import SortFilter from "../../../common/components/SortFilter";
 import { allMyPeopleRoute } from "../../../common/routes/common/myPeople/allMyPeople/allMyPeopleRoute";
 
 const MyPeopleTopContainer: FC = () => {
@@ -16,12 +15,6 @@ const MyPeopleTopContainer: FC = () => {
       </Heading>
       <Flex sx={{ padding: "1rem 1.5rem" }}>
         <HStack gap="0.625rem">
-          <SortFilter
-            options={[
-              { value: "asc", label: "Newest" },
-              { value: "desc", label: "Oldest" },
-            ]}
-          />
           <SearchBar
             route={allMyPeopleRoute.id}
             options={[

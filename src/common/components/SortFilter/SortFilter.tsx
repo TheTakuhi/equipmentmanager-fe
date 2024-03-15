@@ -13,6 +13,7 @@ interface SortFilterProps {
 const SortFilter: FC<SortFilterProps> = ({ options, sx }) => {
   const theme = useTheme();
   const [input, setInput] = useState<SingleValue<SelectOption>>(options[0]);
+
   const handleInputChange = (newValue: SingleValue<SelectOption>) =>
     setInput(newValue);
 

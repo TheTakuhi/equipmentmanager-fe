@@ -39,7 +39,7 @@ export const useGetUsers = (
   const { pageable, ...restParams } = params || {};
 
   return useQuery<Pageable<User>, Error>({
-    queryKey: getUsersQueryKey(),
+    queryKey: getUsersQueryKey(params),
     queryFn: () =>
       securedAxios
         .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/users`, {

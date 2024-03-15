@@ -1,22 +1,17 @@
 import { FC } from "react";
 
-import {
-  Flex,
-  Heading,
-  HStack,
-  Input,
-  Select,
-  Skeleton,
-  Spacer,
-} from "@chakra-ui/react";
-import { ArrowUpRight, Download } from "react-feather";
+import { Flex, Heading, HStack, Skeleton, Spacer } from "@chakra-ui/react";
+import { ArrowDownLeft, ArrowUpRight, Download } from "react-feather";
 
 import Button from "../../../common/components/Button";
-import SortFilter from "../../../common/components/SortFilter";
+import SearchBar from "../../../common/components/SearchBar";
 import LoanCreateDialog from "../../../common/dialogs/LoanDialogs/LoanCreateDialog";
+import LoanReturnDialog from "../../../common/dialogs/LoanDialogs/LoanReturnDialog";
 import { useGetItemById } from "../../../common/hooks/queries/items/useGetItemById";
+import { useGetLoans } from "../../../common/hooks/queries/loans/useGetLoans";
+import { Loan } from "../../../common/models/loan/Loan";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
-import { itemDetailRoute } from "../../../common/routes/common/itemDetail/itemDetailRoute";
+import { ONEITEMDETAILRoute } from "../../../common/routes/common/itemDetail/item/oneItemDetailRoute";
 import LoansHistoryTableContainer from "../../containers/LoansHistoryTableContainer";
 import { useLoansHistoryItemDetailTableColumns } from "../../hooks/useLoansHistoryItemDetailTableColumns";
 
@@ -29,45 +24,49 @@ const ItemDetailTable: FC<ItemDetailTableProps> = ({ tableHeight, itemId }) => {
   const { show } = useActionDialog();
   const columns = useLoansHistoryItemDetailTableColumns();
 
-  const { data: item, isLoading } = useGetItemById(itemId);
+  const { data: item, isLoading: isLoadingItem } = useGetItemById(itemId);
+  const { data: loans, isLoading: isLoadingLoans } = useGetLoans({
+    serialCode: item?.serialCode,
+  });
+
+  let activeLoan: Loan | undefined;
+  if (loans) activeLoan = loans.content.find((l) => !l.returnDate);
 
   const lendItemDialogOpen = () => show(<LoanCreateDialog item={item} />);
+  const returnItemDialog = () => show(<LoanReturnDialog loan={activeLoan!} />);
 
-  if (isLoading) return <Skeleton />;
+  if (isLoadingItem || isLoadingLoans) return <Skeleton />;
 
   return (
     <>
       <Heading size="h2" sx={{ paddingX: "1.5rem", paddingTop: "1rem" }}>
-        Lending history
+        Borrowing history
       </Heading>
       <Flex sx={{ padding: "1rem 1.5rem" }}>
-        <HStack gap="0.625rem">
-          <SortFilter
-            options={[
-              { label: "Newest", value: "NEWEST" },
-              { label: "Oldest", value: "OLDEST" },
-            ]}
-            sx={{ width: "max-content" }}
-          />
-          {/*  TODO - change into SearchBar component */}
-          <HStack gap="0">
-            <Select variant="filled">
-              <option>Serial code</option>
-              <option>Type</option>
-              <option>Quality state</option>
-              <option>State</option>
-            </Select>
-            <Input placeholder="Search..." />
-          </HStack>
-        </HStack>
+        <SearchBar
+          route={ONEITEMDETAILRoute.id}
+          options={[
+            { value: "borrowerName", label: "Borrower" },
+            { value: "lenderName", label: "Lender" },
+          ]}
+        />
         <Spacer />
         <HStack gap="0.625rem" align="flex-end" paddingLeft="0.625rem">
-          <Button
-            variant="primary"
-            label="Lend item"
-            startIcon={<ArrowUpRight />}
-            onClick={() => lendItemDialogOpen()}
-          />
+          {activeLoan ? (
+            <Button
+              variant="primary"
+              label="Return item"
+              startIcon={<ArrowDownLeft />}
+              onClick={() => returnItemDialog()}
+            />
+          ) : (
+            <Button
+              variant="primary"
+              label="Lend item"
+              startIcon={<ArrowUpRight />}
+              onClick={() => lendItemDialogOpen()}
+            />
+          )}
           <Button
             variant="secondary"
             label="Export list"
@@ -77,8 +76,9 @@ const ItemDetailTable: FC<ItemDetailTableProps> = ({ tableHeight, itemId }) => {
       </Flex>
       <LoansHistoryTableContainer
         tableHeight={tableHeight}
-        route={`${itemDetailRoute.id}/$itemDetailId`}
+        route={ONEITEMDETAILRoute.id}
         columns={columns}
+        serialCode={item?.serialCode}
       />
     </>
   );

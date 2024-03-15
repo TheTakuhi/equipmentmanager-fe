@@ -27,8 +27,6 @@ const TeamEditDialog: FC<TeamEditDialogProps> = ({ team }) => {
       {
         teamName: values.teamName,
         ownerId: values.owner.value,
-        // TODO - membersIds after dto update on BE
-        // @ts-ignore
         membersIds: [
           values.owner.value,
           ...values.members

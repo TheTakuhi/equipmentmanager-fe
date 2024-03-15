@@ -23,6 +23,7 @@ type LoanFormProps = {
   handleSubmit: LoanFormSubmitHandler;
   defaultValues?: Partial<LoanFormValues>;
   isEdit?: boolean;
+  isConcreteItem?: boolean;
   close: () => void;
   isSubmitting: boolean;
 };
@@ -31,6 +32,7 @@ const LoanForm: FC<LoanFormProps> = ({
   handleSubmit,
   defaultValues,
   isEdit,
+  isConcreteItem,
   close,
   isSubmitting,
 }) => {
@@ -52,7 +54,7 @@ const LoanForm: FC<LoanFormProps> = ({
             options={parseItemsToSelectOptions(items?.content)}
             label="Item"
             required={!isEdit}
-            isDisabled={isEdit}
+            isDisabled={isEdit || isConcreteItem}
           />
           <RHFSelect<LoanFormValues>
             name="borrower"

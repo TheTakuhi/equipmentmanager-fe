@@ -9,10 +9,13 @@ import {
   useTheme,
 } from "@chakra-ui/react";
 
+import Badge from "../../../common/components/Badge";
+import { handleBadgeVariant } from "../../../common/components/Badge/utils";
 import ItemDetailSkeleton from "../../../common/components/Skeletons/ItemDetailSkeleton";
 import { useGetItemById } from "../../../common/hooks/queries/items/useGetItemById";
-import { useGetLoanByItemId } from "../../../common/hooks/queries/loans/useGetLoanByItemId";
+import { useGetLoans } from "../../../common/hooks/queries/loans/useGetLoans";
 import { ItemState } from "../../../common/models/item/ItemState";
+import { Loan } from "../../../common/models/loan/Loan";
 import ItemDetailHeader from "../../components/ItemDetailHeader";
 import ItemDetailRow from "../../components/ItemDetailRow";
 
@@ -26,8 +29,9 @@ const ItemDetailsContainer: FC<ItemDetailsContainerProps> = ({
   const theme = useTheme();
 
   const { data: item, isLoading: isLoadingItem } = useGetItemById(itemIdParam);
-  const { data: loan, isLoading: isLoadingLoan } =
-    useGetLoanByItemId(itemIdParam);
+  const { data: loans, isLoading: isLoadingLoan } = useGetLoans({
+    serialCode: item?.serialCode,
+  });
 
   const [isSmallerThanMD] = useMediaQuery("(max-width: 768px)");
   const [isSmallerThanLG] = useMediaQuery("(max-width: 992px)");
@@ -36,6 +40,10 @@ const ItemDetailsContainer: FC<ItemDetailsContainerProps> = ({
 
   if (isLoadingItem || isLoadingLoan || item === undefined)
     return <ItemDetailSkeleton />;
+
+  const activeLoan: Loan | undefined = loans?.content.find(
+    (l) => !l.returnDate,
+  );
 
   return (
     <SimpleGrid
@@ -85,22 +93,21 @@ const ItemDetailsContainer: FC<ItemDetailsContainerProps> = ({
             }}
             pl={isSmallerThanMD ? "0px" : "21px"}
           >
-            {/* //TODO FIX ITEM DETAIL USER INFO */}
-            {/* <ItemDetailRow */}
-            {/*  label="Created by" */}
-            {/*  text={item?.owner.fullName} */}
-            {/* /> */}
-            {/* <ItemDetailRow */}
-            {/*  label="State" */}
-            {/*  pill={ */}
-            {/*    <Badge variant="info" label={item?.state.toString() || ""} /> */}
-            {/*  } */}
-            {/* /> */}
+            <ItemDetailRow label="Owner" text={item?.owner.fullName} />
             <ItemDetailRow
-              label="Lender"
+              label="State"
+              pill={
+                <Badge
+                  variant={handleBadgeVariant(item?.state)}
+                  label={item?.state.toString() || ""}
+                />
+              }
+            />
+            <ItemDetailRow
+              label="Borrower"
               text={
-                item?.state === ItemState.BORROWED
-                  ? loan?.borrower.fullName
+                item?.state === ItemState.BORROWED && activeLoan !== undefined
+                  ? activeLoan?.borrower.fullName
                   : "-"
               }
             />

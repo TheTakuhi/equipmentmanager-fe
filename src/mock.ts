@@ -16,7 +16,6 @@ import { syncUserMSW } from "./common/hooks/mutations/users/useUsersSyncMutation
 import { getItemById } from "./common/hooks/queries/items/useGetItemById.msw";
 import { getItemsMSW } from "./common/hooks/queries/items/useGetItems.msw";
 import { getItemsByOwnerId } from "./common/hooks/queries/items/useGetItemsByOwnerId.msw";
-import { getLoanByItemId } from "./common/hooks/queries/loans/useGetLoanByItemId.msw";
 import { getLoansMSW } from "./common/hooks/queries/loans/useGetLoans.msw";
 import { getTeamById } from "./common/hooks/queries/teams/useGetTeamById.msw";
 import { getTeamsMSW } from "./common/hooks/queries/teams/useGetTeams.msw";
@@ -55,7 +54,6 @@ export const worker = setupWorker(
   ...getMockedItemQualityStatesMSW(),
   ...getUserById(),
   ...getItemById(),
-  ...getLoanByItemId(),
   ...getTeamById(),
   ...getItemsByOwnerId(),
 );

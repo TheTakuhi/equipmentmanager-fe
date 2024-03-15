@@ -2,23 +2,11 @@ import { createColumnHelper } from "@tanstack/react-table";
 
 import ItemActionMenu from "../../../manager/components/ItemActionMenu";
 import Badge from "../../components/Badge";
+import { handleBadgeVariant } from "../../components/Badge/utils";
 import { Item } from "../../models/item/Item";
-import { ItemState } from "../../models/item/ItemState";
 
 export const useItemsTableColumns = () => {
   const columnHelper = createColumnHelper<Item>();
-  const handleBadgeVariant = (state: ItemState) => {
-    switch (state) {
-      case ItemState.BORROWED:
-        return "info";
-      case ItemState.AVAILABLE:
-        return "success";
-      case ItemState.DISCARDED:
-        return "danger";
-      default:
-        return "info";
-    }
-  };
 
   return [
     columnHelper.accessor("serialCode", {
