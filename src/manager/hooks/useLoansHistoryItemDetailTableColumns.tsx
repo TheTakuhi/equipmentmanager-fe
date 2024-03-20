@@ -48,7 +48,7 @@ export const useLoansHistoryItemDetailTableColumns = () => {
             overflow: "hidden",
             textOverflow: "ellipsis",
           }}
-          title={info.getValue()}
+          title={info.getValue() ?? undefined}
         >
           {info.getValue()}
         </div>
@@ -56,6 +56,7 @@ export const useLoansHistoryItemDetailTableColumns = () => {
       sortingFn: (rowA, rowB) => {
         const value1 = rowA.original.returnDate;
         const value2 = rowB.original.returnDate;
+        if (!value1 || !value2) return 0;
         return value1.localeCompare(value2, "cs");
       },
       enableColumnFilter: false,

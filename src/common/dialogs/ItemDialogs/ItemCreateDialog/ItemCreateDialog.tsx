@@ -25,14 +25,14 @@ const ItemCreateDialog: FC<ItemCreateDialogProps> = ({ currentUser }) => {
   const handleAdd: ItemFormSubmitHandler = ({
     type: { value: typeValue },
     qualityState: { value: qualityValue },
-    ownerId: { id },
+    ownerId: { value: ownerId },
     ...values
   }) =>
     mutateAddItem(
       {
         type: typeValue,
         qualityState: qualityValue,
-        ownerId: id,
+        ownerId,
         ...values,
       },
       {
@@ -68,9 +68,7 @@ const ItemCreateDialog: FC<ItemCreateDialogProps> = ({ currentUser }) => {
             ownerId: {
               label: currentUser.fullName,
               value: currentUser.id,
-              id: currentUser.id,
             },
-            // state: ItemState.AVAILABLE,
           }}
         />
       }

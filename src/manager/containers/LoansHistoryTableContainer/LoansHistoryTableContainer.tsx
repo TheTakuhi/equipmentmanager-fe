@@ -24,7 +24,6 @@ const LoansHistoryTableContainer: FC<LoansHistoryTableContainerProps> = ({
   serialCode,
 }) => {
   const search: SearchParams = useSearch({ from: route });
-  console.log("serialCode", serialCode);
 
   const { data: loansData, isLoading: isLoadingLoans } = useGetLoans({
     ...createQueryParams(search, {
@@ -32,13 +31,6 @@ const LoansHistoryTableContainer: FC<LoansHistoryTableContainerProps> = ({
       serialCode,
     }),
   });
-
-  console.log(
-    createQueryParams(search, {
-      borrowerName: userName,
-      serialCode,
-    }),
-  );
 
   return (
     <TSTable<Loan>

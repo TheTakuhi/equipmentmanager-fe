@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useContext, useEffect, useState } from "react";
 
-import { CustomRole, DefaultRole, Role } from "../../security/model/Role";
-import { inMockedDevEnv } from "../../utils/environment";
+import { DefaultRole, Role } from "../../security/model/Role";
+import { getMockedUserRole, inMockedDevEnv } from "../../utils/environment";
 
 interface ActiveRolesProviderProps {
   children?: ReactNode;
@@ -21,7 +21,7 @@ const ActiveRolesProvider: FC<ActiveRolesProviderProps> = ({ children }) => {
 
   if (inMockedDevEnv()) {
     localStorage.clear();
-    localStorage.setItem("activeRoles", JSON.stringify(CustomRole.ADMIN));
+    localStorage.setItem("activeRoles", JSON.stringify(getMockedUserRole()));
   }
 
   const initialActiveRoles = activeRolesData

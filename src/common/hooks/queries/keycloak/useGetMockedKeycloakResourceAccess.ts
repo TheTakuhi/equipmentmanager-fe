@@ -5,7 +5,8 @@ import {
   getEnvVariable,
 } from "../../../config/env/getEnvVariable";
 import { getKeycloakKey } from "../../../security/hooks/useMountKeycloak";
-import { CustomRole, Role } from "../../../security/model/Role";
+import { Role } from "../../../security/model/Role";
+import { getMockedUserRole } from "../../../utils/environment";
 
 export const useGetMockedKeycloakResourceAccess = (): UseQueryResult<
   Role[],
@@ -13,7 +14,7 @@ export const useGetMockedKeycloakResourceAccess = (): UseQueryResult<
 > => {
   const data = {
     "equipment-manager-fe": {
-      roles: [CustomRole.ADMIN],
+      roles: [getMockedUserRole()],
     },
   };
 
@@ -31,13 +32,3 @@ export const useGetMockedKeycloakResourceAccess = (): UseQueryResult<
     queryFn: () => data["equipment-manager-fe"]?.roles || [],
   });
 };
-
-// export const useGetMockedKeycloakResourceAccess = (): {
-//   "equipment-manager-fe": { roles: Role[] };
-// } => {
-//   return {
-//     "equipment-manager-fe": {
-//       roles: [CustomRole.ADMIN],
-//     },
-//   };
-// };

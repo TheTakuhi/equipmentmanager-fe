@@ -1,5 +1,7 @@
 import { KeycloakTokenParsed } from "keycloak-js";
 
+import { getMockedUserRole } from "../../../utils/environment";
+
 export const useGetMockedKeycloakTokenParsed = (): KeycloakTokenParsed => {
   return {
     exp: 1234567890,
@@ -24,7 +26,7 @@ export const useGetMockedKeycloakTokenParsed = (): KeycloakTokenParsed => {
     },
     resource_access: {
       "equipment-manager-fe": {
-        roles: ["ADMIN"],
+        roles: [getMockedUserRole()],
       },
       account: {
         roles: ["manage-account", "manage-account-links", "view-profile"],
@@ -32,7 +34,7 @@ export const useGetMockedKeycloakTokenParsed = (): KeycloakTokenParsed => {
     },
     scope: "openid email profile",
     sid: "a22b63da-dca3-482f-bd2b-cb2ac3d0aaf7",
-    lastName: "",
+    lastName: "Swamply",
     country: "Far far away",
     email_verified: false,
     city: "Swamp",
@@ -42,18 +44,6 @@ export const useGetMockedKeycloakTokenParsed = (): KeycloakTokenParsed => {
     given_name: "Shrek",
     LDAP_ID: "01ef73d8-70b8-4bf9-953d-b69f32c1762c",
     firstName: "Shrek",
-    profileSettings: {
-      theme: {
-        primaryColor: "#01548f",
-        secondaryColor: "#ffeec8",
-        darkMode: false,
-      },
-      preferredLocation: {
-        office: "",
-        floorName: "",
-        country: "",
-      },
-    },
     name: "Shrek",
     family_name: "",
     email: "shrek@swamp.ffa",

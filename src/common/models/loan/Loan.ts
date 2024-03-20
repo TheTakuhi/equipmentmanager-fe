@@ -7,5 +7,5 @@ export interface Loan {
   borrower: UserCropped;
   lender: UserCropped;
   loanDate: string;
-  returnDate: string;
+  returnDate: string | null;
 }

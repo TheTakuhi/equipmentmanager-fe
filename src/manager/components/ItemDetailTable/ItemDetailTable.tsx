@@ -71,6 +71,8 @@ const ItemDetailTable: FC<ItemDetailTableProps> = ({ tableHeight, itemId }) => {
             variant="secondary"
             label="Export list"
             startIcon={<Download />}
+            // TODO - enable after export is implemented
+            isDisabled
           />
         </HStack>
       </Flex>

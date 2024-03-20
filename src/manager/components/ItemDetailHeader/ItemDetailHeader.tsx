@@ -45,11 +45,16 @@ const ItemDetailHeader: FC<ItemDetailHeaderProps> = ({ item }) => {
   const handleEdit: ItemFormSubmitHandler = ({
     type: { value: typeValue },
     qualityState: { value: qualityValue },
-    owner: { id },
+    ownerId: { value: ownerId },
     ...values
   }) =>
     mutateEditItem(
-      { type: typeValue, qualityState: qualityValue, owner: id, ...values },
+      {
+        type: typeValue,
+        qualityState: qualityValue,
+        ownerId,
+        ...values,
+      },
       {
         onSuccess: () => {
           toast.success("Item edited", toastOptions);
@@ -93,10 +98,9 @@ const ItemDetailHeader: FC<ItemDetailHeaderProps> = ({ item }) => {
                 label: item.qualityState.toLowerCase(),
                 value: item.qualityState,
               },
-              owner: {
+              ownerId: {
                 label: item.owner.fullName,
                 value: item.owner.id,
-                id: item.owner.id,
               },
               state: item.state,
             }}

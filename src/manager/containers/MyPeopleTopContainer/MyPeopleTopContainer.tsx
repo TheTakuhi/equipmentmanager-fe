@@ -30,6 +30,8 @@ const MyPeopleTopContainer: FC = () => {
             variant="secondary"
             label="Export list"
             startIcon={<Download />}
+            // TODO - enable after export is implemented
+            isDisabled
           />
         </HStack>
       </Flex>

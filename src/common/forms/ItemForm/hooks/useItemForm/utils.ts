@@ -7,6 +7,6 @@ export const createDefaultValues = (
   type: { value: "", label: "" },
   comment: "",
   qualityState: { value: "", label: "" },
-  ownerId: { value: "", label: "", id: "" },
+  ownerId: { value: "", label: "" },
   ...defs,
 });

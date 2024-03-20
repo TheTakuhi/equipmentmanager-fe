@@ -22,14 +22,14 @@ const ItemEditDialog: FC<ItemEditDialogProps> = ({ item }) => {
   const handleSubmit: ItemFormSubmitHandler = ({
     type: { value: typeValue },
     qualityState: { value: qualityValue },
-    ownerId: { id },
+    ownerId: { value },
     ...values
   }) =>
     mutateItemEdit(
       {
         type: typeValue,
         qualityState: qualityValue,
-        ownerId: id,
+        ownerId: value,
         ...values,
       },
       {
@@ -65,7 +65,6 @@ const ItemEditDialog: FC<ItemEditDialogProps> = ({ item }) => {
             ownerId: {
               label: item.owner.fullName,
               value: item.owner.id,
-              id: item.owner.id,
             },
             state: item.state,
           }}

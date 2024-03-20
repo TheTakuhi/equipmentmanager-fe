@@ -1,7 +1,7 @@
 import { rest } from "msw";
 
-import { User } from "../../../models/user/User";
-import { CustomRole } from "../../../security/model/Role";
+import { User } from "../../../../models/user/User";
+import { getMockedUserRole } from "../../../../utils/environment";
 
 const getMockedCurrentUser = (): User => {
   return {
@@ -9,12 +9,22 @@ const getMockedCurrentUser = (): User => {
     login: "theshrek",
     email: "shrek@swamp.ffa",
     firstName: "Shrek",
-    lastName: "Joe",
-    fullName: "Joe Shrek",
+    lastName: "Swamply",
+    fullName: "Swamply",
     photo: "",
-    userRoles: [CustomRole.ADMIN],
-    ownedContractIds: [""],
-    managedContractIds: [""],
+    userRoles: [getMockedUserRole()],
+    auditInfo: {
+      createdAt: "2024-01-01",
+      createdBy: "SYSTEM",
+      lastModifiedAt: "2024-01-01",
+      lastModifiedBy: "SYSTEM",
+    },
+    ownedTeams: [],
+    teams: [],
+    ownedItems: [],
+    borrowings: [],
+    loans: [],
+    removed: false,
   };
 };
 
