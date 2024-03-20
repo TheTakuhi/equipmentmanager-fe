@@ -4,5 +4,5 @@ export type LoanCropped = {
   lenderId: string;
   borrowerId: string;
   loanDate: string;
-  returnDate: string;
+  returnDate: string | null;
 };

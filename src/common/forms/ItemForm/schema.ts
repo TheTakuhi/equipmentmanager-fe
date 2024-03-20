@@ -16,7 +16,6 @@ export const schema: ObjectSchema<ItemFormValues> = object({
   ownerId: object({
     label: string().required(),
     value: string().required(),
-    id: string().required(),
   }).required(),
   state: string().optional(),
 });

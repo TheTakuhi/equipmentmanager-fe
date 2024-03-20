@@ -11,5 +11,5 @@ export type ItemCropped = {
   qualityState: QualityState;
   creationDate: string;
   ownerId: string;
-  loansId: string[];
+  loansIds: string[];
 };

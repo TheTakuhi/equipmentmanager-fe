@@ -1,18 +1,10 @@
+import { SelectOption } from "../utils/SelectOption";
+
 export interface ItemFormValues {
   serialCode: string;
   comment?: string;
-  type: {
-    label: string;
-    value: string;
-  };
-  qualityState: {
-    label: string;
-    value: string;
-  };
-  ownerId: {
-    label: string;
-    value: string;
-    id: string;
-  };
+  type: SelectOption;
+  qualityState: SelectOption;
+  ownerId: SelectOption;
   state?: string;
 }

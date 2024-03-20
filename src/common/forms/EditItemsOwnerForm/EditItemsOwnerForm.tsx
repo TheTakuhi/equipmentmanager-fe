@@ -32,7 +32,6 @@ const EditItemsOwnerForm: FC<EditItemsOwnerProps> = ({
       memberOptions.push({
         value: member.id,
         label: member.fullName,
-        id: member.id,
       }),
     );
 

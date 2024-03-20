@@ -9,6 +9,7 @@ export enum EnvVariableName {
   CLIENT_ID = "CLIENT_ID",
 
   MOCKED = "MOCKED",
+  MOCKED_USER_ROLE = "MOCKED_USER_ROLE",
 }
 
 export const getEnvVariable = (
