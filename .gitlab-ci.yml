@@ -1,0 +1,48 @@
+variables:
+  GITLAB_PROJECT_ORIGIN: https://$ACCESS_TOKEN_NAME:$ACCESS_TOKEN_VALUE@$CI_SERVER_HOST/$CI_PROJECT_PATH.git
+  BOT_EMAIL: "equipment-manager@tietoevry.com"
+  BOT_NAME: "EquipmentManager_CI"
+
+  LOCATION:
+    value: "equipment-manager"
+    description: "file location on server"
+
+  ENVIRONMENT_NAME:
+    value: "staging"
+    description: "change 'staging' / 'production' based on the desired server location"
+
+  PUBLIC_URL:
+    value: "/equipment-manager/"
+    description: "Staging = '/equipment-manager/' and production = '/'."
+  HOST_CORE:
+    value: "https://staging.int.tieto.com/equipment-manager/core"
+    description: "Staging = 'https://staging.int.tieto.com/equipment-manager/core' and production = 'https://equipment-manager.int.tieto.com/equipment-manager/core'."
+  HOST_IDP:
+    value: "https://staging.int.tieto.com/keycloak/auth"
+    description: "Staging = 'https://staging.int.tieto.com/keycloak/auth' and production = 'https://appshub.int.tieto.com/keycloak/auth'."
+  HOST_APPSHUB:
+    value: "https://staging.int.tieto.com/appshub/"
+    description: "Staging = 'https://staging.int.tieto.com/appshub/' and production = 'https://appshub.int.tieto.com/appshub'."
+  REALM:
+    value: "staging-realm"
+    description: "Staging = 'staging-realm' and production = 'EquipmentManager'."
+  CLIENT_ID: "equipment-manager-fe"
+  MOCKED: "FALSE"
+
+stages:
+  - trigger_bublanina
+
+trigger_staging_environment:
+  stage: trigger_bublanina
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_BRANCH == "staging"
+  trigger:
+    include: gitlab/.gitlab-ci.staging.yml
+
+
+trigger_production_environment:
+  stage: trigger_bublanina
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_BRANCH == "production"
+  trigger:
+    include: gitlab/.gitlab-ci.production.yml

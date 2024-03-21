@@ -1,0 +1,3 @@
+{
+  "releaseCommitMessageFormat": "version(release): {{currentTag}}"
+}

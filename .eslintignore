@@ -1,0 +1,9 @@
+node_modules
+coverage
+build
+cypress
+docker
+docs
+husky
+pipeline
+public
