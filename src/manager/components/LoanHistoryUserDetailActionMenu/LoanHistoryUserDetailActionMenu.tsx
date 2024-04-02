@@ -4,6 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { ArrowDownLeft, Info } from "react-feather";
 
 import Menu from "../../../common/components/Menu";
+import { MenuItemType } from "../../../common/components/Menu/Menu";
 import LoanReturnDialog from "../../../common/dialogs/LoanDialogs/LoanReturnDialog";
 import { Loan } from "../../../common/models/loan/Loan";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
@@ -27,22 +28,22 @@ const LoanActionMenu: FC<LoanActionMenuProps> = ({ loan }) => {
     show(<LoanReturnDialog loan={loan} />);
   };
 
-  return (
-    <Menu
-      menuItems={[
-        {
-          label: "Item details",
-          icon: <Info />,
-          onClick: handleItemDetailClick,
-        },
-        {
-          label: "Return item",
-          icon: <ArrowDownLeft />,
-          onClick: handleEditClick,
-        },
-      ]}
-    />
-  );
+  const menuItems: MenuItemType[] = [
+    {
+      label: "Item details",
+      icon: <Info />,
+      onClick: handleItemDetailClick,
+    },
+  ];
+
+  if (!loan.returnDate)
+    menuItems.push({
+      label: "Return item",
+      icon: <ArrowDownLeft />,
+      onClick: handleEditClick,
+    });
+
+  return <Menu menuItems={menuItems} />;
 };
 
 export default LoanActionMenu;

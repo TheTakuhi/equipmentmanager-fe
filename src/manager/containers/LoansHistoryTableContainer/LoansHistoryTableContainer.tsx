@@ -27,6 +27,7 @@ const LoansHistoryTableContainer: FC<LoansHistoryTableContainerProps> = ({
 
   const { data: loansData, isLoading: isLoadingLoans } = useGetLoans({
     ...createQueryParams(search, {
+      sort: search.table?.sort ? undefined : "returnDate,desc",
       borrowerName: userName,
       serialCode,
     }),

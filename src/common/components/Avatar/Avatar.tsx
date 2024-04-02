@@ -2,8 +2,7 @@ import { FC } from "react";
 
 import { Avatar as AvatarOrigin, Box } from "@chakra-ui/react";
 
-import { useActiveRoles } from "../../providers/ActiveRolesProvider/ActiveRolesProvider";
-import { Role } from "../../security/model/Role";
+import { CustomRole, Role } from "../../security/model/Role";
 import RoleBadge from "../RoleBadge";
 
 export interface AvatarDataProps {
@@ -38,14 +37,19 @@ const Avatar: FC<AvatarProps> = ({
   badgeTop,
   badgeLeft,
 }) => {
-  const { activeRoles } = useActiveRoles();
   if (!userDetail) return <AvatarOrigin />;
+
+  const getHighestRole = (roles: Role[]) => {
+    if (roles.includes(CustomRole.ADMIN)) return "A";
+    if (roles.includes(CustomRole.MANAGER)) return "M";
+    return "G";
+  };
 
   return (
     <Box sx={{ position: "relative" }}>
       <AvatarOrigin
         sx={{
-          cursor: "pointer",
+          cursor: "default",
           backgroundColor: "#b06d5f",
           color: (t) => t.palette.text.primary,
           width: avatarWidth || "2.5rem",
@@ -61,14 +65,16 @@ const Avatar: FC<AvatarProps> = ({
         }
         onClick={onClick || undefined}
       />
-      <RoleBadge
-        label={activeRoles ? activeRoles[0].toString() : "u"}
-        sx={{
-          position: "absolute",
-          top: badgeTop || "1.75rem",
-          left: badgeLeft || "1.75rem",
-        }}
-      />
+      {userDetail.userRoles ? (
+        <RoleBadge
+          label={getHighestRole(userDetail.userRoles)}
+          sx={{
+            position: "absolute",
+            top: badgeTop || "1.75rem",
+            left: badgeLeft || "1.75rem",
+          }}
+        />
+      ) : null}
     </Box>
   );
 };

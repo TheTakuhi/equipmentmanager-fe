@@ -12,7 +12,7 @@ import { putEditTeam } from "./common/hooks/mutations/teams/mocks/useTeamEditMut
 import { patchRemoveMemberToTeam } from "./common/hooks/mutations/teams/mocks/useTeamRemoveMemberMutation.msw";
 import { getDeleteUser } from "./common/hooks/mutations/users/mocks/useUserDeleteMutatuon.msw";
 import { putEditUser } from "./common/hooks/mutations/users/mocks/useUserEditMutation.msw";
-import { syncUserMSW } from "./common/hooks/mutations/users/mocks/useUsersSyncMutation.msw";
+import { syncUserMSW } from "./common/hooks/queries/users/mocks/useUsersSync.msw";
 import { getItemById } from "./common/hooks/queries/items/mocks/useGetItemById.msw";
 import { getItemsMSW } from "./common/hooks/queries/items/mocks/useGetItems.msw";
 import { getItemsByOwnerId } from "./common/hooks/queries/items/mocks/useGetItemsByOwnerId.msw";
