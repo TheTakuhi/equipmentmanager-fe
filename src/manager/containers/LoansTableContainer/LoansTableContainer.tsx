@@ -20,7 +20,9 @@ const LoansTableContainer: FC<LoansTableContainerProps> = ({ tableHeight }) => {
   const search: SearchParams = useSearch({ from: AllLOANSRoute.id });
 
   const { data: loansData, isLoading: isLoadingLoans } = useGetLoans({
-    ...createQueryParams(search),
+    ...createQueryParams(search, {
+      sort: search.table?.sort ? undefined : "returnDate,desc",
+    }),
   });
 
   return (

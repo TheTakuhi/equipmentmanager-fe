@@ -35,6 +35,7 @@ const UserDetailRow: FC<UserDetailRowProps> = ({ label, text, pill }) => {
             color: theme.palette.text.primary,
             fontSize: theme.components.Text.sizes.body1.fontSize,
             width: "100%",
+            whiteSpace: "nowrap",
           }}
         >
           {text}

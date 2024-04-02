@@ -41,7 +41,11 @@ const LoanForm: FC<LoanFormProps> = ({
   const { data: items, isLoading: isLoadingItems } = useGetItems({
     state: ItemState.AVAILABLE,
   });
-  const { data: users, isLoading: isLoadingUsers } = useGetUsers();
+
+  // TODO - users jsou pageable - a query jich vrátí jen 2000 -> udělat pole na vyhledávání, kdy po prvních několika písmenech vyhledá související uživatele?
+  const { data: users, isLoading: isLoadingUsers } = useGetUsers({
+    // fullName: "indr",
+  });
 
   if (isLoadingUsers || isLoadingItems) return <LoanFormSkeleton />;
 
