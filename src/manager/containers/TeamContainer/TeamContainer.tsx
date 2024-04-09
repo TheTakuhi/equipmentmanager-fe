@@ -1,25 +1,27 @@
 import { FC } from "react";
 
 import { Box, Flex, Heading, Spacer, Text, VStack } from "@chakra-ui/react";
-import { Trash, Edit2 } from "react-feather";
+import { Edit2, Trash } from "react-feather";
 
 import { IconButton } from "../../../common/components/IconButton";
 import TeamDeleteDialog from "../../../common/dialogs/TeamDialogs/TeamDeleteDialog";
 import TeamEditDialog from "../../../common/dialogs/TeamDialogs/TeamEditDialog";
-import { Team } from "../../../common/models/team/Team";
+import { useGetCurrentUser } from "../../../common/hooks/queries/users/useGetCurrentUser";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
+import { useActiveRoles } from "../../../common/providers/ActiveRolesProvider/ActiveRolesProvider";
+import { useActiveTeam } from "../../../common/providers/ActiveTeamProvider/ActiveTeamProvider";
+import { CustomRole } from "../../../common/security/model/Role";
 import { theme } from "../../../common/theme";
 import TeamTableContainer from "../TeamTableContainer";
 import TeamTopContainer from "../TeamTopContainer";
 
-type TeamContainerProps = {
-  team?: Team;
-};
-
-const TeamContainer: FC<TeamContainerProps> = ({ team }) => {
+const TeamContainer: FC = () => {
   const { show } = useActionDialog();
+  const { activeRoles } = useActiveRoles();
+  const { data: currentUser } = useGetCurrentUser();
+  const { activeTeam } = useActiveTeam();
 
-  if (!team)
+  if (!activeTeam)
     return (
       <Box
         sx={{
@@ -40,9 +42,14 @@ const TeamContainer: FC<TeamContainerProps> = ({ team }) => {
       </Box>
     );
 
-  const handleTeamEdit = () => show(<TeamEditDialog team={team} />);
+  const userIsAbleToEdit =
+    (activeRoles[0].includes(CustomRole.MANAGER) &&
+      activeTeam.owner.id === currentUser?.id) ||
+    activeRoles[0].includes(CustomRole.ADMIN);
 
-  const handleTeamDelete = () => show(<TeamDeleteDialog team={team} />);
+  const handleTeamEdit = () => show(<TeamEditDialog team={activeTeam} />);
+
+  const handleTeamDelete = () => show(<TeamDeleteDialog team={activeTeam} />);
 
   return (
     <Box
@@ -60,17 +67,21 @@ const TeamContainer: FC<TeamContainerProps> = ({ team }) => {
           alignItems: "baseline",
         }}
       >
-        <Heading size="h2">{team.teamName}&apos;s members</Heading>
-        <IconButton
-          onClick={handleTeamEdit}
-          aria-label="Edit team"
-          icon={Edit2}
-        />
-        <IconButton
-          onClick={handleTeamDelete}
-          aria-label="Delete team"
-          icon={Trash}
-        />
+        <Heading size="h2">{activeTeam.teamName}&apos;s members</Heading>
+        {userIsAbleToEdit ? (
+          <>
+            <IconButton
+              onClick={handleTeamEdit}
+              aria-label="Edit team"
+              icon={Edit2}
+            />
+            <IconButton
+              onClick={handleTeamDelete}
+              aria-label="Delete team"
+              icon={Trash}
+            />
+          </>
+        ) : null}
         <Spacer />
         <Text
           sx={{
@@ -78,13 +89,13 @@ const TeamContainer: FC<TeamContainerProps> = ({ team }) => {
             color: theme.palette.text.disabled,
           }}
         >
-          owned by {team.owner.fullName}
+          owned by {activeTeam.owner.fullName}
         </Text>
       </Flex>
 
       <VStack sx={{ gap: "1rem", paddingY: "1rem", alignItems: "flex-start" }}>
-        <TeamTopContainer />
-        <TeamTableContainer team={team} />
+        <TeamTopContainer userIsAbleToEdit={userIsAbleToEdit} />
+        <TeamTableContainer team={activeTeam} />
       </VStack>
     </Box>
   );

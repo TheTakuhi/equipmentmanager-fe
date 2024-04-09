@@ -1,12 +1,13 @@
 import { HStack, Text, Tooltip } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 
-import { Team } from "../../common/models/team/Team";
 import { User } from "../../common/models/user/User";
+import { useActiveTeam } from "../../common/providers/ActiveTeamProvider/ActiveTeamProvider";
 import { Crown } from "../../common/theme/icons";
 import TeamActionMenu from "../components/TeamActionMenu";
 
-export const useTeamMembersTableColumns = (team: Team) => {
+export const useTeamMembersTableColumns = () => {
+  const { activeTeam } = useActiveTeam();
   const columnHelpers = createColumnHelper<User>();
 
   return [
@@ -16,7 +17,7 @@ export const useTeamMembersTableColumns = (team: Team) => {
         return (
           <HStack spacing="0.5rem">
             <Text sx={{ fontSize: "1em" }}>{info.getValue()}</Text>
-            {team.owner.id === info.row.original.id ? (
+            {activeTeam?.owner.id === info.row.original.id ? (
               <Tooltip
                 hasArrow
                 label="Team's owner"

@@ -1,4 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
+import { DateTime } from "luxon";
 
 import { Loan } from "../../common/models/loan/Loan";
 import LoanHistoryItemDetailActionMenu from "../components/LoanHistoryItemDetailActionMenu";
@@ -20,45 +21,19 @@ export const useLoansHistoryItemDetailTableColumns = () => {
     }),
     columnHelper.accessor("loanDate", {
       header: "Lending date",
-      cell: (info) => (
-        <div
-          style={{
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-          title={info.getValue()}
-        >
-          {info.getValue()}
-        </div>
-      ),
-      sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.loanDate;
-        const value2 = rowB.original.loanDate;
-        return value1.localeCompare(value2, "cs");
-      },
+      cell: (info) =>
+        DateTime.fromISO(info.getValue()).setLocale("en-gb").toLocaleString(),
+
       enableColumnFilter: false,
     }),
     columnHelper.accessor("returnDate", {
       header: "Returned",
-      cell: (info) => (
-        <div
-          style={{
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-          title={info.getValue() ?? undefined}
-        >
-          {info.getValue()}
-        </div>
-      ),
-      sortingFn: (rowA, rowB) => {
-        const value1 = rowA.original.returnDate;
-        const value2 = rowB.original.returnDate;
-        if (!value1 || !value2) return 0;
-        return value1.localeCompare(value2, "cs");
-      },
+      cell: (info) =>
+        info.getValue() !== null
+          ? DateTime.fromISO(info.getValue()!)
+              .setLocale("en-gb")
+              .toLocaleString()
+          : null,
       enableColumnFilter: false,
     }),
     columnHelper.accessor((row) => row, {

@@ -7,7 +7,7 @@ import { AddMemberFormSkeleton } from "./AddMemberFormSkeleton";
 import { useAddMemberForm } from "./hooks/useAddMemberForm/useAddMemberForm";
 import Button from "../../components/Button";
 import RHFSelect from "../../components/Inputs/RHFSelect";
-import { useGetTeamById } from "../../hooks/queries/teams/useGetTeamById";
+import { useGetTeamMembers } from "../../hooks/queries/teams/useGetTeamMembers";
 import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
 import { SelectOption } from "../../models/utils/SelectOption";
 import { parseUsersToSelectOptions } from "../../utils/selectOptionsParser";
@@ -37,14 +37,14 @@ const AddMemberForm: FC<AddMemberProps> = ({
   const form = useAddMemberForm({ defaultValues });
 
   const { data: teamInfo, isLoading: isLoadingTeamInfo } =
-    useGetTeamById(teamId);
+    useGetTeamMembers(teamId);
 
   const { data: memberCandidates, isLoading: isLoadingMemberCandidates } =
     useGetUsers();
 
   const memberOptions: SelectOption[] = parseUsersToSelectOptions(
     memberCandidates?.content.filter(
-      (m) => !teamInfo?.members.find((v) => v.id === m.id),
+      (m) => !teamInfo?.content.find((v) => v.id === m.id),
     ),
   );
 
