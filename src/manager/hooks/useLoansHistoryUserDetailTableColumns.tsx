@@ -1,4 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
+import { DateTime } from "luxon";
 
 import { Loan } from "../../common/models/loan/Loan";
 import LoanHistoryUserDetailActionMenu from "../components/LoanHistoryUserDetailActionMenu";
@@ -21,12 +22,18 @@ export const useLoansHistoryUserDetailTableColumns = () => {
     }),
     columnHelper.accessor("loanDate", {
       header: "Lending date",
-      cell: (info) => info.getValue(),
+      cell: (info) =>
+        DateTime.fromISO(info.getValue()).setLocale("en-gb").toLocaleString(),
       enableColumnFilter: false,
     }),
     columnHelper.accessor("returnDate", {
       header: "Returned",
-      cell: (info) => info.getValue(),
+      cell: (info) =>
+        info.getValue() !== null
+          ? DateTime.fromISO(info.getValue()!)
+              .setLocale("en-gb")
+              .toLocaleString()
+          : null,
       enableColumnFilter: false,
     }),
     columnHelper.accessor((row) => row, {

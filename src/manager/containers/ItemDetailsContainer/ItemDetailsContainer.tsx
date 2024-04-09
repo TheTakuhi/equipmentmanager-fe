@@ -8,6 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 
 import Badge from "../../../common/components/Badge";
 import { handleBadgeVariant } from "../../../common/components/Badge/utils";
@@ -69,7 +70,12 @@ const ItemDetailsContainer: FC<ItemDetailsContainerProps> = ({
           <ItemDetailRow label="Serial code" text={item?.serialCode} />
           <ItemDetailRow label="Type" text={item?.type} />
           <ItemDetailRow label="Quality state" text={item?.qualityState} />
-          <ItemDetailRow label="Creation date" text={item?.creationDate} />
+          <ItemDetailRow
+            label="Creation date"
+            text={DateTime.fromISO(item?.creationDate)
+              .setLocale("en-gb")
+              .toLocaleString()}
+          />
         </GridItem>
         <GridItem sx={{ display: "flex" }}>
           {isBiggerThanMD ? (

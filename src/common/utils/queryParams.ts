@@ -42,7 +42,8 @@ export const createQueryParams = (
 
   if (!!search && !!search.value) queryParams[search.param] = search.value;
 
-  addColumnFiltersIfAny(queryParams, table.columnFilters);
+  if (table.columnFilters.length)
+    addColumnFiltersIfAny(queryParams, table.columnFilters);
 
   queryParams.pageable = {
     page: pagination.index,

@@ -1,12 +1,10 @@
 import { FC } from "react";
 
 import { Button, Text, useTheme, VStack } from "@chakra-ui/react";
-import { useNavigate, useSearch } from "@tanstack/react-router";
 import { ChevronRight } from "react-feather";
 
-import { SearchParams } from "../../../common/models/SearchParams";
 import { Team } from "../../../common/models/team/Team";
-import { TEAMSRoute } from "../../../common/routes/common/teams/teamsRoute";
+import { useActiveTeam } from "../../../common/providers/ActiveTeamProvider/ActiveTeamProvider";
 
 interface TeamMenuCardProps {
   team: Team;
@@ -15,21 +13,13 @@ interface TeamMenuCardProps {
 const TeamMenuCard: FC<TeamMenuCardProps> = ({ team }) => {
   const theme = useTheme();
 
-  const navigate = useNavigate();
-  const search: SearchParams & { active?: string } = useSearch({
-    from: TEAMSRoute.id,
-  });
-  const active = search.active?.valueOf() === team.id;
+  const { activeTeam, setActiveTeam } = useActiveTeam();
+
+  const active = activeTeam?.id === team.id;
 
   const membersCount = team.members.length;
 
-  const handleTeamSelect = () =>
-    navigate({
-      search: (prev) => ({
-        ...prev,
-        active: team.id,
-      }),
-    });
+  const handleTeamSelect = () => setActiveTeam(team);
 
   return (
     <Button
