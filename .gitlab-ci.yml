@@ -7,10 +7,6 @@ variables:
     value: "equipment-manager"
     description: "file location on server"
 
-  ENVIRONMENT_NAME:
-    value: "staging"
-    description: "change 'staging' / 'production' based on the desired server location"
-
   PUBLIC_URL:
     value: "/equipment-manager/"
     description: "Staging = '/equipment-manager/' and production = '/'."
@@ -30,10 +26,10 @@ variables:
   MOCKED: "FALSE"
 
 stages:
-  - trigger_bublanina
+  - environment_setup
 
 trigger_staging_environment:
-  stage: trigger_bublanina
+  stage: environment_setup
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_BRANCH == "staging"
   trigger:
@@ -41,7 +37,7 @@ trigger_staging_environment:
 
 
 trigger_production_environment:
-  stage: trigger_bublanina
+  stage: environment_setup
   rules:
     - if: $CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_BRANCH == "production"
   trigger:
