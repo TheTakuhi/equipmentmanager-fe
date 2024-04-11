@@ -3,11 +3,11 @@ import { FC } from "react";
 import { Button, Text, useTheme, VStack } from "@chakra-ui/react";
 import { ChevronRight } from "react-feather";
 
-import { Team } from "../../../common/models/team/Team";
+import { TeamMembersSize } from "../../../common/models/team/TeamMembersSize";
 import { useActiveTeam } from "../../../common/providers/ActiveTeamProvider/ActiveTeamProvider";
 
 interface TeamMenuCardProps {
-  team: Team;
+  team: TeamMembersSize;
 }
 
 const TeamMenuCard: FC<TeamMenuCardProps> = ({ team }) => {
@@ -16,8 +16,6 @@ const TeamMenuCard: FC<TeamMenuCardProps> = ({ team }) => {
   const { activeTeam, setActiveTeam } = useActiveTeam();
 
   const active = activeTeam?.id === team.id;
-
-  const membersCount = team.members.length;
 
   const handleTeamSelect = () => setActiveTeam(team);
 
@@ -63,7 +61,7 @@ const TeamMenuCard: FC<TeamMenuCardProps> = ({ team }) => {
             color: theme.palette.text.disabled,
           }}
         >
-          {membersCount} {membersCount === 1 ? "member" : "members"}
+          {team.membersSize} {team.membersSize === 1 ? "member" : "members"}
         </Text>
       </VStack>
       <ChevronRight

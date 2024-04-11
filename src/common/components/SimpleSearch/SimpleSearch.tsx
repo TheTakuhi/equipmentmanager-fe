@@ -11,21 +11,29 @@ export type SearchSubmitHandler = (value: SearchQuery) => void;
 
 type SimpleSearchProps = {
   route: string;
+  useCallback?: boolean;
+  callback?: (value: string) => void;
 };
 
-export const SimpleSearch: FC<SimpleSearchProps> = ({ route }) => {
+export const SimpleSearch: FC<SimpleSearchProps> = ({
+  route,
+  useCallback,
+  callback,
+}) => {
   const [query, setQuery] = useState("");
   const navigate = useNavigate({ from: route });
 
   const form = useSearchForm({ defaultValues: { query } });
 
   const handleSubmit: SearchSubmitHandler = (value) => {
-    navigate({
-      search: (prev) => ({
-        ...prev,
-        query: value,
-      }),
-    });
+    if (useCallback && callback) callback(value.query);
+    else
+      navigate({
+        search: (prev) => ({
+          ...prev,
+          query: value.query,
+        }),
+      });
   };
 
   useEffect(() => {
@@ -36,7 +44,7 @@ export const SimpleSearch: FC<SimpleSearchProps> = ({ route }) => {
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <InputGroup>
-          <InputLeftElement pointerEvents="none">
+          <InputLeftElement pointerEvents="none" >
             <Search size="1.125em" color="#7A7A80" />
           </InputLeftElement>
           <Input

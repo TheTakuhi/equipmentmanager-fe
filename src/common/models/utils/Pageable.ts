@@ -1,7 +1,7 @@
 export type PageableParam = {
   page: number;
   size: number;
-  sort: string;
+  sort?: string;
   [sortType: string]: any;
 };
 

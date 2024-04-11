@@ -6,29 +6,25 @@ import { useSearch } from "@tanstack/react-router";
 import TSTable from "../../../common/components/TSTable";
 import { useGetTeamMembers } from "../../../common/hooks/queries/teams/useGetTeamMembers";
 import { SearchParams } from "../../../common/models/SearchParams";
-import { Team } from "../../../common/models/team/Team";
 import { User } from "../../../common/models/user/User";
+import { useActiveTeam } from "../../../common/providers/ActiveTeamProvider/ActiveTeamProvider";
 import { TEAMSRoute } from "../../../common/routes/common/teams/teamsRoute";
 import { createQueryParams } from "../../../common/utils/queryParams";
 import { useTeamMembersTableColumns } from "../../hooks/useTeamMembersTableColumns";
 
-type TeamTableContainerProps = {
-  team: Team;
-};
+const TeamTableContainer: FC = () => {
+  const { activeTeam } = useActiveTeam();
+  const search: SearchParams & { query?: string } = useSearch({
+    from: TEAMSRoute.id,
+  });
 
-const TeamTableContainer: FC<TeamTableContainerProps> = ({ team }) => {
-  const search: SearchParams & { active?: string; query?: { query: string } } =
-    useSearch({
-      from: TEAMSRoute.id,
-    });
-
-  const { data, isLoading, isError } = useGetTeamMembers(team.id, {
-    ...createQueryParams(search, { search: search.query?.query }),
+  const { data, isLoading, isError } = useGetTeamMembers(activeTeam!.id, {
+    ...createQueryParams(search, { search: search.query }),
   });
 
   const columns = useTeamMembersTableColumns();
 
-  if (isError) return <Alert>Error fetching data</Alert>;
+  if (isError || !activeTeam) return <Alert>Error fetching data</Alert>;
 
   return (
     <TSTable<User>

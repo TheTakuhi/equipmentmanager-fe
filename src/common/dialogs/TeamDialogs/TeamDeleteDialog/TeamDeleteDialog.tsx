@@ -4,13 +4,13 @@ import { toast } from "react-toastify";
 
 import { queryClient } from "../../../config/react-query/reactQuery";
 import { useTeamDeleteMutation } from "../../../hooks/mutations/teams/useTeamDeleteMutation";
-import { Team } from "../../../models/team/Team";
+import { TeamMembersSize } from "../../../models/team/TeamMembersSize";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
 import { toastOptions } from "../../../utils/toastOptions";
 import DiscardDialog from "../../DiscardDialog";
 
 interface TeamDeleteDialogProps {
-  team: Team;
+  team: TeamMembersSize;
 }
 
 const TeamDeleteDialog: FC<TeamDeleteDialogProps> = ({ team }) => {

@@ -4,19 +4,21 @@ import {
   EnvVariableName,
   getEnvVariable,
 } from "../../../config/env/getEnvVariable";
-import { Team } from "../../../models/team/Team";
-import { Pageable } from "../../../models/utils/Pageable";
+import { TeamMembersSize } from "../../../models/team/TeamMembersSize";
+import { Pageable, PageableParam } from "../../../models/utils/Pageable";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 import { getQueryKeys } from "../utility/getQueryKeys";
 
 const rootKey = "teams";
 
-type UseGetTeamsQueryOptions = UseQueryOptions<Pageable<Team>, Error>;
+type UseGetTeamsQueryOptions = UseQueryOptions<
+  Pageable<TeamMembersSize>,
+  Error
+>;
 
 type UseGetTeamsQueryParams = {
-  page?: number;
-  size?: number;
-  sort?: string[];
+  search?: string;
+  pageable?: PageableParam;
 };
 
 type GetTeamsQueryKeyHandler = (
@@ -32,15 +34,16 @@ export const useGetTeams = (
   options?: UseGetTeamsQueryOptions,
 ) => {
   const securedAxios = useSecuredAxios();
+  const { pageable, ...restParams } = params || {};
 
-  return useQuery<Pageable<Team>, Error>({
+  return useQuery<Pageable<TeamMembersSize>, Error>({
     queryKey: getTeamsQueryKey(params),
     queryFn: () =>
       securedAxios
         .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/teams`, {
-          params,
+          params: { ...pageable, ...restParams },
         })
-        .then((response) => response.data as Pageable<Team>),
+        .then((response) => response.data as Pageable<TeamMembersSize>),
     ...options,
   });
 };

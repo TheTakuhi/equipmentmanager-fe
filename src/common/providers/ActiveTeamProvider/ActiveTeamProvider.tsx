@@ -6,11 +6,11 @@ import React, {
   useState,
 } from "react";
 
-import { Team } from "../../models/team/Team";
+import { TeamMembersSize } from "../../models/team/TeamMembersSize";
 
 type ActiveTeamContextValue = {
-  activeTeam: Team | undefined;
-  setActiveTeam: React.Dispatch<SetStateAction<Team | undefined>>;
+  activeTeam: TeamMembersSize | undefined;
+  setActiveTeam: React.Dispatch<SetStateAction<TeamMembersSize | undefined>>;
 };
 
 const ActiveTeamContext = React.createContext<
@@ -24,7 +24,9 @@ type ActiveTeamProviderProps = {
 export const ActiveTeamProvider: FC<ActiveTeamProviderProps> = ({
   children,
 }) => {
-  const [activeTeam, setActiveTeam] = useState<Team | undefined>(undefined);
+  const [activeTeam, setActiveTeam] = useState<TeamMembersSize | undefined>(
+    undefined,
+  );
 
   return (
     <ActiveTeamContext.Provider value={{ activeTeam, setActiveTeam }}>

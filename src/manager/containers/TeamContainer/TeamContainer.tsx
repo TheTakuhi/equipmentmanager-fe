@@ -95,7 +95,7 @@ const TeamContainer: FC = () => {
 
       <VStack sx={{ gap: "1rem", paddingY: "1rem", alignItems: "flex-start" }}>
         <TeamTopContainer userIsAbleToEdit={userIsAbleToEdit} />
-        <TeamTableContainer team={activeTeam} />
+        <TeamTableContainer />
       </VStack>
     </Box>
   );

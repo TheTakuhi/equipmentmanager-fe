@@ -1,9 +1,8 @@
-import { User } from "../user/User";
 import { UserCropped } from "../user/UserCropped";
 
-export interface Team {
+export type TeamMembersSize = {
   id: string;
   teamName: string;
   owner: UserCropped;
-  members: User[];
-}
+  membersSize: number;
+};
