@@ -2,6 +2,8 @@ import { FC } from "react";
 
 import { Box, Text, useTheme } from "@chakra-ui/react";
 import { HelpCircle } from "react-feather";
+import {useActionDialog} from "../../../providers/ActionDialogProvider/ActionDialogProvider";
+import HelpDialog from "../../../dialogs/HelpDialog";
 
 export interface HelpDialogIconButtonProps {
   open: boolean;
@@ -10,10 +12,17 @@ const HelpDialogIconButton: FC<HelpDialogIconButtonProps> = ({ open }) => {
   const boxWidth = open ? "9.375rem" : "2.75rem";
   const theme = useTheme();
 
+    const { show } = useActionDialog();
+    const { close } = useActionDialog();
+
+    const handleOpenHelpDialog = () => {
+        show(<HelpDialog title="Help" close={close} />);
+    };
+
   return (
     <Box
       display="flex"
-      // onClick={handleOpenHelpDialog}
+      onClick={handleOpenHelpDialog}
       sx={{
         p: open ? "0.5rem 0.625rem" : "0.5rem 0rem",
         cursor: "pointer",
