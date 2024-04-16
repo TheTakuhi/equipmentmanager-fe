@@ -2,6 +2,8 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 
 import { Loan } from "../../common/models/loan/Loan";
+import { ONEITEMDETAILRoute } from "../../common/routes/common/itemDetail/item/oneItemDetailRoute";
+import { StyledLink } from "../../common/theme/styles/styledLink";
 import LoanHistoryUserDetailActionMenu from "../components/LoanHistoryUserDetailActionMenu";
 
 export const useLoansHistoryUserDetailTableColumns = () => {
@@ -13,9 +15,12 @@ export const useLoansHistoryUserDetailTableColumns = () => {
       header: "Item",
       cell: ({ row }) => {
         return (
-          <div>
+          <StyledLink
+            to={ONEITEMDETAILRoute.id}
+            params={{ itemDetailId: row.original.item.id }}
+          >
             {row.original.item.serialCode}, {row.original.item.type}
-          </div>
+          </StyledLink>
         );
       },
       enableColumnFilter: false,

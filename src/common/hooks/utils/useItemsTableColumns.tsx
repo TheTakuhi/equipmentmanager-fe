@@ -4,6 +4,8 @@ import ItemActionMenu from "../../../manager/components/ItemActionMenu";
 import Badge from "../../components/Badge";
 import { handleBadgeVariant } from "../../components/Badge/utils";
 import { Item } from "../../models/item/Item";
+import { ONEITEMDETAILRoute } from "../../routes/common/itemDetail/item/oneItemDetailRoute";
+import { StyledLink } from "../../theme/styles/styledLink";
 
 export const useItemsTableColumns = () => {
   const columnHelper = createColumnHelper<Item>();
@@ -11,7 +13,14 @@ export const useItemsTableColumns = () => {
   return [
     columnHelper.accessor("serialCode", {
       header: "Item",
-      cell: (info) => info.getValue(),
+      cell: (info) => (
+        <StyledLink
+          to={ONEITEMDETAILRoute.id}
+          params={{ itemDetailId: info.row.original.id }}
+        >
+          {info.getValue()}
+        </StyledLink>
+      ),
       enableColumnFilter: false,
     }),
     columnHelper.accessor("type", {
@@ -36,7 +45,14 @@ export const useItemsTableColumns = () => {
     }),
     columnHelper.accessor("owner.fullName", {
       header: "Owner",
-      cell: (info) => info.getValue(),
+      cell: (info) => (
+        <StyledLink
+          to="/equipment-manager/management/user-detail/$userDetailId"
+          params={{ userDetailId: info.row.original.owner.id }}
+        >
+          {info.getValue()}
+        </StyledLink>
+      ),
       sortingFn: (rowA, rowB) => {
         const value1 = rowA.original.owner.fullName;
         const value2 = rowB.original.owner.fullName;

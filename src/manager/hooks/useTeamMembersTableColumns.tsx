@@ -1,9 +1,14 @@
-import { HStack, Text, Tooltip } from "@chakra-ui/react";
+import { HStack, Tooltip } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 
 import { User } from "../../common/models/user/User";
 import { useActiveTeam } from "../../common/providers/ActiveTeamProvider/ActiveTeamProvider";
+import {
+  ONEUSERDETAILRoute,
+  oneUserDetailRoute,
+} from "../../common/routes/common/userDetail/user/oneUserDetailRoute";
 import { Crown } from "../../common/theme/icons";
+import { StyledLink } from "../../common/theme/styles/styledLink";
 import TeamActionMenu from "../components/TeamActionMenu";
 
 export const useTeamMembersTableColumns = () => {
@@ -16,7 +21,12 @@ export const useTeamMembersTableColumns = () => {
       cell: (info) => {
         return (
           <HStack spacing="0.5rem">
-            <Text sx={{ fontSize: "1em" }}>{info.getValue()}</Text>
+            <StyledLink
+              to="/equipment-manager/management/user-detail/$userDetailId"
+              params={{ userDetailId: info.row.original.id }}
+            >
+              {info.getValue()}
+            </StyledLink>
             {activeTeam?.owner.id === info.row.original.id ? (
               <Tooltip
                 hasArrow
@@ -34,7 +44,14 @@ export const useTeamMembersTableColumns = () => {
     }),
     columnHelpers.accessor("login", {
       header: "Login",
-      cell: (info) => info.getValue(),
+      cell: (info) => (
+        <StyledLink
+          to="/equipment-manager/management/user-detail/$userDetailId"
+          params={{ userDetailId: info.row.original.id }}
+        >
+          {info.getValue()}
+        </StyledLink>
+      ),
       enableColumnFilter: false,
     }),
     columnHelpers.accessor("email", {
