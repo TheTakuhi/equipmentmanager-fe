@@ -1,6 +1,7 @@
 export const palette: Record<string, any> = {
   palette: {
     primary: {
+      light: "#ef593e",
       main: "#C6391F",
       dark: "#b02c15",
     },

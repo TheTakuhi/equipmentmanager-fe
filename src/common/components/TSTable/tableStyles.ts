@@ -7,7 +7,7 @@ export const tableStyle = {
 
   th: {
     "&:last-of-type": {
-      width: "72px",
+      width: "156px",
     },
   },
 };

@@ -1,9 +1,8 @@
 import { FC } from "react";
 
-import { useNavigate } from "@tanstack/react-router";
-import { ArrowDownLeft, ArrowUpRight, Edit2, Info, Trash } from "react-feather";
+import { HStack, IconButton } from "@chakra-ui/react";
+import { ArrowDownRight, ArrowUpRight, Edit2, Trash } from "react-feather";
 
-import Menu from "../../../common/components/Menu";
 import ItemDeleteDialog from "../../../common/dialogs/ItemDialogs/ItemDeleteDialog";
 import ItemEditDialog from "../../../common/dialogs/ItemDialogs/ItemEditDialog";
 import LoanCreateDialog from "../../../common/dialogs/LoanDialogs/LoanCreateDialog";
@@ -18,14 +17,6 @@ interface ItemActionMenuProps {
 
 const ItemActionMenu: FC<ItemActionMenuProps> = ({ item }) => {
   const { show } = useActionDialog();
-  const navigate = useNavigate();
-
-  const handleItemDetailClick = () => {
-    navigate({
-      params: { itemDetailId: item.id },
-      to: "/equipment-manager/management/item-detail/$itemDetailId",
-    });
-  };
 
   const handleLendItemClick = () => show(<LoanCreateDialog item={item} />);
 
@@ -41,36 +32,36 @@ const ItemActionMenu: FC<ItemActionMenuProps> = ({ item }) => {
   const handleDeleteClick = () => show(<ItemDeleteDialog item={item} />);
 
   return (
-    <Menu
-      menuItems={[
-        {
-          label: "Item details",
-          icon: <Info />,
-          onClick: handleItemDetailClick,
-        },
-        item.state === ItemState.BORROWED
-          ? {
-              label: "Return item",
-              icon: <ArrowDownLeft />,
-              onClick: handleReturnItem,
-            }
-          : {
-              label: "Lend item",
-              icon: <ArrowUpRight />,
-              onClick: handleLendItemClick,
-            },
-        {
-          label: "Edit",
-          icon: <Edit2 />,
-          onClick: handleEditClick,
-        },
-        {
-          label: "Discard",
-          icon: <Trash />,
-          onClick: handleDeleteClick,
-        },
-      ]}
-    />
+    <HStack gap={0}>
+      {item.state === ItemState.BORROWED ? (
+        <IconButton
+          variant="actionButton"
+          aria-label="Return item"
+          icon={<ArrowDownRight />}
+          onClick={handleReturnItem}
+        />
+      ) : (
+        <IconButton
+          variant="actionButton"
+          aria-label="Lend item"
+          icon={<ArrowUpRight />}
+          onClick={handleLendItemClick}
+        />
+      )}
+      <IconButton
+        variant="actionButton"
+        aria-label="Edit item"
+        icon={<Edit2 />}
+        onClick={handleEditClick}
+      />
+      <IconButton
+        variant="actionButton"
+        aria-label="Discard item"
+        icon={<Trash />}
+        onClick={handleDeleteClick}
+        visibility={item.state === ItemState.DISCARDED ? "hidden" : "visible"}
+      />
+    </HStack>
   );
 };
 

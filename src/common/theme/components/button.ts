@@ -100,5 +100,24 @@ export const ButtonStyle = defineStyleConfig({
       _hover: { cursor: "default" },
       _active: { filter: "none" },
     }),
+
+    actionButton: ({ theme }) => ({
+      bg: "none",
+      borderRadius: "1rem",
+      width: "2rem",
+      minWidth: "fit-content",
+      height: "2rem",
+      minHeight: "unset",
+
+      svg: {
+        color: theme.palette.text.disabled,
+        transition: "ease-in 0.15s",
+      },
+
+      _hover: {
+        bg: theme.palette.error.dark,
+        svg: { color: theme.palette.primary.light },
+      },
+    }),
   },
 });

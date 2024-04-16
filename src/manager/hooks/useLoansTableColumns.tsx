@@ -2,6 +2,8 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 
 import { Loan } from "../../common/models/loan/Loan";
+import { ONEITEMDETAILRoute } from "../../common/routes/common/itemDetail/item/oneItemDetailRoute";
+import { StyledLink } from "../../common/theme/styles/styledLink";
 import LoanActionMenu from "../components/LoanActionMenu";
 
 export const useLoansTableColumns = () => {
@@ -12,16 +14,26 @@ export const useLoansTableColumns = () => {
       header: "Item",
       cell: ({ row }) => {
         return (
-          <div>
+          <StyledLink
+            to={ONEITEMDETAILRoute.id}
+            params={{ itemDetailId: row.original.item.id }}
+          >
             {row.original.item.serialCode}, {row.original.item.type}
-          </div>
+          </StyledLink>
         );
       },
       enableColumnFilter: false,
     }),
     columnHelper.accessor("borrower.fullName", {
       header: "Borrower",
-      cell: (info) => info.getValue(),
+      cell: (info) => (
+        <StyledLink
+          to="/equipment-manager/management/user-detail/$userDetailId"
+          params={{ userDetailId: info.row.original.borrower.id }}
+        >
+          {info.getValue()}
+        </StyledLink>
+      ),
       sortingFn: (rowA, rowB) => {
         const value1 = rowA.original.borrower.fullName;
         const value2 = rowB.original.borrower.fullName;

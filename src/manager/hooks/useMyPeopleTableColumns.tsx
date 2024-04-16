@@ -2,6 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 
 import MyPeopleActionMenu from "../../common/components/ActionMenu/MyPeopleActionMenu";
 import { User } from "../../common/models/user/User";
+import { StyledLink } from "../../common/theme/styles/styledLink";
 
 export const useMyPeopleTableColumns = () => {
   const columnHelper = createColumnHelper<User>();
@@ -9,12 +10,26 @@ export const useMyPeopleTableColumns = () => {
   return [
     columnHelper.accessor("login", {
       header: "Login",
-      cell: (info) => info.getValue(),
+      cell: (info) => (
+        <StyledLink
+          to="/equipment-manager/management/user-detail/$userDetailId"
+          params={{ userDetailId: info.row.original.id }}
+        >
+          {info.getValue()}
+        </StyledLink>
+      ),
       enableColumnFilter: false,
     }),
     columnHelper.accessor("fullName", {
       header: "Full name",
-      cell: (info) => info.getValue(),
+      cell: (info) => (
+        <StyledLink
+          to="/equipment-manager/management/user-detail/$userDetailId"
+          params={{ userDetailId: info.row.original.id }}
+        >
+          {info.getValue()}
+        </StyledLink>
+      ),
       sortingFn: (rowA, rowB) => {
         const value1 = rowA.original.lastName;
         const value2 = rowB.original.lastName;
