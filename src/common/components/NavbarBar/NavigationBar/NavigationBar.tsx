@@ -12,7 +12,6 @@ import { CustomRole } from "../../../security/model/Role";
 import CurrentUserLogout from "../../CurrentUser/CurrentUserLogout";
 import CurrentUserName from "../../CurrentUser/CurrentUserUsername";
 import UserAvatar from "../../CurrentUser/UserAvatar";
-import ClearCacheButton from "../ClearCacheButton";
 import HelpDialogIconButton from "../HelpDialogIconButton";
 import NavbarIconButton from "../NavbarIconButton";
 import "./style.scss";
@@ -134,7 +133,7 @@ const NavigationBar: FC = () => {
               borderTop: "1px solid #313033",
             }}
           >
-            <ClearCacheButton open={navbarState} />
+            {/* <ClearCacheButton open={navbarState} /> */}
             <HelpDialogIconButton open={navbarState} />
             <CurrentUserLogout open={navbarState} />
           </Stack>

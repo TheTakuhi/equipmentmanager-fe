@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { X } from "react-feather";
 
-import HelpContainer from "../../container/HelpContainer";
+import Help from "../../components/Help";
 
 interface HelpDialogProps {
   close: () => void;
@@ -30,7 +30,7 @@ const HelpDialog: FC<HelpDialogProps> = ({ close, title }) => {
       isOpen
       onClose={close}
       leastDestructiveRef={cancelRef}
-      size="4xl"
+      size="3xl"
     >
       <AlertDialogOverlay>
         <AlertDialogContent
@@ -72,7 +72,7 @@ const HelpDialog: FC<HelpDialogProps> = ({ close, title }) => {
             </Box>
           </AlertDialogHeader>
           <AlertDialogBody>
-            <HelpContainer />
+            <Help />
           </AlertDialogBody>
           <AlertDialogFooter />
         </AlertDialogContent>
