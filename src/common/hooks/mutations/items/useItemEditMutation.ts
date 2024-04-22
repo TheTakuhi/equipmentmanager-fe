@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 import {
   EnvVariableName,
@@ -8,6 +9,7 @@ import {
 import { Item } from "../../../models/item/Item";
 import { ItemFormValues } from "../../../models/item/ItemFormValues";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
+import { toastOptions } from "../../../utils/toastOptions";
 
 export const useItemEditMutation = (itemId?: string) => {
   const securedAxios = useSecuredAxios();
@@ -31,5 +33,10 @@ export const useItemEditMutation = (itemId?: string) => {
           item,
         )
         .then((response) => response.data as Item),
+    onError: (error) =>
+      toast.error(
+        error.response?.data.message ?? "An error has occurred",
+        toastOptions,
+      ),
   });
 };

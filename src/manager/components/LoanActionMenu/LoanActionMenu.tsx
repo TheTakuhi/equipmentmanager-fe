@@ -1,8 +1,9 @@
 import { FC } from "react";
 
-import { HStack, IconButton } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import { ArrowDownLeft } from "react-feather";
 
+import { ActionIconButton } from "../../../common/components/ActionIconButton";
 import LoanReturnDialog from "../../../common/dialogs/LoanDialogs/LoanReturnDialog";
 import { Loan } from "../../../common/models/loan/Loan";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
@@ -26,17 +27,15 @@ const LoanActionMenu: FC<LoanActionMenuProps> = ({ loan }) => {
 
   return (
     <HStack gap={0}>
-      <IconButton
-        variant="actionButton"
+      <ActionIconButton
         aria-label="Return item"
-        icon={<ArrowDownLeft />}
+        icon={ArrowDownLeft}
         onClick={handleEditClick}
         visibility={!loan.returnDate ? "visible" : "hidden"}
       />
-      {/* <IconButton */}
-      {/*  variant="actionButton" */}
+      {/* <ActionIconButton */}
       {/*  aria-label="Notify lender" */}
-      {/*  icon={<Bell />} */}
+      {/*  icon={Bell} */}
       {/*  onClick={handleNotifyLenderClick} */}
       {/* /> */}
     </HStack>

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { HStack, IconButton } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import { ArrowUpRight, Edit2, Trash } from "react-feather";
 
 import LoanCreateDialog from "../../../dialogs/LoanDialogs/LoanCreateDialog";
@@ -8,6 +8,7 @@ import UserDeleteDialog from "../../../dialogs/UserDialogs/UserDeleteDialog";
 import UserEditDialog from "../../../dialogs/UserDialogs/UserEditDialog";
 import { User } from "../../../models/user/User";
 import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
+import { ActionIconButton } from "../../ActionIconButton";
 
 interface UserProps {
   user: User;
@@ -30,22 +31,19 @@ const UserActionMenu: FC<UserProps> = ({ user }) => {
 
   return (
     <HStack gap={0}>
-      <IconButton
-        variant="actionButton"
+      <ActionIconButton
         aria-label="Lend item"
-        icon={<ArrowUpRight />}
+        icon={ArrowUpRight}
         onClick={handleLendItemClick}
       />
-      <IconButton
-        variant="actionButton"
+      <ActionIconButton
         aria-label="Edit item"
-        icon={<Edit2 />}
+        icon={Edit2}
         onClick={handleEditClick}
       />
-      <IconButton
-        variant="actionButton"
+      <ActionIconButton
         aria-label="Delete item"
-        icon={<Trash />}
+        icon={Trash}
         onClick={handleDeleteClick}
       />
     </HStack>

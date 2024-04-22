@@ -1,9 +1,9 @@
 import { FC } from "react";
 
-import { IconButton } from "@chakra-ui/react";
 import { useSearch } from "@tanstack/react-router";
 import { Trash } from "react-feather";
 
+import { ActionIconButton } from "../../../common/components/ActionIconButton";
 import TeamRemoveMemberDialog from "../../../common/dialogs/TeamDialogs/TeamRemoveMemberDialog";
 import { User } from "../../../common/models/user/User";
 import { useActionDialog } from "../../../common/providers/ActionDialogProvider/ActionDialogProvider";
@@ -21,10 +21,9 @@ const TeamActionMenu: FC<TeamActionMenuProps> = ({ user }) => {
     show(<TeamRemoveMemberDialog teamId={active} user={user} />);
 
   return (
-    <IconButton
-      variant="actionButton"
+    <ActionIconButton
       aria-label="Remove member"
-      icon={<Trash />}
+      icon={Trash}
       onClick={handleRemoveMemberClick}
     />
   );

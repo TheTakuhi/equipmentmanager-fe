@@ -3,10 +3,6 @@ import { createColumnHelper } from "@tanstack/react-table";
 
 import { User } from "../../common/models/user/User";
 import { useActiveTeam } from "../../common/providers/ActiveTeamProvider/ActiveTeamProvider";
-import {
-  ONEUSERDETAILRoute,
-  oneUserDetailRoute,
-} from "../../common/routes/common/userDetail/user/oneUserDetailRoute";
 import { Crown } from "../../common/theme/icons";
 import { StyledLink } from "../../common/theme/styles/styledLink";
 import TeamActionMenu from "../components/TeamActionMenu";
@@ -23,6 +19,7 @@ export const useTeamMembersTableColumns = () => {
           <HStack spacing="0.5rem">
             <StyledLink
               to="/equipment-manager/management/user-detail/$userDetailId"
+              // @ts-ignore
               params={{ userDetailId: info.row.original.id }}
             >
               {info.getValue()}
@@ -47,6 +44,7 @@ export const useTeamMembersTableColumns = () => {
       cell: (info) => (
         <StyledLink
           to="/equipment-manager/management/user-detail/$userDetailId"
+          // @ts-ignore
           params={{ userDetailId: info.row.original.id }}
         >
           {info.getValue()}
@@ -56,7 +54,18 @@ export const useTeamMembersTableColumns = () => {
     }),
     columnHelpers.accessor("email", {
       header: "Email",
-      cell: (info) => info.getValue(),
+      cell: (info) => (
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+          title={info.getValue()}
+        >
+          {info.getValue()}
+        </div>
+      ),
       enableColumnFilter: false,
     }),
     columnHelpers.accessor((row) => row, {

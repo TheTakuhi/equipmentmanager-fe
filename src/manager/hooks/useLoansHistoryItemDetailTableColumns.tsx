@@ -15,6 +15,7 @@ export const useLoansHistoryItemDetailTableColumns = () => {
       cell: (info) => (
         <StyledLink
           to="/equipment-manager/management/user-detail/$userDetailId"
+          // @ts-ignore
           params={{ userDetailId: info.row.original.borrower.id }}
         >
           {info.getValue()}
