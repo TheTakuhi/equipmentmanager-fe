@@ -16,6 +16,7 @@ export const useLoansTableColumns = () => {
         return (
           <StyledLink
             to={ONEITEMDETAILRoute.id}
+            // @ts-ignore
             params={{ itemDetailId: row.original.item.id }}
           >
             {row.original.item.serialCode}, {row.original.item.type}
@@ -29,6 +30,7 @@ export const useLoansTableColumns = () => {
       cell: (info) => (
         <StyledLink
           to="/equipment-manager/management/user-detail/$userDetailId"
+          // @ts-ignore
           params={{ userDetailId: info.row.original.borrower.id }}
         >
           {info.getValue()}

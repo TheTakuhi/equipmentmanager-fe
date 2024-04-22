@@ -2,8 +2,9 @@ import { FC } from "react";
 
 import { Box, Text, useTheme } from "@chakra-ui/react";
 import { HelpCircle } from "react-feather";
-import {useActionDialog} from "../../../providers/ActionDialogProvider/ActionDialogProvider";
+
 import HelpDialog from "../../../dialogs/HelpDialog";
+import { useActionDialog } from "../../../providers/ActionDialogProvider/ActionDialogProvider";
 
 export interface HelpDialogIconButtonProps {
   open: boolean;
@@ -12,12 +13,12 @@ const HelpDialogIconButton: FC<HelpDialogIconButtonProps> = ({ open }) => {
   const boxWidth = open ? "9.375rem" : "2.75rem";
   const theme = useTheme();
 
-    const { show } = useActionDialog();
-    const { close } = useActionDialog();
+  const { show } = useActionDialog();
+  const { close } = useActionDialog();
 
-    const handleOpenHelpDialog = () => {
-        show(<HelpDialog title="Help" close={close} />);
-    };
+  const handleOpenHelpDialog = () => {
+    show(<HelpDialog title="Help" close={close} />);
+  };
 
   return (
     <Box

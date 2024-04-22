@@ -16,6 +16,7 @@ export const useItemsTableColumns = () => {
       cell: (info) => (
         <StyledLink
           to={ONEITEMDETAILRoute.id}
+          // @ts-ignore
           params={{ itemDetailId: info.row.original.id }}
         >
           {info.getValue()}
@@ -48,6 +49,7 @@ export const useItemsTableColumns = () => {
       cell: (info) => (
         <StyledLink
           to="/equipment-manager/management/user-detail/$userDetailId"
+          // @ts-ignore
           params={{ userDetailId: info.row.original.owner.id }}
         >
           {info.getValue()}

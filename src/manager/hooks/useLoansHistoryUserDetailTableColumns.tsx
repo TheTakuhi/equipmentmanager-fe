@@ -17,6 +17,7 @@ export const useLoansHistoryUserDetailTableColumns = () => {
         return (
           <StyledLink
             to={ONEITEMDETAILRoute.id}
+            // @ts-ignore
             params={{ itemDetailId: row.original.item.id }}
           >
             {row.original.item.serialCode}, {row.original.item.type}

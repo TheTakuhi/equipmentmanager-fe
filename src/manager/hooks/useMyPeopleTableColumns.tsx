@@ -13,6 +13,7 @@ export const useMyPeopleTableColumns = () => {
       cell: (info) => (
         <StyledLink
           to="/equipment-manager/management/user-detail/$userDetailId"
+          // @ts-ignore
           params={{ userDetailId: info.row.original.id }}
         >
           {info.getValue()}
@@ -25,6 +26,7 @@ export const useMyPeopleTableColumns = () => {
       cell: (info) => (
         <StyledLink
           to="/equipment-manager/management/user-detail/$userDetailId"
+          // @ts-ignore
           params={{ userDetailId: info.row.original.id }}
         >
           {info.getValue()}

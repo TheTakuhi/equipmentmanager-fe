@@ -14,6 +14,7 @@ export const useUsersTableColumns = () => {
       cell: (info) => (
         <StyledLink
           to={ONEUSERDETAILRoute.id}
+          // @ts-ignore
           params={{ userDetailId: info.row.original.id }}
         >
           {info.getValue()}
@@ -26,6 +27,7 @@ export const useUsersTableColumns = () => {
       cell: (info) => (
         <StyledLink
           to={ONEUSERDETAILRoute.id}
+          // @ts-ignore
           params={{ userDetailId: info.row.original.id }}
         >
           {info.getValue()}
