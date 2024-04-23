@@ -1,5 +1,5 @@
-import { useGetItemQualityStates } from "./useGetItemQualityStates";
-import { SelectOption } from "../../../models/utils/SelectOption";
+import { useGetItemQualityStates } from "../queries/utility/useGetItemQualityStates";
+import { SelectOption } from "../../models/utils/SelectOption";
 
 export const useItemQualityStates = () => {
   const { data, isLoading } = useGetItemQualityStates();

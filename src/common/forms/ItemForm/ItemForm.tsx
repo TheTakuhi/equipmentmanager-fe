@@ -11,8 +11,8 @@ import RHFSelect from "../../components/Inputs/RHFSelect";
 import RHFTextArea from "../../components/Inputs/RHFTextArea";
 import { useGetCurrentUser } from "../../hooks/queries/users/useGetCurrentUser";
 import { useGetUsers } from "../../hooks/queries/users/useGetUsers";
-import { useItemQualityStates } from "../../hooks/queries/utility/useItemQualityStates";
-import { useItemTypes } from "../../hooks/queries/utility/useItemTypes";
+import { useItemQualityStates } from "../../hooks/utils/useItemQualityStates";
+import { useItemTypes } from "../../hooks/utils/useItemTypes";
 import { ItemFormValues } from "../../models/item/ItemFormValues";
 import { parseUsersToSelectOptions } from "../../utils/selectOptionsParser";
 

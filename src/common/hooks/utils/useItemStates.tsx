@@ -1,5 +1,5 @@
-import { useGetItemStates } from "./useGetItemStates";
-import { SelectOption } from "../../../models/utils/SelectOption";
+import { useGetItemStates } from "../queries/utility/useGetItemStates";
+import { SelectOption } from "../../models/utils/SelectOption";
 
 export const useItemStates = () => {
   const { data, isLoading } = useGetItemStates();

@@ -1,5 +1,5 @@
-import { useGetItemTypes } from "./useGetItemTypes";
-import { SelectOption } from "../../../models/utils/SelectOption";
+import { useGetItemTypes } from "../queries/utility/useGetItemTypes";
+import { SelectOption } from "../../models/utils/SelectOption";
 
 export const useItemTypes = () => {
   const { data, isLoading } = useGetItemTypes();

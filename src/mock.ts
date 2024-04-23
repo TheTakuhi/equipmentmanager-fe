@@ -23,10 +23,10 @@ import { getMockedAllUserRolesMSW } from "./common/hooks/queries/users/mocks/use
 import { getCurrentUserMSW } from "./common/hooks/queries/users/mocks/useGetCurrentUser.msw";
 import { getUserById } from "./common/hooks/queries/users/mocks/useGetUserById.msw";
 import { getUsersMSW } from "./common/hooks/queries/users/mocks/useGetUsers.msw";
-import { getBeVersionMSW } from "./common/hooks/queries/utility/useGetBackendVersion.msw";
-import { getMockedItemQualityStatesMSW } from "./common/hooks/queries/utility/useGetItemQualityStates.msw";
-import { getMockedItemStatesMSW } from "./common/hooks/queries/utility/useGetItemStates.msw";
-import { getMockedItemTypesMSW } from "./common/hooks/queries/utility/useGetItemTypes.msw";
+import { getBeVersionMSW } from "./common/hooks/queries/utility/mocks/useGetBackendVersion.msw";
+import { getMockedItemQualityStatesMSW } from "./common/hooks/queries/utility/mocks/useGetItemQualityStates.msw";
+import { getMockedItemStatesMSW } from "./common/hooks/queries/utility/mocks/useGetItemStates.msw";
+import { getMockedItemTypesMSW } from "./common/hooks/queries/utility/mocks/useGetItemTypes.msw";
 
 export const worker = setupWorker(
   ...getUsersMSW(),

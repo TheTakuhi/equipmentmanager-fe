@@ -4,7 +4,7 @@ import { useSearch } from "@tanstack/react-router";
 
 import TSTable from "../../../common/components/TSTable/TSTable";
 import { useGetUsers } from "../../../common/hooks/queries/users/useGetUsers";
-import { useAllUserRoles } from "../../../common/hooks/queries/utility/useAllUserRoles";
+import { useAllUserRoles } from "../../../common/hooks/utils/useAllUserRoles";
 import { SearchParams } from "../../../common/models/SearchParams";
 import { User } from "../../../common/models/user/User";
 import { ALLMyPeopleRoute } from "../../../common/routes/common/myPeople/allMyPeople/allMyPeopleRoute";

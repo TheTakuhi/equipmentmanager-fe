@@ -1,5 +1,5 @@
-import { SelectOption } from "../../../models/utils/SelectOption";
-import { useGetAllUserRoles } from "../users/useGetAllUserRoles";
+import { SelectOption } from "../../models/utils/SelectOption";
+import { useGetAllUserRoles } from "../queries/users/useGetAllUserRoles";
 
 export const useAllUserRoles = () => {
   const { data, isLoading } = useGetAllUserRoles();
