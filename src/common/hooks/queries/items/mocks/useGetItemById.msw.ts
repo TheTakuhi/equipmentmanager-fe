@@ -4,7 +4,7 @@ import { itemsBuilder } from "../../../../mock_builders/ItemsBuilder";
 
 export const getItemById = () => {
   return [
-    rest.get("*/items/:id", (req, res, ctx) => {
+    rest.get("*/v1/items/:id", (req, res, ctx) => {
       return res(
         ctx.delay(1000),
         ctx.status(200, "Mocked item by ID"),

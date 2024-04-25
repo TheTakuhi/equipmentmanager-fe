@@ -10,7 +10,7 @@ import { ItemType } from "../../../models/item/ItemType";
 import { QualityState } from "../../../models/item/QualityState";
 import { Pageable, PageableParam } from "../../../models/utils/Pageable";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
-import { getQueryKeys } from "../utility/getQueryKeys";
+import { getQueryKeys } from "../getQueryKeys";
 
 const rootKey = "items";
 
@@ -44,7 +44,7 @@ export const useGetItems = (
     queryKey: getItemsQueryKey(params),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items`, {
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/items`, {
           params: { ...pageable, ...restParams },
         })
         .then((response) => response.data as Pageable<Item>),

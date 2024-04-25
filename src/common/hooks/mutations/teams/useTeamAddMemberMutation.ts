@@ -17,7 +17,7 @@ export const useTeamAddMemberMutation = (teamId: string) => {
         .patch(
           `${getEnvVariable(
             EnvVariableName.HOST_CORE,
-          )}/teams/${teamId}/add/${values.userId}`,
+          )}/v1/teams/${teamId}/add/${values.userId}`,
         )
         .then((response) => response.data as Team),
   });

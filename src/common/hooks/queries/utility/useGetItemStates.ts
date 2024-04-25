@@ -18,7 +18,7 @@ export const useGetItemStates = (options?: UseGetItemStatesQueryOptions) => {
     queryKey: getItemStatesQueryKey(),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items/item-states`)
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/items/item-states`)
         .then((response) => response.data as string[]),
     ...options,
   });

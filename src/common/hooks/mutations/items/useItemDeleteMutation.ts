@@ -13,7 +13,7 @@ export const useItemDeleteMutation = (itemId?: string) => {
   return useMutation<void, AxiosError<any, any>, void, unknown>({
     mutationFn: () =>
       securedAxios
-        .delete(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items/${itemId}`)
+        .delete(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/items/${itemId}`)
         .then((response) => response.data as void),
   });
 };

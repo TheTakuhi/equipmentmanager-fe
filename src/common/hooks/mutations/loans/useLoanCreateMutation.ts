@@ -18,7 +18,7 @@ export const useLoanCreateMutation = () => {
   return useMutation<Loan, AxiosError<any, any>, LoanCreateDTO, unknown>({
     mutationFn: (loan: LoanCreateDTO) =>
       securedAxios
-        .post(`${getEnvVariable(EnvVariableName.HOST_CORE)}/loans`, loan)
+        .post(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/loans`, loan)
         .then((response) => response.data as Loan),
     onSuccess: () => {
       toast.success("Loan created", toastOptions);

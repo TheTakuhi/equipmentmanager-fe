@@ -19,7 +19,7 @@ export const getLoansPagedMock = (props: PageableParam) => {
 };
 
 export const getLoansMSW = () => [
-  rest.get("*/loans", (req, res, ctx) => {
+  rest.get("*/v1/loans", (req, res, ctx) => {
     const queryParams = Object.fromEntries(req.url.searchParams);
     const props: PageableParam = {
       page: Number(queryParams.page),

@@ -19,7 +19,7 @@ export const useGetCurrentUser = (options?: UseGetCurrentUserQueryOptions) => {
     queryKey: getCurrentUserQueryKey(),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/users/current`)
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/users/current`)
         .then((response) => response.data as User),
     ...options,
   });

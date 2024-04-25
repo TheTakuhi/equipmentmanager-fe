@@ -13,7 +13,7 @@ export const useTeamDeleteMutation = (teamId: string) => {
   return useMutation<void, AxiosError<any, any>, void, unknown>({
     mutationFn: () =>
       securedAxios
-        .delete(`${getEnvVariable(EnvVariableName.HOST_CORE)}/teams/${teamId}`)
+        .delete(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/teams/${teamId}`)
         .then((response) => response.data as void),
   });
 };

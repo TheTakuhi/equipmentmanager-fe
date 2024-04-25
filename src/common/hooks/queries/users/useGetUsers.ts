@@ -8,7 +8,7 @@ import { User } from "../../../models/user/User";
 import { Pageable, PageableParam } from "../../../models/utils/Pageable";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
 import { Role } from "../../../security/model/Role";
-import { getQueryKeys } from "../utility/getQueryKeys";
+import { getQueryKeys } from "../getQueryKeys";
 
 const rootKey = "users";
 
@@ -42,7 +42,7 @@ export const useGetUsers = (
     queryKey: getUsersQueryKey(params),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/users`, {
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/users`, {
           params: { ...pageable, ...restParams },
         })
         .then((response) => response.data as Pageable<User>),

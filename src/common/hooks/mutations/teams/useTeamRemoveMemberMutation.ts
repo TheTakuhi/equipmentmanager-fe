@@ -17,7 +17,7 @@ export const useTeamRemoveMemberMutation = (teamId: string) => {
         .patch(
           `${getEnvVariable(
             EnvVariableName.HOST_CORE,
-          )}/teams/${teamId}/remove/${values.userId}`,
+          )}/v1/teams/${teamId}/remove/${values.userId}`,
         )
         .then((response) => response.data as Team),
   });

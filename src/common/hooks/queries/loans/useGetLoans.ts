@@ -7,7 +7,7 @@ import {
 import { Loan } from "../../../models/loan/Loan";
 import { Pageable, PageableParam } from "../../../models/utils/Pageable";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
-import { getQueryKeys } from "../utility/getQueryKeys";
+import { getQueryKeys } from "../getQueryKeys";
 
 const rootKey = "loans";
 
@@ -40,7 +40,7 @@ export const useGetLoans = (
     queryKey: getLoansQueryKey(params),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/loans`, {
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/loans`, {
           params: { ...pageable, ...restParams },
         })
         .then((response) => response.data as Pageable<Loan>),

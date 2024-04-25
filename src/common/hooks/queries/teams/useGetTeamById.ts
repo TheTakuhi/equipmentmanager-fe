@@ -6,7 +6,7 @@ import {
 } from "../../../config/env/getEnvVariable";
 import { Team } from "../../../models/team/Team";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
-import { getQueryKeys } from "../utility/getQueryKeys";
+import { getQueryKeys } from "../getQueryKeys";
 
 const rootKey = "team";
 
@@ -28,7 +28,7 @@ export const useGetTeamById = (
     queryKey: getTeamQueryKey(teamId),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/teams/${teamId}`)
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/teams/${teamId}`)
         .then((response) => response.data as Team),
     ...options,
   });

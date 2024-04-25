@@ -19,7 +19,7 @@ export const getUsersPagedMock = (props: PageableParam) => {
 };
 
 export const getUsersMSW = () => [
-  rest.get("*/users", (req, res, ctx) => {
+  rest.get("*/v1/users", (req, res, ctx) => {
     const queryParams = Object.fromEntries(req.url.searchParams);
     const props: PageableParam = {
       page: Number(queryParams.page),

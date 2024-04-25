@@ -21,7 +21,7 @@ export const useTeamEditMutation = (teamId: string) => {
     mutationFn: (team) =>
       securedAxios
         .put(
-          `${getEnvVariable(EnvVariableName.HOST_CORE)}/teams/${teamId}`,
+          `${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/teams/${teamId}`,
           team,
         )
         .then((response) => response.data as Team),

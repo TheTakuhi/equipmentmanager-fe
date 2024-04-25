@@ -6,7 +6,7 @@ import {
 } from "../../../config/env/getEnvVariable";
 import { Item } from "../../../models/item/Item";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
-import { getQueryKeys } from "../utility/getQueryKeys";
+import { getQueryKeys } from "../getQueryKeys";
 
 const rootKey = "items-by-owner";
 
@@ -33,7 +33,7 @@ export const useGetItemsByOwnerId = (
         .get(
           `${getEnvVariable(
             EnvVariableName.HOST_CORE,
-          )}/items/by-owner/${itemId}`,
+          )}/v1/items/by-owner/${itemId}`,
         )
         .then((response) => response.data as Item[]),
     ...options,

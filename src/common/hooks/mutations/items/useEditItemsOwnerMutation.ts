@@ -26,7 +26,7 @@ export const useEditItemsOwnerMutation = (fromUserId?: string) => {
         .patch(
           `${getEnvVariable(
             EnvVariableName.HOST_CORE,
-          )}/items/from/${fromUserId}/to/${toUserId.toUserId}`,
+          )}/v1/items/from/${fromUserId}/to/${toUserId.toUserId}`,
         )
         .then((response) => response.data),
   });

@@ -20,7 +20,7 @@ export const useTeamCreateMutation = () => {
   >({
     mutationFn: (team: TeamFormRequestValues) =>
       securedAxios
-        .post(`${getEnvVariable(EnvVariableName.HOST_CORE)}/teams`, team)
+        .post(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/teams`, team)
         .then((response) => response.data as Team),
   });
 };

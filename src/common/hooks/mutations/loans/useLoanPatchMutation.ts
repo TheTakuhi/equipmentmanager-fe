@@ -25,7 +25,7 @@ export const useLoanPatchMutation = (loanId: string) => {
         .patch(
           `${getEnvVariable(
             EnvVariableName.HOST_CORE,
-          )}/loans/${loanId}/${returnDate}`,
+          )}/v1/loans/${loanId}/${returnDate}`,
         )
         .then((response) => response.data as Loan),
     onSuccess: () => {

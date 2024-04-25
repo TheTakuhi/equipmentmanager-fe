@@ -6,7 +6,7 @@ import {
 } from "../../../config/env/getEnvVariable";
 import { UserHierarchyWithManager } from "../../../models/user/UserHierarchy";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
-import { getQueryKeys } from "../utility/getQueryKeys";
+import { getQueryKeys } from "../getQueryKeys";
 
 const rootKey = "users-hierarchy";
 
@@ -36,7 +36,7 @@ export const useGetUsersHierarchy = (
         .get(
           `${getEnvVariable(
             EnvVariableName.HOST_CORE,
-          )}/users/${userId}/hierarchy`,
+          )}/v1/users/${userId}/hierarchy`,
         )
         .then((response) => response.data as UserHierarchyWithManager),
     ...options,

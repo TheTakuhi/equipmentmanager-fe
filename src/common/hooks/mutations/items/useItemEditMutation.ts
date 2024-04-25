@@ -29,7 +29,7 @@ export const useItemEditMutation = (itemId?: string) => {
     mutationFn: (item) =>
       securedAxios
         .put(
-          `${getEnvVariable(EnvVariableName.HOST_CORE)}/items/${itemId}`,
+          `${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/items/${itemId}`,
           item,
         )
         .then((response) => response.data as Item),

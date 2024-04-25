@@ -20,7 +20,7 @@ export const useGetAllUserRoles = (
     queryKey: getAllUserRolesQueryKey(),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/users/roles`)
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/users/roles`)
         .then((response) => response.data as string[]),
     ...options,
   });

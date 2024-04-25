@@ -6,7 +6,7 @@ import {
 } from "../../../config/env/getEnvVariable";
 import { User } from "../../../models/user/User";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
-import { getQueryKeys } from "../utility/getQueryKeys";
+import { getQueryKeys } from "../getQueryKeys";
 
 const rootKey = "user";
 
@@ -28,7 +28,7 @@ export const useGetUserById = (
     queryKey: getUserQueryKey(userId),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/users/${userId}`)
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/users/${userId}`)
         .then((response) => response.data as User),
     ...options,
   });

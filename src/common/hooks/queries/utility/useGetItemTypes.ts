@@ -18,7 +18,7 @@ export const useGetItemTypes = (options?: UseGetItemTypesQueryOptions) => {
     queryKey: getItemTypesQueryKey(),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items/item-types`)
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/items/item-types`)
         .then((response) => response.data as string[]),
     ...options,
   });

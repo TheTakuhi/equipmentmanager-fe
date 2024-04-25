@@ -7,7 +7,7 @@ import {
 import { TeamMembersSize } from "../../../models/team/TeamMembersSize";
 import { Pageable, PageableParam } from "../../../models/utils/Pageable";
 import { useSecuredAxios } from "../../../security/hooks/useSecuredAxios";
-import { getQueryKeys } from "../utility/getQueryKeys";
+import { getQueryKeys } from "../getQueryKeys";
 
 const rootKey = "teams";
 
@@ -40,7 +40,7 @@ export const useGetTeams = (
     queryKey: getTeamsQueryKey(params),
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/teams`, {
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/teams`, {
           params: { ...pageable, ...restParams },
         })
         .then((response) => response.data as Pageable<TeamMembersSize>),

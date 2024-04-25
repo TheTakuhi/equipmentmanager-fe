@@ -15,7 +15,7 @@ export const useUsersSync = (options?: UseUsersSyncQueryOptions) => {
     queryKey: [],
     queryFn: () =>
       securedAxios
-        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/users/sync`)
+        .get(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/users/sync`)
         .then((response) => response.data),
     ...options,
   });

@@ -24,7 +24,7 @@ export const useUserEditMutation = (
     mutationFn: (user) =>
       securedAxios
         .put(
-          `${getEnvVariable(EnvVariableName.HOST_CORE)}/users/${userId}`,
+          `${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/users/${userId}`,
           user,
           {
             params: { syncRolesToKeycloak },

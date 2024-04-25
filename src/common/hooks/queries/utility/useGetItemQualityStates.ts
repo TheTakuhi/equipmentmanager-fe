@@ -23,7 +23,7 @@ export const useGetItemQualityStates = (
         .get(
           `${getEnvVariable(
             EnvVariableName.HOST_CORE,
-          )}/items/item-quality-states`,
+          )}/v1/items/item-quality-states`,
         )
         .then((response) => response.data as string[]),
     ...options,

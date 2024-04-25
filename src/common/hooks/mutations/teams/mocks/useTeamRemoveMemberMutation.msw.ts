@@ -4,7 +4,7 @@ import { getTeamMock } from "../../../queries/teams/mocks/utils/getTeamMock";
 
 export const patchRemoveMemberToTeam = () => {
   return [
-    rest.patch("*/teams/:teamId/remove/:userId", (_req, res, ctx) => {
+    rest.patch("*/v1/teams/:teamId/remove/:userId", (_req, res, ctx) => {
       return res(
         ctx.delay(1000),
         ctx.status(200, "Mocked status - Team remove member"),

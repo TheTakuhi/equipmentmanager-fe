@@ -30,7 +30,7 @@ const getMockedCurrentUser = (): User => {
 
 export const getCurrentUserMSW = () => {
   return [
-    rest.get("*/users/current", (_req, res, ctx) => {
+    rest.get("*/v1/users/current", (_req, res, ctx) => {
       return res(
         ctx.delay(1000),
         ctx.status(200, "Mocked status"),

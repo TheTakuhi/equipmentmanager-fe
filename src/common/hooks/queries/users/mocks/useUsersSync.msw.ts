@@ -8,7 +8,7 @@ const getMockedSyncResponse = () => {
 
 export const syncUserMSW = () => {
   return [
-    rest.post("*/users/sync", (_req, res, ctx) => {
+    rest.post("*/v1/users/sync", (_req, res, ctx) => {
       return res(
         ctx.delay(1000),
         ctx.status(200, "Mocked status - User sync from AD"),

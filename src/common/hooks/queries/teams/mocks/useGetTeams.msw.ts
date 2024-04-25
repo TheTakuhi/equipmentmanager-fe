@@ -21,7 +21,7 @@ export const getTeamsPagedMock = (props: PageableParam) => {
 };
 
 export const getTeamsMSW = () => [
-  rest.get("*/teams", (req, res, ctx) => {
+  rest.get("*/v1/teams", (req, res, ctx) => {
     const queryParams = Object.fromEntries(req.url.searchParams);
     const props: PageableParam = {
       page: 1,

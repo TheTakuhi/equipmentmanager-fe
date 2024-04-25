@@ -26,7 +26,7 @@ export const useItemCreateMutation = () => {
   >({
     mutationFn: (item) =>
       securedAxios
-        .post(`${getEnvVariable(EnvVariableName.HOST_CORE)}/items`, item)
+        .post(`${getEnvVariable(EnvVariableName.HOST_CORE)}/v1/items`, item)
         .then((response) => response.data as Item),
   });
 };
