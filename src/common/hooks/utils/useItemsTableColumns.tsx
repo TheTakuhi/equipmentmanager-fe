@@ -14,24 +14,52 @@ export const useItemsTableColumns = () => {
     columnHelper.accessor("serialCode", {
       header: "Item",
       cell: (info) => (
-        <StyledLink
-          to={ONEITEMDETAILRoute.id}
-          // @ts-ignore
-          params={{ itemDetailId: info.row.original.id }}
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
         >
-          {info.getValue()}
-        </StyledLink>
+          <StyledLink
+            to={ONEITEMDETAILRoute.id}
+            // @ts-ignore
+            params={{ itemDetailId: info.row.original.id }}
+          >
+            {info.getValue()}
+          </StyledLink>
+        </div>
       ),
       enableColumnFilter: false,
     }),
     columnHelper.accessor("type", {
       header: "Type",
-      cell: (info) => info.getValue(),
+      cell: (info) => (
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {info.getValue()}
+        </div>
+      ),
       enableColumnFilter: false,
     }),
     columnHelper.accessor("qualityState", {
       header: "Quality state",
-      cell: (info) => info.getValue(),
+      cell: (info) => (
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {info.getValue()}
+        </div>
+      ),
       enableColumnFilter: false,
     }),
     columnHelper.accessor("state", {
@@ -47,13 +75,21 @@ export const useItemsTableColumns = () => {
     columnHelper.accessor("owner.fullName", {
       header: "Owner",
       cell: (info) => (
-        <StyledLink
-          to="/equipment-manager/management/user-detail/$userDetailId"
-          // @ts-ignore
-          params={{ userDetailId: info.row.original.owner.id }}
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
         >
-          {info.getValue()}
-        </StyledLink>
+          <StyledLink
+            to="/equipment-manager/management/user-detail/$userDetailId"
+            // @ts-ignore
+            params={{ userDetailId: info.row.original.owner.id }}
+          >
+            {info.getValue()}
+          </StyledLink>
+        </div>
       ),
       sortingFn: (rowA, rowB) => {
         const value1 = rowA.original.owner.fullName;

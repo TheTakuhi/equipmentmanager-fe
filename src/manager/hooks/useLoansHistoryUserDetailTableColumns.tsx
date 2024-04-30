@@ -15,31 +15,59 @@ export const useLoansHistoryUserDetailTableColumns = () => {
       header: "Item",
       cell: ({ row }) => {
         return (
-          <StyledLink
-            to={ONEITEMDETAILRoute.id}
-            // @ts-ignore
-            params={{ itemDetailId: row.original.item.id }}
+          <div
+            style={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
           >
-            {row.original.item.serialCode}, {row.original.item.type}
-          </StyledLink>
+            <StyledLink
+              to={ONEITEMDETAILRoute.id}
+              // @ts-ignore
+              params={{ itemDetailId: row.original.item.id }}
+            >
+              {row.original.item.serialCode}, {row.original.item.type}
+            </StyledLink>
+          </div>
         );
       },
       enableColumnFilter: false,
     }),
     columnHelper.accessor("loanDate", {
       header: "Lending date",
-      cell: (info) =>
-        DateTime.fromISO(info.getValue()).setLocale("en-gb").toLocaleString(),
+      cell: (info) => (
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {DateTime.fromISO(info.getValue())
+            .setLocale("en-gb")
+            .toLocaleString()}
+        </div>
+      ),
       enableColumnFilter: false,
     }),
     columnHelper.accessor("returnDate", {
       header: "Returned",
-      cell: (info) =>
-        info.getValue() !== null
-          ? DateTime.fromISO(info.getValue()!)
-              .setLocale("en-gb")
-              .toLocaleString()
-          : null,
+      cell: (info) => (
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {info.getValue() !== null
+            ? DateTime.fromISO(info.getValue()!)
+                .setLocale("en-gb")
+                .toLocaleString()
+            : null}
+        </div>
+      ),
       enableColumnFilter: false,
     }),
     columnHelper.accessor((row) => row, {

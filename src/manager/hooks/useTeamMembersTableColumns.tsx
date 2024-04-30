@@ -17,23 +17,31 @@ export const useTeamMembersTableColumns = () => {
       cell: (info) => {
         return (
           <HStack spacing="0.5rem">
-            <StyledLink
-              to="/equipment-manager/management/user-detail/$userDetailId"
-              // @ts-ignore
-              params={{ userDetailId: info.row.original.id }}
+            <div
+              style={{
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
             >
-              {info.getValue()}
-            </StyledLink>
-            {activeTeam?.owner.id === info.row.original.id ? (
-              <Tooltip
-                hasArrow
-                label="Team's owner"
-                placement="right"
-                openDelay={500}
+              <StyledLink
+                to="/equipment-manager/management/user-detail/$userDetailId"
+                // @ts-ignore
+                params={{ userDetailId: info.row.original.id }}
               >
-                <Crown width="1.125em" height="1.125em" stroke="#7A7A80" />
-              </Tooltip>
-            ) : null}
+                {info.getValue()}
+              </StyledLink>
+              {activeTeam?.owner.id === info.row.original.id ? (
+                <Tooltip
+                  hasArrow
+                  label="Team's owner"
+                  placement="right"
+                  openDelay={500}
+                >
+                  <Crown width="1.125em" height="1.125em" stroke="#7A7A80" />
+                </Tooltip>
+              ) : null}
+            </div>
           </HStack>
         );
       },
@@ -42,13 +50,21 @@ export const useTeamMembersTableColumns = () => {
     columnHelpers.accessor("login", {
       header: "Login",
       cell: (info) => (
-        <StyledLink
-          to="/equipment-manager/management/user-detail/$userDetailId"
-          // @ts-ignore
-          params={{ userDetailId: info.row.original.id }}
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
         >
-          {info.getValue()}
-        </StyledLink>
+          <StyledLink
+            to="/equipment-manager/management/user-detail/$userDetailId"
+            // @ts-ignore
+            params={{ userDetailId: info.row.original.id }}
+          >
+            {info.getValue()}
+          </StyledLink>
+        </div>
       ),
       enableColumnFilter: false,
     }),

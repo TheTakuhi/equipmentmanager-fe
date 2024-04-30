@@ -11,26 +11,42 @@ export const useMyPeopleTableColumns = () => {
     columnHelper.accessor("login", {
       header: "Login",
       cell: (info) => (
-        <StyledLink
-          to="/equipment-manager/management/user-detail/$userDetailId"
-          // @ts-ignore
-          params={{ userDetailId: info.row.original.id }}
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
         >
-          {info.getValue()}
-        </StyledLink>
+          <StyledLink
+            to="/equipment-manager/management/user-detail/$userDetailId"
+            // @ts-ignore
+            params={{ userDetailId: info.row.original.id }}
+          >
+            {info.getValue()}
+          </StyledLink>
+        </div>
       ),
       enableColumnFilter: false,
     }),
     columnHelper.accessor("fullName", {
       header: "Full name",
       cell: (info) => (
-        <StyledLink
-          to="/equipment-manager/management/user-detail/$userDetailId"
-          // @ts-ignore
-          params={{ userDetailId: info.row.original.id }}
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
         >
-          {info.getValue()}
-        </StyledLink>
+          <StyledLink
+            to="/equipment-manager/management/user-detail/$userDetailId"
+            // @ts-ignore
+            params={{ userDetailId: info.row.original.id }}
+          >
+            {info.getValue()}
+          </StyledLink>
+        </div>
       ),
       sortingFn: (rowA, rowB) => {
         const value1 = rowA.original.lastName;
