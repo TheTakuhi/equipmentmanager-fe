@@ -225,16 +225,32 @@ const TSTable = <T extends object>({
                         return (
                           <Td
                             key={cell.id}
-                            sx={{
-                              "&:first-of-type": {
-                                paddingLeft: "2rem !important",
-                              },
-                              fontSize:
-                                theme.components.Text.sizes.body1.fontSize,
-                              color: theme.palette.text.primary,
-                              p: "0.5rem 0.75rem",
-                              borderBottom: `1px solid ${theme.palette.secondary.light}`,
-                            }}
+                            sx={
+                              cell.row.original.returnDate &&
+                              !!cell.row.original.returnDate
+                                ? {
+                                    color: theme.palette.text.disabled,
+                                    "&:first-of-type": {
+                                      paddingLeft: "2rem !important",
+                                    },
+                                    fontSize:
+                                      theme.components.Text.sizes.body1
+                                        .fontSize,
+                                    p: "0.5rem 0.75rem",
+                                    borderBottom: `1px solid ${theme.palette.secondary.light}`,
+                                  }
+                                : {
+                                    "&:first-of-type": {
+                                      paddingLeft: "2rem !important",
+                                    },
+                                    fontSize:
+                                      theme.components.Text.sizes.body1
+                                        .fontSize,
+                                    color: theme.palette.text.primary,
+                                    p: "0.5rem 0.75rem",
+                                    borderBottom: `1px solid ${theme.palette.secondary.light}`,
+                                  }
+                            }
                           >
                             {flexRender(
                               cell.column.columnDef.cell,
