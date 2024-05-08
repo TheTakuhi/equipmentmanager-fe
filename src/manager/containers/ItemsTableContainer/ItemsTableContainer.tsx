@@ -5,6 +5,7 @@ import { useSearch } from "@tanstack/react-router";
 import TSTable from "../../../common/components/TSTable/TSTable";
 import { useGetItems } from "../../../common/hooks/queries/items/useGetItems";
 import { useItemsTableColumns } from "../../../common/hooks/utils/useItemsTableColumns";
+import { useItemStates } from "../../../common/hooks/utils/useItemStates";
 import { Item } from "../../../common/models/item/Item";
 import { SearchParams } from "../../../common/models/SearchParams";
 import { AllITEMSRoute } from "../../../common/routes/common/items/allItems/allItemsRoute";
@@ -29,6 +30,8 @@ const ItemsTableContainer: FC<ItemsTableContainerProps> = ({
     }),
   });
 
+  const { itemStates } = useItemStates();
+
   return (
     <TSTable<Item>
       route={AllITEMSRoute.id}
@@ -37,6 +40,7 @@ const ItemsTableContainer: FC<ItemsTableContainerProps> = ({
       isLoading={isLoadingItems}
       pageable={itemsData}
       tableHeight={tableHeight}
+      filterData={itemStates}
     />
   );
 };

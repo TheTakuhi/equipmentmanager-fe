@@ -70,7 +70,6 @@ export const useItemsTableColumns = () => {
           label={info.getValue()}
         />
       ),
-      enableColumnFilter: false,
     }),
     columnHelper.accessor("owner.fullName", {
       header: "Owner",

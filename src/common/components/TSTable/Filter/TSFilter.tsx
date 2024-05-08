@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 
 import {
   Menu,
@@ -23,12 +23,11 @@ interface FilterProps {
 
 const TSFilter: FC<FilterProps> = ({ column, onChange, data }) => {
   const theme = useTheme();
-  const [selectedValue, setSelectedValue] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<string | undefined>("");
 
   const handleMenuItemClick = (
-    // @ts-ignore
-    event: React.MouseEvent<HTMLButtonElement>,
-    value: string,
+    _: React.MouseEvent<HTMLButtonElement>,
+    value: string | undefined,
   ) => {
     setSelectedValue(value);
     onChange([{ id: column.id, value }]);
@@ -54,7 +53,12 @@ const TSFilter: FC<FilterProps> = ({ column, onChange, data }) => {
         <Filter />
       </MenuButton>
       <MenuList>
-        <MenuItem>All</MenuItem>
+        <MenuItem
+          value=""
+          onClick={(event) => handleMenuItemClick(event, undefined)}
+        >
+          All
+        </MenuItem>
         {data
           ? data.map((item) => (
               <MenuItem
