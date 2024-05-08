@@ -1,4 +1,5 @@
 import { useKeycloak } from "@react-keycloak/web";
+import { useNavigate } from "@tanstack/react-router";
 import axios, { AxiosInstance } from "axios";
 
 import { useKeycloakRefetchToken } from "./queries/usekeycloakRefetchToken";
@@ -6,6 +7,7 @@ import {
   EnvVariableName,
   getEnvVariable,
 } from "../../config/env/getEnvVariable";
+import { noConnectionRoute } from "../../routes/Routes";
 import { inMockedDevEnv } from "../../utils/environment";
 
 const cAuthHeader = "Authorization";
@@ -20,6 +22,7 @@ export const useSecuredAxios = (): AxiosInstance => {
 
   const { keycloak } = useKeycloak();
   const refetchToken = useKeycloakRefetchToken();
+  const navigate = useNavigate();
 
   const axiosInstance = axios.create({
     baseURL: getEnvVariable(EnvVariableName.HOST_CORE),
@@ -38,7 +41,13 @@ export const useSecuredAxios = (): AxiosInstance => {
   axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-      if (error.response.status === 401) refetchToken();
+      if (error.response?.status === 401) {
+        refetchToken();
+      } else if (
+        error.code === "ERR_NETWORK" ||
+        error?.response?.status === 503
+      )
+        navigate({ to: noConnectionRoute.id, replace: true });
       return Promise.reject(error);
     },
   );
