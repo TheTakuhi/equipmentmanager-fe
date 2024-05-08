@@ -20,7 +20,7 @@ const notFoundRoute = new Route({
   component: () => <IndexRouteCheckpoint />,
 });
 
-const noConnectionRoute = new Route({
+export const noConnectionRoute = new Route({
   getParentRoute: () => rootRoute,
   path: `${import.meta.env.VITE_APP_PUBLIC_URL}/no-connection`,
   component: () => <ConnectionLostPage />,
