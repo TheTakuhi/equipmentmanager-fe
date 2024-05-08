@@ -1,17 +1,12 @@
-import { useGetItemStates } from "../queries/utility/useGetItemStates";
+import { ItemState } from "../../models/item/ItemState";
 import { SelectOption } from "../../models/utils/SelectOption";
 
 export const useItemStates = () => {
-  const { data, isLoading } = useGetItemStates();
-  const itemStates: SelectOption[] = [];
+  const itemStates: SelectOption[] = [
+    ...Object.values(ItemState).map((v) => {
+      return { value: v, label: v.toLowerCase() };
+    }),
+  ];
 
-  if (data)
-    data.map((itemState) =>
-      itemStates.push({
-        value: itemState,
-        label: itemState.toLowerCase(),
-      }),
-    );
-
-  return { itemStates, isLoading };
+  return { itemStates };
 };
